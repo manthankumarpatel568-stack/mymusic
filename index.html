@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MyMusic</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- SIDEBAR -->
+
     <aside class="sidebar">
+
         <h1>🎵 MyMusic</h1>
 
         <div class="menu">
+
             <p>🏠 Home</p>
+
             <p>🔍 Search</p>
+
             <p>📚 Your Library</p>
+
             <p>❤️ Favorites</p>
+
         </div>
+
     </aside>
+
+
+    <!-- MAIN CONTENT -->
 
     <main>
 
         <header>
+
             <h2>Good Afternoon 👋</h2>
+
             <p>Listen to your favourite music</p>
+
         </header>
-
-        <section>
-            <h2>Popular Songs</h2>
-
-            <div class="songs">
-
-                <div class="song-card" onclick="playSong(0)">
-                    <img src="https://picsum.photos/300?random=1">
-                    <h3>My First Song</h3>
-                    <p>Artist Name</p>
-                </div>
-
-                <div class="song-card" onclick="playSong(1)">
-                    <img src="https://picsum.photos/300?random=2">
-                    <h3>Night Vibes</h3>
-                    <p>Artist Name</p>
-                </div>
-
-            </div>
-        </section>
 
     </main>
 
+
+    <!-- MUSIC PLAYER -->
+
     <div class="player">
+
+        <!-- CURRENT SONG -->
 
         <div class="current-song">
 
-            <img 
+            <img
                 id="playerImage"
                 src="https://picsum.photos/60?random=1"
             >
 
             <div>
+
                 <b id="songTitle">My First Song</b>
+
                 <small id="artist">Artist Name</small>
+
             </div>
 
         </div>
+
+
+        <!-- CONTROLS -->
 
         <div class="controls">
 
@@ -71,13 +80,19 @@
 
                 <button onclick="previousSong()">⏮</button>
 
-                <button id="playBtn" onclick="togglePlay()">
+                <button
+                    id="playBtn"
+                    onclick="togglePlay()"
+                >
                     ▶
                 </button>
 
                 <button onclick="nextSong()">⏭</button>
 
             </div>
+
+
+            <!-- PROGRESS -->
 
             <div class="progress-area">
 
@@ -97,6 +112,9 @@
 
         </div>
 
+
+        <!-- VOLUME -->
+
         <div class="volume">
 
             🔊
@@ -114,9 +132,16 @@
 
     </div>
 
+
+    <!-- AUDIO -->
+
     <audio id="audio"></audio>
+
+
+    <!-- JAVASCRIPT -->
 
     <script src="script.js"></script>
 
 </body>
+
 </html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMusic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <h1>🎵 MyMusic</h1>
+
+        <div class="menu">
+            <p>🏠 Home</p>
+            <p>🔍 Search</p>
+            <p>📚 Your Library</p>
+            <p>❤️ Favorites</p>
+        </div>
+    </aside>
+
+    <main>
+
+        <header>
+            <h2>Good Afternoon 👋</h2>
+            <p>Listen to your favourite music</p>
+        </header>
+
+        <section>
+            <h2>Popular Songs</h2>
+
+            <div class="songs">
+
+                <div class="song-card" onclick="playSong(0)">
+                    <img src="https://picsum.photos/300?random=1">
+                    <h3>My First Song</h3>
+                    <p>Artist Name</p>
+                </div>
+
+                <div class="song-card" onclick="playSong(1)">
+                    <img src="https://picsum.photos/300?random=2">
+                    <h3>Night Vibes</h3>
+                    <p>Artist Name</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div class="player">
+
+        <div class="current-song">
+
+            <img 
+                id="playerImage"
+                src="https://picsum.photos/60?random=1"
+            >
+
+            <div>
+                <b id="songTitle">My First Song</b>
+                <small id="artist">Artist Name</small>
+            </div>
+
+        </div>
+
+        <div class="controls">
+
+            <div>
+
+                <button onclick="previousSong()">⏮</button>
+
+                <button id="playBtn" onclick="togglePlay()">
+                    ▶
+                </button>
+
+                <button onclick="nextSong()">⏭</button>
+
+            </div>
+
+            <div class="progress-area">
+
+                <span id="currentTime">0:00</span>
+
+                <input
+                    type="range"
+                    id="progress"
+                    value="0"
+                    min="0"
+                    max="100"
+                >
+
+                <span id="duration">0:00</span>
+
+            </div>
+
+        </div>
+
+        <div class="volume">
+
+            🔊
+
+            <input
+                type="range"
+                id="volume"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+            >
+
+        </div>
+
+    </div>
+
+    <audio id="audio"></audio>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

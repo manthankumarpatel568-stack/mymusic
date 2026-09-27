@@ -1,21 +1,18 @@
 const audio = document.getElementById("audio");
 
 const songs = [
-
     {
         title: "My First Song",
         artist: "Artist Name",
         file: "song1.mp3",
         image: "https://picsum.photos/60?random=1"
     },
-
     {
         title: "Be Intehaan",
         artist: "Atif Aslam",
         file: "song2.mp3",
         image: "https://picsum.photos/60?random=2"
     }
-
 ];
 
 let currentSong = 0;
@@ -23,7 +20,6 @@ let currentSong = 0;
 
 // PLAY SONG
 function playSong(index) {
-
     currentSong = index;
 
     audio.src = songs[index].file;
@@ -45,27 +41,18 @@ function playSong(index) {
 
 // PLAY / PAUSE
 function togglePlay() {
-
     if (audio.paused) {
-
         audio.play();
-
         document.getElementById("playBtn").textContent = "⏸";
-
     } else {
-
         audio.pause();
-
         document.getElementById("playBtn").textContent = "▶";
-
     }
-
 }
 
 
-// NEXT SONG
+// NEXT
 function nextSong() {
-
     currentSong++;
 
     if (currentSong >= songs.length) {
@@ -73,13 +60,11 @@ function nextSong() {
     }
 
     playSong(currentSong);
-
 }
 
 
-// PREVIOUS SONG
+// PREVIOUS
 function previousSong() {
-
     currentSong--;
 
     if (currentSong < 0) {
@@ -87,35 +72,29 @@ function previousSong() {
     }
 
     playSong(currentSong);
-
 }
 
 
-// UPDATE PROGRESS
+// PROGRESS
 audio.addEventListener("timeupdate", function () {
 
-    const progress =
-        document.getElementById("progress");
+    const progress = document.getElementById("progress");
 
     if (audio.duration) {
-
         progress.value =
             (audio.currentTime / audio.duration) * 100;
-
     }
 
     document.getElementById("currentTime").textContent =
         formatTime(audio.currentTime);
-
 });
 
 
-// LOAD DURATION
+// DURATION
 audio.addEventListener("loadedmetadata", function () {
 
     document.getElementById("duration").textContent =
         formatTime(audio.duration);
-
 });
 
 
@@ -125,12 +104,9 @@ document.getElementById("progress").addEventListener(
     function () {
 
         if (audio.duration) {
-
             audio.currentTime =
                 (this.value / 100) * audio.duration;
-
         }
-
     }
 );
 
@@ -139,38 +115,30 @@ document.getElementById("progress").addEventListener(
 document.getElementById("volume").addEventListener(
     "input",
     function () {
-
         audio.volume = this.value;
-
     }
 );
 
 
 // SONG ENDED
 audio.addEventListener("ended", function () {
-
     nextSong();
-
 });
 
 
-// FORMAT TIME
+// TIME FORMAT
 function formatTime(seconds) {
 
     if (isNaN(seconds)) {
         return "0:00";
     }
 
-    let minutes =
-        Math.floor(seconds / 60);
-
-    let secs =
-        Math.floor(seconds % 60);
+    let minutes = Math.floor(seconds / 60);
+    let secs = Math.floor(seconds % 60);
 
     if (secs < 10) {
         secs = "0" + secs;
     }
 
     return minutes + ":" + secs;
-
 }

@@ -31,16 +31,16 @@ function playSong(index) {
 
     currentSong = index;
 
-    audio.src = songs[index].file;
+    audio.src = songs[currentSong].file;
 
     document.getElementById("songTitle").textContent =
-        songs[index].title;
+        songs[currentSong].title;
 
     document.getElementById("artist").textContent =
-        songs[index].artist;
+        songs[currentSong].artist;
 
     document.getElementById("playerImage").src =
-        songs[index].image;
+        songs[currentSong].image;
 
     audio.play();
 
@@ -70,7 +70,7 @@ function togglePlay() {
 // NEXT SONG
 function nextSong() {
 
-    currentSong++;
+    currentSong = currentSong + 1;
 
     if (currentSong >= songs.length) {
         currentSong = 0;
@@ -83,7 +83,7 @@ function nextSong() {
 // PREVIOUS SONG
 function previousSong() {
 
-    currentSong--;
+    currentSong = currentSong - 1;
 
     if (currentSong < 0) {
         currentSong = songs.length - 1;
@@ -93,11 +93,10 @@ function previousSong() {
 }
 
 
-// UPDATE PROGRESS
+// PROGRESS BAR
 audio.addEventListener("timeupdate", function () {
 
-    const progress =
-        document.getElementById("progress");
+    const progress = document.getElementById("progress");
 
     if (audio.duration) {
 
@@ -121,7 +120,7 @@ audio.addEventListener("loadedmetadata", function () {
 });
 
 
-// PROGRESS BAR
+// CHANGE SONG POSITION
 document.getElementById("progress").addEventListener(
     "input",
     function () {
@@ -163,11 +162,9 @@ function formatTime(seconds) {
         return "0:00";
     }
 
-    let minutes =
-        Math.floor(seconds / 60);
+    let minutes = Math.floor(seconds / 60);
 
-    let secs =
-        Math.floor(seconds % 60);
+    let secs = Math.floor(seconds % 60);
 
     if (secs < 10) {
         secs = "0" + secs;

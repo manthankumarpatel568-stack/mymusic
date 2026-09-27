@@ -36,7 +36,7 @@
         </header>
 
 
-        <!-- SONG 1 -->
+        <!-- ONLY ONE SONG BOX -->
         <div class="song-card" onclick="playSong(0)">
 
             <img
@@ -58,35 +58,13 @@
 
         </div>
 
-
-        <!-- SONG 2 -->
-        <div class="song-card" onclick="playSong(1)">
-
-            <img
-                src="https://picsum.photos/300?random=2"
-                alt="Song Cover"
-            >
-
-            <div class="song-info">
-
-                <h3>My Second Song</h3>
-
-                <p>Artist Name</p>
-
-                <button onclick="event.stopPropagation(); playSong(1)">
-                    ▶ Play Song
-                </button>
-
-            </div>
-
-        </div>
-
     </main>
 
 
     <!-- MUSIC PLAYER -->
     <div class="player">
 
+        <!-- CURRENT SONG -->
         <div class="current-song">
 
             <img
@@ -96,8 +74,15 @@
             >
 
             <div>
-                <b id="songTitle">My First Song</b>
-                <small id="artist">Artist Name</small>
+
+                <b id="songTitle">
+                    My First Song
+                </b>
+
+                <small id="artist">
+                    Artist Name
+                </small>
+
             </div>
 
         </div>
@@ -108,13 +93,20 @@
 
             <div class="buttons">
 
-                <button onclick="previousSong()">⏮</button>
+                <button onclick="previousSong()">
+                    ⏮
+                </button>
 
-                <button id="playBtn" onclick="togglePlay()">
+                <button
+                    id="playBtn"
+                    onclick="togglePlay()"
+                >
                     ▶
                 </button>
 
-                <button onclick="nextSong()">⏭</button>
+                <button onclick="nextSong()">
+                    ⏭
+                </button>
 
             </div>
 
@@ -122,7 +114,9 @@
             <!-- PROGRESS -->
             <div class="progress-area">
 
-                <span id="currentTime">0:00</span>
+                <span id="currentTime">
+                    0:00
+                </span>
 
                 <input
                     type="range"
@@ -132,7 +126,9 @@
                     max="100"
                 >
 
-                <span id="duration">0:00</span>
+                <span id="duration">
+                    0:00
+                </span>
 
             </div>
 

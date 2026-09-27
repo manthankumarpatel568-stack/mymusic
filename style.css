@@ -4,11 +4,17 @@
 
 body {
     margin: 0;
+
     font-family: Arial, sans-serif;
 
     color: white;
 
-    background: url("cafe-bg.png") center center / cover no-repeat fixed;
+    background:
+        url("cafe-bg.png")
+        center center /
+        cover
+        no-repeat
+        fixed;
 
     min-height: 100vh;
 }
@@ -17,6 +23,7 @@ body {
 /* SIDEBAR */
 
 .sidebar {
+
     position: fixed;
 
     left: 0;
@@ -31,18 +38,24 @@ body {
 
     backdrop-filter: blur(8px);
 
-    border-right: 1px solid rgba(255,255,255,0.12);
+    border-right:
+        1px solid
+        rgba(255,255,255,0.12);
+
 }
 
 
 .sidebar h1 {
+
     margin-bottom: 40px;
 
     font-size: 25px;
+
 }
 
 
 .menu p {
+
     padding: 12px;
 
     margin: 8px 0;
@@ -52,56 +65,69 @@ body {
     cursor: pointer;
 
     color: #ddd;
+
 }
 
 
 .menu p:hover {
-    background: rgba(255,255,255,0.12);
+
+    background:
+        rgba(255,255,255,0.12);
 
     color: white;
+
 }
 
 
 /* MAIN */
 
 main {
+
     margin-left: 230px;
 
     padding: 35px;
 
     padding-bottom: 150px;
+
 }
 
 
 header h2 {
+
     font-size: 32px;
 
     margin-bottom: 5px;
+
 }
 
 
 header p {
+
     color: #ddd;
+
 }
 
 
 /* SONG CARD */
 
 .song-card {
+
     width: 330px;
 
-    margin-top: 60px;
+    margin-top: 30px;
 
     padding: 15px;
 
-    background: rgba(35,22,15,0.88);
+    background:
+        rgba(35,22,15,0.88);
 
     border-radius: 15px;
 
     cursor: pointer;
 
     box-shadow:
-        0 10px 30px rgba(0,0,0,0.45);
+        0 10px 30px
+        rgba(0,0,0,0.45);
 
     transition: 0.25s;
 
@@ -110,17 +136,23 @@ header p {
     gap: 15px;
 
     align-items: center;
+
 }
 
 
 .song-card:hover {
-    transform: translateY(-5px);
 
-    background: rgba(55,34,22,0.95);
+    transform:
+        translateY(-5px);
+
+    background:
+        rgba(55,34,22,0.95);
+
 }
 
 
 .song-card img {
+
     width: 100px;
 
     height: 100px;
@@ -128,25 +160,34 @@ header p {
     object-fit: cover;
 
     border-radius: 10px;
+
 }
 
 
 .song-info h3 {
-    margin: 0 0 6px 0;
+
+    margin:
+        0 0 6px 0;
+
 }
 
 
 .song-info p {
-    margin: 0 0 12px 0;
+
+    margin:
+        0 0 12px 0;
 
     color: #bbb;
+
 }
 
 
 .song-info button {
+
     border: none;
 
-    padding: 8px 14px;
+    padding:
+        8px 14px;
 
     border-radius: 20px;
 
@@ -157,12 +198,14 @@ header p {
     color: #222;
 
     font-weight: bold;
+
 }
 
 
 /* PLAYER */
 
 .player {
+
     position: fixed;
 
     bottom: 0;
@@ -178,21 +221,28 @@ header p {
 
     justify-content: space-between;
 
-    padding: 15px 25px;
+    padding:
+        15px 25px;
 
-    background: rgba(15,9,6,0.94);
+    background:
+        rgba(15,9,6,0.94);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter:
+        blur(12px);
 
-    border-top: 1px solid rgba(255,255,255,0.15);
+    border-top:
+        1px solid
+        rgba(255,255,255,0.15);
 
     z-index: 10;
+
 }
 
 
 /* CURRENT SONG */
 
 .current-song {
+
     display: flex;
 
     align-items: center;
@@ -200,10 +250,12 @@ header p {
     gap: 12px;
 
     width: 25%;
+
 }
 
 
 .current-song img {
+
     width: 55px;
 
     height: 55px;
@@ -211,33 +263,41 @@ header p {
     border-radius: 7px;
 
     object-fit: cover;
+
 }
 
 
 .current-song b {
+
     display: block;
+
 }
 
 
 .current-song small {
+
     display: block;
 
     margin-top: 5px;
 
     color: #aaa;
+
 }
 
 
 /* CONTROLS */
 
 .controls {
+
     width: 50%;
 
     text-align: center;
+
 }
 
 
 .buttons button {
+
     background: transparent;
 
     border: none;
@@ -246,13 +306,16 @@ header p {
 
     font-size: 21px;
 
-    margin: 0 10px;
+    margin:
+        0 10px;
 
     cursor: pointer;
+
 }
 
 
 #playBtn {
+
     width: 42px;
 
     height: 42px;
@@ -264,12 +327,14 @@ header p {
     color: #222;
 
     font-size: 18px;
+
 }
 
 
 /* PROGRESS */
 
 .progress-area {
+
     display: flex;
 
     align-items: center;
@@ -277,26 +342,32 @@ header p {
     gap: 10px;
 
     margin-top: 8px;
+
 }
 
 
 .progress-area span {
+
     font-size: 12px;
 
     color: #aaa;
+
 }
 
 
 #progress {
+
     width: 100%;
 
     cursor: pointer;
+
 }
 
 
 /* VOLUME */
 
 .volume {
+
     width: 20%;
 
     display: flex;
@@ -306,11 +377,14 @@ header p {
     justify-content: flex-end;
 
     gap: 8px;
+
 }
 
 
 #volume {
+
     width: 100px;
+
 }
 
 
@@ -319,28 +393,41 @@ header p {
 @media (max-width: 700px) {
 
     .sidebar {
+
         width: 180px;
+
     }
 
     main {
+
         margin-left: 180px;
 
         padding: 20px;
+
     }
 
     .song-card {
+
         width: 280px;
+
     }
 
     .current-song {
+
         width: 30%;
+
     }
 
     .volume {
+
         display: none;
+
     }
 
     .controls {
+
         width: 65%;
+
     }
+
 }

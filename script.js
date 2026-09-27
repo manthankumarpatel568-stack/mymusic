@@ -156,7 +156,7 @@ audio.addEventListener("ended", function () {
 });
 
 
-// TIME FORMAT
+// FORMAT TIME
 function formatTime(seconds) {
 
     if (isNaN(seconds)) {

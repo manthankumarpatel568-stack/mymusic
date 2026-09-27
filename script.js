@@ -1,6 +1,5 @@
 const audio = document.getElementById("audio");
 
-
 const songs = [
 
     {
@@ -11,14 +10,13 @@ const songs = [
     },
 
     {
-        title: "My Second Song",
-        artist: "Artist Name",
+        title: "Be Intehaan",
+        artist: "Atif Aslam",
         file: "song2.mp3",
         image: "https://picsum.photos/60?random=2"
     }
 
 ];
-
 
 let currentSong = 0;
 
@@ -42,7 +40,6 @@ function playSong(index) {
     audio.play();
 
     document.getElementById("playBtn").textContent = "⏸";
-
 }
 
 
@@ -113,7 +110,7 @@ audio.addEventListener("timeupdate", function () {
 });
 
 
-// LOAD SONG DURATION
+// LOAD DURATION
 audio.addEventListener("loadedmetadata", function () {
 
     document.getElementById("duration").textContent =
@@ -149,7 +146,7 @@ document.getElementById("volume").addEventListener(
 );
 
 
-// WHEN SONG ENDS
+// SONG ENDED
 audio.addEventListener("ended", function () {
 
     nextSong();
@@ -157,7 +154,7 @@ audio.addEventListener("ended", function () {
 });
 
 
-// TIME FORMAT
+// FORMAT TIME
 function formatTime(seconds) {
 
     if (isNaN(seconds)) {

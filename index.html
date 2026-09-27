@@ -27,7 +27,7 @@
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- MAIN CONTENT -->
     <main>
 
         <header>
@@ -50,7 +50,9 @@
 
                 <p>Artist Name</p>
 
-                <button onclick="event.stopPropagation(); playSong(0)">
+                <button
+                    onclick="event.stopPropagation(); playSong(0)"
+                >
                     ▶ Play Song
                 </button>
 
@@ -88,7 +90,7 @@
         </div>
 
 
-        <!-- CONTROLS -->
+        <!-- PLAYER CONTROLS -->
         <div class="controls">
 
             <div class="buttons">
@@ -111,7 +113,7 @@
             </div>
 
 
-            <!-- PROGRESS -->
+            <!-- PROGRESS BAR -->
             <div class="progress-area">
 
                 <span id="currentTime">
@@ -158,6 +160,7 @@
     <audio id="audio"></audio>
 
 
+    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>

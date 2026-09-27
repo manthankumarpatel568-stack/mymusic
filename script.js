@@ -1,5 +1,6 @@
 const audio = document.getElementById("audio");
 
+
 const songs = [
 
     {
@@ -17,6 +18,7 @@ const songs = [
     }
 
 ];
+
 
 let currentSong = 0;
 
@@ -40,6 +42,7 @@ function playSong(index) {
     audio.play();
 
     document.getElementById("playBtn").textContent = "⏸";
+
 }
 
 
@@ -91,7 +94,7 @@ function previousSong() {
 }
 
 
-// TIME UPDATE
+// UPDATE PROGRESS
 audio.addEventListener("timeupdate", function () {
 
     const progress =
@@ -110,7 +113,7 @@ audio.addEventListener("timeupdate", function () {
 });
 
 
-// SONG LOADED
+// LOAD SONG DURATION
 audio.addEventListener("loadedmetadata", function () {
 
     document.getElementById("duration").textContent =
@@ -146,7 +149,7 @@ document.getElementById("volume").addEventListener(
 );
 
 
-// SONG ENDED
+// WHEN SONG ENDS
 audio.addEventListener("ended", function () {
 
     nextSong();
@@ -161,9 +164,11 @@ function formatTime(seconds) {
         return "0:00";
     }
 
-    let minutes = Math.floor(seconds / 60);
+    let minutes =
+        Math.floor(seconds / 60);
 
-    let secs = Math.floor(seconds % 60);
+    let secs =
+        Math.floor(seconds % 60);
 
     if (secs < 10) {
         secs = "0" + secs;

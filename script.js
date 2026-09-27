@@ -20,7 +20,7 @@ const songs = [
         image: "https://picsum.photos/60?random=3"
     },
     {
-        title: "New Song",
+        title: "Woh Lamhe",
         artist: "Artist Name",
         file: "song4.mp3",
         image: "https://picsum.photos/60?random=4"

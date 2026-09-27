@@ -20,6 +20,13 @@ const songs = [
         artist: "Artist Name",
         file: "song3.mp3",
         image: "https://picsum.photos/60?random=3"
+    },
+
+    {
+        title: "New Song",
+        artist: "Artist Name",
+        file: "song4.mp3",
+        image: "https://picsum.photos/60?random=4"
     }
 ];
 
@@ -70,7 +77,7 @@ function togglePlay() {
 // NEXT SONG
 function nextSong() {
 
-    currentSong = currentSong + 1;
+    currentSong++;
 
     if (currentSong >= songs.length) {
         currentSong = 0;
@@ -83,7 +90,7 @@ function nextSong() {
 // PREVIOUS SONG
 function previousSong() {
 
-    currentSong = currentSong - 1;
+    currentSong--;
 
     if (currentSong < 0) {
         currentSong = songs.length - 1;
@@ -93,7 +100,7 @@ function previousSong() {
 }
 
 
-// PROGRESS BAR
+// PROGRESS
 audio.addEventListener("timeupdate", function () {
 
     const progress = document.getElementById("progress");
@@ -111,7 +118,7 @@ audio.addEventListener("timeupdate", function () {
 });
 
 
-// LOAD DURATION
+// DURATION
 audio.addEventListener("loadedmetadata", function () {
 
     document.getElementById("duration").textContent =
@@ -120,7 +127,7 @@ audio.addEventListener("loadedmetadata", function () {
 });
 
 
-// CHANGE SONG POSITION
+// PROGRESS BAR
 document.getElementById("progress").addEventListener(
     "input",
     function () {

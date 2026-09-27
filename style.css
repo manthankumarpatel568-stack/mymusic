@@ -2,7 +2,9 @@
     box-sizing: border-box;
 }
 
+
 body {
+
     margin: 0;
 
     font-family: Arial, sans-serif;
@@ -17,6 +19,7 @@ body {
         fixed;
 
     min-height: 100vh;
+
 }
 
 
@@ -34,7 +37,8 @@ body {
 
     padding: 25px 20px;
 
-    background: rgba(20, 12, 8, 0.88);
+    background:
+        rgba(20, 12, 8, 0.88);
 
     backdrop-filter: blur(8px);
 
@@ -114,7 +118,7 @@ header p {
 
     width: 330px;
 
-    margin-top: 30px;
+    margin-top: 60px;
 
     padding: 15px;
 

@@ -2,71 +2,71 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>MyMusic</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
     <!-- SIDEBAR -->
+
     <aside class="sidebar">
 
         <h1>🎵 MyMusic</h1>
 
         <div class="menu">
+
             <p>🏠 Home</p>
+
             <p>🔍 Search</p>
+
             <p>📚 Your Library</p>
+
             <p>❤️ Favorites</p>
+
         </div>
 
     </aside>
 
 
+
     <!-- MAIN CONTENT -->
+
     <main>
 
         <header>
+
             <h2>Good Afternoon 👋</h2>
-            <p>Listen to your favourite music</p>
+
+            <p>
+                Listen to your favourite music
+            </p>
+
         </header>
-
-
-        <!-- ONLY ONE SONG BOX -->
-        <div class="song-card" onclick="playSong(0)">
-
-            <img
-                src="https://picsum.photos/300?random=1"
-                alt="Song Cover"
-            >
-
-            <div class="song-info">
-
-                <h3>My First Song</h3>
-
-                <p>Artist Name</p>
-
-                <button
-                    onclick="event.stopPropagation(); playSong(0)"
-                >
-                    ▶ Play Song
-                </button>
-
-            </div>
-
-        </div>
 
     </main>
 
 
+
     <!-- MUSIC PLAYER -->
+
     <div class="player">
 
+
         <!-- CURRENT SONG -->
+
         <div class="current-song">
 
             <img
@@ -90,7 +90,9 @@
         </div>
 
 
+
         <!-- PLAYER CONTROLS -->
+
         <div class="controls">
 
             <div class="buttons">
@@ -99,12 +101,14 @@
                     ⏮
                 </button>
 
+
                 <button
                     id="playBtn"
                     onclick="togglePlay()"
                 >
                     ▶
                 </button>
+
 
                 <button onclick="nextSong()">
                     ⏭
@@ -113,12 +117,15 @@
             </div>
 
 
+
             <!-- PROGRESS BAR -->
+
             <div class="progress-area">
 
                 <span id="currentTime">
                     0:00
                 </span>
+
 
                 <input
                     type="range"
@@ -127,6 +134,7 @@
                     min="0"
                     max="100"
                 >
+
 
                 <span id="duration">
                     0:00
@@ -137,7 +145,9 @@
         </div>
 
 
+
         <!-- VOLUME -->
+
         <div class="volume">
 
             🔊
@@ -156,12 +166,17 @@
     </div>
 
 
+
     <!-- AUDIO -->
+
     <audio id="audio"></audio>
 
 
+
     <!-- JAVASCRIPT -->
+
     <script src="script.js"></script>
+
 
 </body>
 

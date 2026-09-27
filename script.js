@@ -1,12 +1,21 @@
 const audio = document.getElementById("audio");
 
 const songs = [
+
     {
         title: "My First Song",
         artist: "Artist Name",
         file: "song1.mp3",
         image: "https://picsum.photos/60?random=1"
+    },
+
+    {
+        title: "My Second Song",
+        artist: "Artist Name",
+        file: "song2.mp3",
+        image: "https://picsum.photos/60?random=2"
     }
+
 ];
 
 let currentSong = 0;
@@ -50,10 +59,11 @@ function togglePlay() {
         document.getElementById("playBtn").textContent = "▶";
 
     }
+
 }
 
 
-// NEXT
+// NEXT SONG
 function nextSong() {
 
     currentSong++;
@@ -63,10 +73,11 @@ function nextSong() {
     }
 
     playSong(currentSong);
+
 }
 
 
-// PREVIOUS
+// PREVIOUS SONG
 function previousSong() {
 
     currentSong--;
@@ -76,6 +87,7 @@ function previousSong() {
     }
 
     playSong(currentSong);
+
 }
 
 
@@ -89,6 +101,7 @@ audio.addEventListener("timeupdate", function () {
 
         progress.value =
             (audio.currentTime / audio.duration) * 100;
+
     }
 
     document.getElementById("currentTime").textContent =
@@ -115,6 +128,7 @@ document.getElementById("progress").addEventListener(
 
             audio.currentTime =
                 (this.value / 100) * audio.duration;
+
         }
 
     }
@@ -156,4 +170,5 @@ function formatTime(seconds) {
     }
 
     return minutes + ":" + secs;
+
 }

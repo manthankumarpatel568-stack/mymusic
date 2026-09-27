@@ -13,70 +13,78 @@
 <body>
 
     <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
         <h1>🎵 MyMusic</h1>
 
         <div class="menu">
-
             <p>🏠 Home</p>
-
             <p>🔍 Search</p>
-
             <p>📚 Your Library</p>
-
             <p>❤️ Favorites</p>
-
         </div>
 
     </aside>
 
 
-    <!-- MAIN CONTENT -->
-
+    <!-- MAIN -->
     <main>
 
         <header>
-
             <h2>Good Afternoon 👋</h2>
-
             <p>Listen to your favourite music</p>
-
         </header>
+
+
+        <!-- SONG -->
+        <div class="song-card" onclick="playSong(0)">
+
+            <img
+                src="https://picsum.photos/300?random=1"
+                alt="Song Cover"
+            >
+
+            <div class="song-info">
+
+                <h3>My First Song</h3>
+
+                <p>Artist Name</p>
+
+                <button onclick="event.stopPropagation(); playSong(0)">
+                    ▶ Play Song
+                </button>
+
+            </div>
+
+        </div>
 
     </main>
 
 
     <!-- MUSIC PLAYER -->
-
     <div class="player">
 
         <!-- CURRENT SONG -->
-
         <div class="current-song">
 
             <img
                 id="playerImage"
                 src="https://picsum.photos/60?random=1"
+                alt="Cover"
             >
 
             <div>
-
                 <b id="songTitle">My First Song</b>
-
                 <small id="artist">Artist Name</small>
-
             </div>
 
         </div>
 
 
         <!-- CONTROLS -->
-
         <div class="controls">
 
-            <div>
+            <div class="buttons">
 
                 <button onclick="previousSong()">⏮</button>
 
@@ -93,7 +101,6 @@
 
 
             <!-- PROGRESS -->
-
             <div class="progress-area">
 
                 <span id="currentTime">0:00</span>
@@ -114,7 +121,6 @@
 
 
         <!-- VOLUME -->
-
         <div class="volume">
 
             🔊
@@ -134,11 +140,8 @@
 
 
     <!-- AUDIO -->
-
     <audio id="audio"></audio>
 
-
-    <!-- JAVASCRIPT -->
 
     <script src="script.js"></script>
 

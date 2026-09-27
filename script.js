@@ -11,7 +11,10 @@ const songs = [
 
 let currentSong = 0;
 
+
+// PLAY SONG
 function playSong(index) {
+
     currentSong = index;
 
     audio.src = songs[index].file;
@@ -30,64 +33,122 @@ function playSong(index) {
     document.getElementById("playBtn").textContent = "⏸";
 }
 
+
+// PLAY / PAUSE
 function togglePlay() {
+
     if (audio.paused) {
+
         audio.play();
+
         document.getElementById("playBtn").textContent = "⏸";
+
     } else {
+
         audio.pause();
+
         document.getElementById("playBtn").textContent = "▶";
+
     }
 }
 
+
+// NEXT
 function nextSong() {
+
     currentSong++;
+
     if (currentSong >= songs.length) {
         currentSong = 0;
     }
+
     playSong(currentSong);
 }
 
+
+// PREVIOUS
 function previousSong() {
+
     currentSong--;
+
     if (currentSong < 0) {
         currentSong = songs.length - 1;
     }
+
     playSong(currentSong);
 }
 
-audio.addEventListener("timeupdate", () => {
-    const progress = document.getElementById("progress");
+
+// TIME UPDATE
+audio.addEventListener("timeupdate", function () {
+
+    const progress =
+        document.getElementById("progress");
 
     if (audio.duration) {
+
         progress.value =
             (audio.currentTime / audio.duration) * 100;
     }
 
     document.getElementById("currentTime").textContent =
         formatTime(audio.currentTime);
+
 });
 
-audio.addEventListener("loadedmetadata", () => {
+
+// SONG LOADED
+audio.addEventListener("loadedmetadata", function () {
+
     document.getElementById("duration").textContent =
         formatTime(audio.duration);
+
 });
 
-document.getElementById("progress").addEventListener("input", function () {
-    audio.currentTime =
-        (this.value / 100) * audio.duration;
+
+// PROGRESS BAR
+document.getElementById("progress").addEventListener(
+    "input",
+    function () {
+
+        if (audio.duration) {
+
+            audio.currentTime =
+                (this.value / 100) * audio.duration;
+        }
+
+    }
+);
+
+
+// VOLUME
+document.getElementById("volume").addEventListener(
+    "input",
+    function () {
+
+        audio.volume = this.value;
+
+    }
+);
+
+
+// SONG ENDED
+audio.addEventListener("ended", function () {
+
+    nextSong();
+
 });
 
-document.getElementById("volume").addEventListener("input", function () {
-    audio.volume = this.value;
-});
 
-audio.addEventListener("ended", nextSong);
-
+// TIME FORMAT
 function formatTime(seconds) {
-    if (isNaN(seconds)) return "0:00";
+
+    if (isNaN(seconds)) {
+        return "0:00";
+    }
 
     let minutes = Math.floor(seconds / 60);
+
     let secs = Math.floor(seconds % 60);
 
     if (secs < 10) {

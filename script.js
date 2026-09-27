@@ -7,21 +7,24 @@ const songs = [
         file: "song1.mp3",
         image: "https://picsum.photos/60?random=1"
     },
+
     {
         title: "Be Intehaan",
         artist: "Atif Aslam",
         file: "song2.mp3",
         image: "https://picsum.photos/60?random=2"
     },
+
     {
         title: "Darkhast X Monsoon Mashup",
         artist: "Artist Name",
         file: "song3.mp3",
         image: "https://picsum.photos/60?random=3"
     },
+
     {
         title: "Woh Lamhe",
-        artist: "Artist Name",
+        artist: "Atif Aslam",
         file: "song4.mp3",
         image: "https://picsum.photos/60?random=4"
     }

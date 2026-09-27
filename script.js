@@ -27,6 +27,41 @@ const songs = [
         artist: "Atif Aslam",
         file: "song4.mp3",
         image: "https://picsum.photos/60?random=4"
+    },
+
+    {
+        title: "Jenna Jenna",
+        artist: "Artist 5",
+        file: "song5.mp3",
+        image: "https://picsum.photos/60?random=5"
+    },
+
+    {
+        title: "Pehli Dafa",
+        artist: "Artist 6",
+        file: "song6.mp3",
+        image: "https://picsum.photos/60?random=6"
+    },
+
+    {
+        title: "O Satthi",
+        artist: "Artist 7",
+        file: "song7.mp3",
+        image: "https://picsum.photos/60?random=7"
+    },
+
+    {
+        title: "Shyad",
+        artist: "Artist 8",
+        file: "song8.mp3",
+        image: "https://picsum.photos/60?random=8"
+    },
+
+    {
+        title: "Channa Mereya",
+        artist: "Artist 9",
+        file: "song9.mp3",
+        image: "https://picsum.photos/60?random=9"
     }
 ];
 

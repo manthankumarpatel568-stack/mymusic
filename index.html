@@ -60,6 +60,39 @@
     </main>
 
 
+    <!-- SLEEP TIMER -->
+    <div class="sleep-timer">
+
+        <span>⏱️ Sleep Timer</span>
+
+        <select
+            id="sleepTime"
+            onchange="setSleepTimer()"
+        >
+
+            <option value="0">
+                Off
+            </option>
+
+            <option value="15">
+                15 Minutes
+            </option>
+
+            <option value="30">
+                30 Minutes
+            </option>
+
+            <option value="60">
+                60 Minutes
+            </option>
+
+        </select>
+
+        <span id="sleepStatus"></span>
+
+    </div>
+
+
     <!-- MUSIC PLAYER -->
     <div class="player">
 
@@ -92,7 +125,9 @@
 
             <div class="buttons">
 
-                <button onclick="previousSong()">⏮</button>
+                <button onclick="previousSong()">
+                    ⏮
+                </button>
 
                 <button
                     id="playBtn"
@@ -101,7 +136,9 @@
                     ▶
                 </button>
 
-                <button onclick="nextSong()">⏭</button>
+                <button onclick="nextSong()">
+                    ⏭
+                </button>
 
             </div>
 

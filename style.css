@@ -6,40 +6,46 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
+
     background: url("cafe-bg.png") center center / cover no-repeat fixed;
+
     min-height: 100vh;
 }
+
 
 /* SIDEBAR */
 
 .sidebar {
     position: fixed;
+
     left: 0;
     top: 0;
+
     width: 230px;
     height: 100vh;
+
     padding: 25px 20px;
-    background: rgba(20, 12, 8, 0.88);
-    backdrop-filter: blur(8px);
-    border-right: 1px solid rgba(255,255,255,0.12);
+
+    background: transparent;
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+    border-right: none;
+
+    z-index: 5;
 }
+
 
 .sidebar h1 {
-    margin-bottom: 40px;
+    margin: 0;
+
     font-size: 25px;
-}
 
-.menu p {
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #ddd;
-}
-
-.menu p:hover {
-    background: rgba(255,255,255,0.12);
     color: white;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -47,40 +53,56 @@ body {
 
 main {
     margin-left: 230px;
+
     padding: 35px;
+
     padding-bottom: 150px;
 }
 
+
 header h2 {
     font-size: 32px;
+
     margin-bottom: 5px;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.8);
 }
+
 
 header p {
-    color: #ddd;
+    color: #eee;
+
+    text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 
-/* PLAYER */
+/* MUSIC PLAYER */
 
 .player {
     position: fixed;
+
     bottom: 0;
     left: 0;
+
     width: 100%;
     height: 95px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 15px 25px;
 
-    background: rgba(15,9,6,0.94);
+    background: rgba(15, 9, 6, 0.94);
 
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    border-top: 1px solid rgba(255,255,255,0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
 
     z-index: 10;
 }
@@ -90,25 +112,35 @@ header p {
 
 .current-song {
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     width: 25%;
 }
+
 
 .current-song img {
     width: 55px;
     height: 55px;
+
     border-radius: 7px;
+
     object-fit: cover;
 }
+
 
 .current-song b {
     display: block;
 }
 
+
 .current-song small {
     display: block;
+
     margin-top: 5px;
+
     color: #aaa;
 }
 
@@ -117,24 +149,36 @@ header p {
 
 .controls {
     width: 50%;
+
     text-align: center;
 }
 
+
 .buttons button {
     background: transparent;
+
     border: none;
+
     color: white;
+
     font-size: 21px;
+
     margin: 0 10px;
+
     cursor: pointer;
 }
+
 
 #playBtn {
     width: 42px;
     height: 42px;
+
     border-radius: 50%;
+
     background: white;
+
     color: #222;
+
     font-size: 18px;
 }
 
@@ -143,18 +187,25 @@ header p {
 
 .progress-area {
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
     margin-top: 8px;
 }
 
+
 .progress-area span {
     font-size: 12px;
+
     color: #aaa;
 }
 
+
 #progress {
     width: 100%;
+
     cursor: pointer;
 }
 
@@ -163,11 +214,16 @@ header p {
 
 .volume {
     width: 20%;
+
     display: flex;
+
     align-items: center;
+
     justify-content: flex-end;
+
     gap: 8px;
 }
+
 
 #volume {
     width: 100px;
@@ -184,6 +240,7 @@ header p {
 
     main {
         margin-left: 180px;
+
         padding: 20px;
     }
 
@@ -198,5 +255,4 @@ header p {
     .controls {
         width: 65%;
     }
-
 }

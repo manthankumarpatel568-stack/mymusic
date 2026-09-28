@@ -341,36 +341,22 @@ main {
 }
 
 
-/* STEAM 1 */
-
 .steam1 {
-
     left: 55px;
-
     animation-delay: 0s;
 }
 
 
-/* STEAM 2 */
-
 .steam2 {
-
     left: 76px;
-
     height: 70px;
-
     animation-delay: 1s;
 }
 
 
-/* STEAM 3 */
-
 .steam3 {
-
     left: 95px;
-
     height: 55px;
-
     animation-delay: 1.8s;
 }
 
@@ -390,7 +376,6 @@ main {
     }
 
     25% {
-
         opacity: 0.7;
     }
 
@@ -405,7 +390,6 @@ main {
     }
 
     75% {
-
         opacity: 0.25;
     }
 
@@ -513,7 +497,6 @@ main {
 
 
 .current-song b {
-
     display: block;
 }
 
@@ -568,6 +551,8 @@ main {
     color: #222;
 
     font-size: 18px;
+
+    cursor: pointer;
 }
 
 
@@ -647,7 +632,6 @@ body.light-theme .player {
 
 
 body.light-theme .buttons button {
-
     color: #222;
 }
 
@@ -661,13 +645,11 @@ body.light-theme #playBtn {
 
 
 body.light-theme .current-song small {
-
     color: #555;
 }
 
 
 body.light-theme .progress-area span {
-
     color: #555;
 }
 
@@ -697,26 +679,26 @@ body.light-theme #themeToggle {
 
 .sleep-timer {
 
-    position: fixed;
+    position: fixed !important;
 
-    right: 25px;
+    right: 25px !important;
 
-    bottom: 125px;
+    bottom: 125px !important;
 
-    display: flex;
+    display: flex !important;
 
-    align-items: center;
+    align-items: center !important;
 
     gap: 8px;
 
     padding: 8px 12px;
 
     background:
-        rgba(15,9,6,0.75);
+        rgba(15,9,6,0.90);
 
     border:
         1px solid
-        rgba(255,255,255,0.2);
+        rgba(255,255,255,0.25);
 
     border-radius: 10px;
 
@@ -726,34 +708,42 @@ body.light-theme #themeToggle {
 
     font-size: 14px;
 
-    z-index: 1000;
+    z-index: 999999 !important;
+
+    pointer-events: auto !important;
 }
 
 
-/* SLEEP TIMER SELECT */
+/* DROPDOWN */
 
 .sleep-timer select {
 
+    position: relative !important;
+
+    z-index: 1000000 !important;
+
+    pointer-events: auto !important;
+
     background:
-        rgba(0,0,0,0.75);
+        rgba(0,0,0,0.95);
 
     color: white;
 
     border:
         1px solid
-        rgba(255,255,255,0.3);
+        rgba(255,255,255,0.4);
 
     border-radius: 7px;
 
-    padding: 7px 9px;
+    padding: 7px 10px;
 
     outline: none;
 
     cursor: pointer;
+
+    appearance: auto;
 }
 
-
-/* OPTIONS */
 
 .sleep-timer select option {
 
@@ -775,12 +765,12 @@ body.light-theme #themeToggle {
 }
 
 
-/* LIGHT THEME SLEEP TIMER */
+/* LIGHT THEME */
 
 body.light-theme .sleep-timer {
 
     background:
-        rgba(255,255,255,0.88);
+        rgba(255,255,255,0.92);
 
     color: #222;
 
@@ -796,7 +786,7 @@ body.light-theme .sleep-timer select {
     color: #222;
 
     border-color:
-        rgba(0,0,0,0.25);
+        rgba(0,0,0,0.3);
 }
 
 
@@ -809,7 +799,6 @@ body.light-theme .sleep-timer select option {
 
 
 body.light-theme #sleepStatus {
-
     color: #222;
 }
 
@@ -829,7 +818,6 @@ body.light-theme #sleepStatus {
 
 
     .sidebar h1 {
-
         font-size: 20px;
     }
 
@@ -880,19 +868,16 @@ body.light-theme #sleepStatus {
 
 
     .current-song b {
-
         font-size: 12px;
     }
 
 
     .current-song small {
-
         font-size: 10px;
     }
 
 
     .controls {
-
         width: 65%;
     }
 
@@ -913,7 +898,6 @@ body.light-theme #sleepStatus {
 
 
     .volume {
-
         display: none;
     }
 
@@ -962,9 +946,9 @@ body.light-theme #sleepStatus {
 
     .sleep-timer {
 
-        right: 10px;
+        right: 10px !important;
 
-        bottom: 110px;
+        bottom: 110px !important;
 
         padding: 6px 8px;
 
@@ -976,14 +960,13 @@ body.light-theme #sleepStatus {
 
     .sleep-timer select {
 
-        padding: 5px 6px;
+        padding: 5px 7px;
 
         font-size: 11px;
     }
 
 
     #sleepStatus {
-
         font-size: 10px;
     }
 

@@ -45,8 +45,6 @@ body {
 
     backdrop-filter: none !important;
 
-    -webkit-backdrop-filter: none !important;
-
     border: none !important;
 
     box-shadow: none !important;
@@ -75,18 +73,15 @@ body {
     position: fixed !important;
 
     top: 18px !important;
-
     right: 20px !important;
 
     width: 45px !important;
-
     height: 45px !important;
 
     display: flex !important;
 
-    align-items: center !important;
-
-    justify-content: center !important;
+    align-items: center;
+    justify-content: center;
 
     border: 2px solid white !important;
 
@@ -98,11 +93,9 @@ body {
 
     font-size: 20px !important;
 
-    cursor: pointer !important;
+    cursor: pointer;
 
     z-index: 99999 !important;
-
-    transition: 0.2s ease;
 }
 
 
@@ -130,7 +123,6 @@ main {
     position: fixed;
 
     top: 18px;
-
     left: 50%;
 
     transform: translateX(-50%);
@@ -153,8 +145,6 @@ main {
 
     backdrop-filter: blur(8px);
 
-    -webkit-backdrop-filter: blur(8px);
-
     border:
         1px solid rgba(255,255,255,0.15);
 }
@@ -168,7 +158,6 @@ main {
     position: fixed;
 
     top: 62px;
-
     left: 50%;
 
     transform: translateX(-50%);
@@ -188,11 +177,251 @@ main {
 }
 
 
+/* ==================================================
+   ☕ COFFEE STEAM ANIMATION
+================================================== */
+
+.coffee-animation {
+
+    position: fixed;
+
+    left: 45px;
+
+    bottom: 125px;
+
+    width: 150px;
+
+    height: 180px;
+
+    z-index: 6;
+
+    pointer-events: none;
+}
+
+
+/* CUP */
+
+.coffee-cup {
+
+    position: absolute;
+
+    left: 35px;
+
+    bottom: 25px;
+
+    width: 80px;
+
+    height: 58px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #f5f5f5,
+            #d7d7d7
+        );
+
+    border-radius:
+        8px 8px 25px 25px;
+
+    box-shadow:
+        0 8px 15px rgba(0,0,0,0.45);
+
+    z-index: 3;
+}
+
+
+/* COFFEE */
+
+.coffee {
+
+    position: absolute;
+
+    left: 6px;
+    top: 5px;
+
+    width: 68px;
+    height: 15px;
+
+    background:
+        radial-gradient(
+            ellipse,
+            #3b1d0b,
+            #160b05
+        );
+
+    border-radius: 50%;
+
+    box-shadow:
+        inset 0 2px 4px
+        rgba(255,255,255,0.2);
+}
+
+
+/* HANDLE */
+
+.cup-handle {
+
+    position: absolute;
+
+    right: -22px;
+
+    top: 12px;
+
+    width: 28px;
+    height: 32px;
+
+    border: 7px solid #ddd;
+
+    border-left: 0;
+
+    border-radius:
+        0 18px 18px 0;
+}
+
+
+/* SAUCER */
+
+.saucer {
+
+    position: absolute;
+
+    left: 20px;
+
+    bottom: 15px;
+
+    width: 110px;
+    height: 18px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #eeeeee,
+            #bdbdbd
+        );
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 7px 12px
+        rgba(0,0,0,0.4);
+
+    z-index: 2;
+}
+
+
+/* STEAM */
+
+.steam {
+
+    position: absolute;
+
+    bottom: 78px;
+
+    width: 8px;
+
+    height: 60px;
+
+    border-radius: 50%;
+
+    border-left:
+        3px solid
+        rgba(255,255,255,0.7);
+
+    filter: blur(1px);
+
+    opacity: 0;
+
+    animation:
+        steamRise 3s infinite ease-in-out;
+}
+
+
+/* STEAM 1 */
+
+.steam1 {
+
+    left: 55px;
+
+    animation-delay: 0s;
+}
+
+
+/* STEAM 2 */
+
+.steam2 {
+
+    left: 76px;
+
+    height: 70px;
+
+    animation-delay: 1s;
+}
+
+
+/* STEAM 3 */
+
+.steam3 {
+
+    left: 95px;
+
+    height: 55px;
+
+    animation-delay: 1.8s;
+}
+
+
+/* STEAM ANIMATION */
+
+@keyframes steamRise {
+
+    0% {
+
+        transform:
+            translateY(15px)
+            translateX(0)
+            rotate(-5deg);
+
+        opacity: 0;
+    }
+
+    25% {
+
+        opacity: 0.7;
+    }
+
+    50% {
+
+        transform:
+            translateY(-15px)
+            translateX(8px)
+            rotate(8deg);
+
+        opacity: 0.5;
+    }
+
+    75% {
+
+        opacity: 0.25;
+    }
+
+    100% {
+
+        transform:
+            translateY(-65px)
+            translateX(-5px)
+            rotate(-8deg);
+
+        opacity: 0;
+    }
+}
+
+
 /* ================================
    MUSIC WAVE
 ================================ */
 
 #visualizer {
+
     position: fixed;
 
     left: 50%;
@@ -208,8 +437,6 @@ main {
     z-index: 7;
 
     pointer-events: none;
-
-    display: block;
 }
 
 
@@ -218,10 +445,10 @@ main {
 ================================ */
 
 .player {
+
     position: fixed;
 
     bottom: 0;
-
     left: 0;
 
     width: 100%;
@@ -238,18 +465,16 @@ main {
 
     padding: 15px 25px;
 
-    background: rgba(15,9,6,0.94);
+    background:
+        rgba(15,9,6,0.94);
 
     backdrop-filter: blur(12px);
 
-    -webkit-backdrop-filter: blur(12px);
-
     border-top:
-        1px solid rgba(255,255,255,0.15);
+        1px solid
+        rgba(255,255,255,0.15);
 
     z-index: 10;
-
-    transition: 0.3s ease;
 }
 
 
@@ -258,6 +483,7 @@ main {
 ================================ */
 
 .current-song {
+
     display: flex;
 
     align-items: center;
@@ -271,24 +497,24 @@ main {
 
 
 .current-song img {
-    width: 55px;
 
+    width: 55px;
     height: 55px;
 
     border-radius: 7px;
 
     object-fit: cover;
-
-    flex-shrink: 0;
 }
 
 
 .current-song b {
+
     display: block;
 }
 
 
 .current-song small {
+
     display: block;
 
     margin-top: 5px;
@@ -302,15 +528,15 @@ main {
 ================================ */
 
 .controls {
-    width: 50%;
 
-    min-width: 0;
+    width: 50%;
 
     text-align: center;
 }
 
 
 .buttons button {
+
     background: transparent;
 
     border: none;
@@ -325,14 +551,9 @@ main {
 }
 
 
-.buttons button:hover {
-    opacity: 0.75;
-}
-
-
 #playBtn {
-    width: 42px;
 
+    width: 42px;
     height: 42px;
 
     border-radius: 50%;
@@ -350,6 +571,7 @@ main {
 ================================ */
 
 .progress-area {
+
     display: flex;
 
     align-items: center;
@@ -361,18 +583,16 @@ main {
 
 
 .progress-area span {
+
     font-size: 12px;
 
     color: #aaa;
-
-    white-space: nowrap;
 }
 
 
 #progress {
-    width: 100%;
 
-    min-width: 0;
+    width: 100%;
 
     cursor: pointer;
 
@@ -385,6 +605,7 @@ main {
 ================================ */
 
 .volume {
+
     width: 20%;
 
     display: flex;
@@ -398,6 +619,7 @@ main {
 
 
 #volume {
+
     width: 100px;
 
     cursor: pointer;
@@ -411,21 +633,22 @@ main {
 ================================ */
 
 body.light-theme .player {
-    background: rgba(255,255,255,0.94);
+
+    background:
+        rgba(255,255,255,0.94);
 
     color: #222;
-
-    border-top:
-        1px solid rgba(0,0,0,0.15);
 }
 
 
 body.light-theme .buttons button {
+
     color: #222;
 }
 
 
 body.light-theme #playBtn {
+
     background: #222;
 
     color: white;
@@ -433,26 +656,28 @@ body.light-theme #playBtn {
 
 
 body.light-theme .current-song small {
+
     color: #555;
 }
 
 
 body.light-theme .progress-area span {
+
     color: #555;
 }
 
 
 body.light-theme #onlineCounter {
-    background: rgba(255,255,255,0.9);
+
+    background:
+        rgba(255,255,255,0.9);
 
     color: #222;
-
-    border:
-        1px solid rgba(0,0,0,0.15);
 }
 
 
 body.light-theme #themeToggle {
+
     background: white !important;
 
     color: #222 !important;
@@ -468,6 +693,7 @@ body.light-theme #themeToggle {
 @media (max-width:700px) {
 
     .sidebar {
+
         width: 180px;
 
         padding: 20px 12px;
@@ -475,18 +701,33 @@ body.light-theme #themeToggle {
 
 
     .sidebar h1 {
+
         font-size: 20px;
     }
 
 
     main {
+
         margin-left: 180px;
 
         padding: 110px 15px 130px;
     }
 
 
+    .coffee-animation {
+
+        left: 5px;
+
+        bottom: 110px;
+
+        transform: scale(0.75);
+
+        transform-origin: bottom left;
+    }
+
+
     .player {
+
         padding: 12px;
 
         gap: 8px;
@@ -496,6 +737,7 @@ body.light-theme #themeToggle {
 
 
     .current-song {
+
         width: 35%;
 
         gap: 7px;
@@ -503,28 +745,32 @@ body.light-theme #themeToggle {
 
 
     .current-song img {
-        width: 40px;
 
+        width: 40px;
         height: 40px;
     }
 
 
     .current-song b {
+
         font-size: 12px;
     }
 
 
     .current-song small {
+
         font-size: 10px;
     }
 
 
     .controls {
+
         width: 65%;
     }
 
 
     .buttons button {
+
         font-size: 17px;
 
         margin: 0 5px;
@@ -532,18 +778,20 @@ body.light-theme #themeToggle {
 
 
     #playBtn {
-        width: 34px;
 
+        width: 34px;
         height: 34px;
     }
 
 
     .volume {
+
         display: none;
     }
 
 
     #onlineCounter {
+
         top: 12px;
 
         font-size: 12px;
@@ -551,6 +799,7 @@ body.light-theme #themeToggle {
 
 
     #liveClock {
+
         top: 48px;
 
         font-size: 15px;
@@ -558,6 +807,7 @@ body.light-theme #themeToggle {
 
 
     #themeToggle {
+
         top: 12px !important;
 
         right: 12px !important;
@@ -571,6 +821,7 @@ body.light-theme #themeToggle {
 
 
     #visualizer {
+
         width: 90%;
 
         height: 90px;

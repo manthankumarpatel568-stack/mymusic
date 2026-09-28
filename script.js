@@ -118,10 +118,8 @@ function updateClock() {
             ? "PM"
             : "AM";
 
-
     hours =
         hours % 12;
-
 
     if (hours === 0) {
 
@@ -129,24 +127,20 @@ function updateClock() {
 
     }
 
-
     minutes =
         minutes
             .toString()
             .padStart(2, "0");
-
 
     seconds =
         seconds
             .toString()
             .padStart(2, "0");
 
-
     const clock =
         document.getElementById(
             "liveClock"
         );
-
 
     if (clock) {
 
@@ -157,9 +151,7 @@ function updateClock() {
 
 }
 
-
 updateClock();
-
 
 setInterval(
     updateClock,
@@ -185,92 +177,56 @@ const songs = [
         title: "Be Intehaan",
         artist: "Atif Aslam",
         file: "song2.mp3",
-        image:
-            "https://picsum.photos/60?random=2"
+        image: "https://picsum.photos/60?random=2"
     },
 
-
     {
-        title:
-            "Darkhast X Monsoon Mashup",
-        artist:
-            "Artist Name",
-        file:
-            "song3.mp3",
-        image:
-            "https://picsum.photos/60?random=3"
+        title: "Darkhast X Monsoon Mashup",
+        artist: "Artist Name",
+        file: "song3.mp3",
+        image: "https://picsum.photos/60?random=3"
     },
 
-
     {
-        title:
-            "Woh Lamhe",
-        artist:
-            "Atif Aslam",
-        file:
-            "song4.mp3",
-        image:
-            "https://picsum.photos/60?random=4"
+        title: "Woh Lamhe",
+        artist: "Atif Aslam",
+        file: "song4.mp3",
+        image: "https://picsum.photos/60?random=4"
     },
 
-
     {
-        title:
-            "Song 5",
-        artist:
-            "Artist 5",
-        file:
-            "song5.mp3",
-        image:
-            "https://picsum.photos/60?random=5"
+        title: "Song 5",
+        artist: "Artist 5",
+        file: "song5.mp3",
+        image: "https://picsum.photos/60?random=5"
     },
 
-
     {
-        title:
-            "Song 6",
-        artist:
-            "Artist 6",
-        file:
-            "song6.mp3",
-        image:
-            "https://picsum.photos/60?random=6"
+        title: "Song 6",
+        artist: "Artist 6",
+        file: "song6.mp3",
+        image: "https://picsum.photos/60?random=6"
     },
 
-
     {
-        title:
-            "Song 7",
-        artist:
-            "Artist 7",
-        file:
-            "song7.mp3",
-        image:
-            "https://picsum.photos/60?random=7"
+        title: "Song 7",
+        artist: "Artist 7",
+        file: "song7.mp3",
+        image: "https://picsum.photos/60?random=7"
     },
 
-
     {
-        title:
-            "Song 8",
-        artist:
-            "Artist 8",
-        file:
-            "song8.mp3",
-        image:
-            "https://picsum.photos/60?random=8"
+        title: "Song 8",
+        artist: "Artist 8",
+        file: "song8.mp3",
+        image: "https://picsum.photos/60?random=8"
     },
 
-
     {
-        title:
-            "Song 9",
-        artist:
-            "Artist 9",
-        file:
-            "song9.mp3",
-        image:
-            "https://picsum.photos/60?random=9"
+        title: "Song 9",
+        artist: "Artist 9",
+        file: "song9.mp3",
+        image: "https://picsum.photos/60?random=9"
     }
 
 ];
@@ -280,14 +236,13 @@ let currentSong = 0;
 
 
 /* =====================================
-   VISUALIZER
+   EQUALIZER CANVAS
 ===================================== */
 
 const canvas =
     document.getElementById(
         "visualizer"
     );
-
 
 const ctx =
     canvas.getContext("2d");
@@ -311,22 +266,17 @@ function resizeCanvas() {
     const ratio =
         window.devicePixelRatio || 1;
 
-
     const width =
         canvas.clientWidth;
-
 
     const height =
         canvas.clientHeight;
 
-
     canvas.width =
         width * ratio;
 
-
     canvas.height =
         height * ratio;
-
 
     ctx.setTransform(
         ratio,
@@ -361,13 +311,11 @@ function setupVisualizer() {
 
     }
 
-
     try {
 
         const AudioContext =
             window.AudioContext ||
             window.webkitAudioContext;
-
 
         if (!AudioContext) {
 
@@ -379,30 +327,23 @@ function setupVisualizer() {
 
         }
 
-
         audioContext =
             new AudioContext();
-
 
         analyser =
             audioContext.createAnalyser();
 
 
-        /*
-           HIGH FFT SIZE
-           Gives smoother data
-        */
+        /* AUDIO DATA */
 
         analyser.fftSize =
-            1024;
+            256;
 
 
-        /*
-           HIGH SMOOTHING
-        */
+        /* SMOOTH MOVEMENT */
 
         analyser.smoothingTimeConstant =
-            0.97;
+            0.82;
 
 
         audioSource =
@@ -410,11 +351,9 @@ function setupVisualizer() {
                 audio
             );
 
-
         audioSource.connect(
             analyser
         );
-
 
         analyser.connect(
             audioContext.destination
@@ -424,7 +363,7 @@ function setupVisualizer() {
         visualizerReady = true;
 
 
-        drawWave();
+        drawEqualizer();
 
 
         return true;
@@ -437,7 +376,6 @@ function setupVisualizer() {
             error
         );
 
-
         return false;
 
     }
@@ -446,19 +384,18 @@ function setupVisualizer() {
 
 
 /* =====================================
-   FINAL CLEAN WAVE
+   MUSIC EQUALIZER
 ===================================== */
 
-function drawWave() {
+function drawEqualizer() {
 
     requestAnimationFrame(
-        drawWave
+        drawEqualizer
     );
 
 
     const width =
         canvas.clientWidth;
-
 
     const height =
         canvas.clientHeight;
@@ -480,11 +417,11 @@ function drawWave() {
 
 
     /* =================================
-       AUDIO DATA
+       FREQUENCY DATA
     ================================= */
 
     const bufferLength =
-        analyser.fftSize;
+        analyser.frequencyBinCount;
 
 
     const dataArray =
@@ -493,263 +430,171 @@ function drawWave() {
         );
 
 
-    analyser.getByteTimeDomainData(
+    analyser.getByteFrequencyData(
         dataArray
     );
 
 
     /* =================================
-       REDUCE POINTS
-       This prevents ugly zig-zags
+       NUMBER OF BARS
     ================================= */
 
-    const points = 70;
+    const bars = 45;
 
 
-    const values = [];
+    const gap = 5;
 
 
-    const samplesPerPoint =
-        Math.floor(
-            bufferLength / points
-        );
+    const barWidth =
+        (
+            width -
+            (bars - 1) * gap
+        ) / bars;
 
+
+    /* =================================
+       DRAW BARS
+    ================================= */
 
     for (
         let i = 0;
-        i < points;
+        i < bars;
         i++
     ) {
 
-        let total = 0;
+        /*
+           Pick frequency data
+        */
 
-        let count = 0;
-
-
-        for (
-            let j = 0;
-            j < samplesPerPoint;
-            j++
-        ) {
-
-            const index =
+        const dataIndex =
+            Math.floor(
                 i *
-                samplesPerPoint +
-                j;
+                bufferLength /
+                bars
+            );
 
 
-            if (
-                index <
-                bufferLength
-            ) {
-
-                total +=
-                    dataArray[index];
-
-                count++;
-
-            }
-
-        }
+        const value =
+            dataArray[dataIndex] || 0;
 
 
-        values.push(
-            total / count
-        );
+        /*
+           Minimum height
+        */
 
-    }
-
-
-    /* =================================
-       EXTRA SMOOTHING
-    ================================= */
-
-    const smoothValues = [];
+        const minHeight = 4;
 
 
-    for (
-        let i = 0;
-        i < values.length;
-        i++
-    ) {
+        /*
+           Maximum height
+        */
 
-        let total = 0;
-
-        let count = 0;
+        const maxHeight =
+            height * 0.85;
 
 
-        for (
-            let j = -2;
-            j <= 2;
-            j++
-        ) {
-
-            const index =
-                i + j;
-
-
-            if (
-                index >= 0 &&
-                index < values.length
-            ) {
-
-                total +=
-                    values[index];
-
-                count++;
-
-            }
-
-        }
-
-
-        smoothValues.push(
-            total / count
-        );
-
-    }
-
-
-    /* =================================
-       DRAW SINGLE WAVE
-    ================================= */
-
-    ctx.beginPath();
-
-
-    const centerY =
-        height / 2;
-
-
-    const amplitude =
-        height * 0.18;
-
-
-    const step =
-        width /
-        (smoothValues.length - 1);
-
-
-    for (
-        let i = 0;
-        i < smoothValues.length;
-        i++
-    ) {
-
-        const normalized =
+        let barHeight =
             (
-                smoothValues[i] -
-                128
-            ) / 128;
+                value / 255
+            ) *
+            maxHeight;
 
+
+        /*
+           Keep bars visible
+        */
+
+        barHeight =
+            Math.max(
+                minHeight,
+                barHeight
+            );
+
+
+        /*
+           Center the equalizer
+        */
 
         const x =
-            i * step;
+            i *
+            (barWidth + gap);
 
 
         const y =
-            centerY +
-            normalized *
-            amplitude;
+            (
+                height -
+                barHeight
+            ) / 2;
 
 
-        if (i === 0) {
+        /* =================================
+           BAR STYLE
+        ================================= */
 
-            ctx.moveTo(
-                x,
-                y
+        ctx.beginPath();
+
+
+        /*
+           Rounded bars
+        */
+
+        const radius =
+            Math.min(
+                barWidth / 2,
+                5
             );
+
+
+        ctx.roundRect(
+            x,
+            y,
+            barWidth,
+            barHeight,
+            radius
+        );
+
+
+        /* =================================
+           COLOR
+        ================================= */
+
+        if (
+            document.body.classList.contains(
+                "light-theme"
+            )
+        ) {
+
+            ctx.fillStyle =
+                "rgba(25,25,25,0.75)";
+
+            ctx.shadowColor =
+                "rgba(0,0,0,0.25)";
 
         }
         else {
 
-            const previousX =
-                (i - 1) * step;
+            ctx.fillStyle =
+                "rgba(255,255,255,0.9)";
 
-
-            const previousNormalized =
-                (
-                    smoothValues[i - 1] -
-                    128
-                ) / 128;
-
-
-            const previousY =
-                centerY +
-                previousNormalized *
-                amplitude;
-
-
-            const controlX =
-                (
-                    previousX +
-                    x
-                ) / 2;
-
-
-            ctx.quadraticCurveTo(
-                controlX,
-                previousY,
-                x,
-                y
-            );
+            ctx.shadowColor =
+                "rgba(255,255,255,0.5)";
 
         }
 
-    }
+
+        /*
+           Soft glow
+        */
+
+        ctx.shadowBlur = 7;
 
 
-    /* =================================
-       WAVE STYLE
-    ================================= */
-
-    ctx.lineWidth =
-        2;
+        ctx.fill();
 
 
-    ctx.lineCap =
-        "round";
-
-
-    ctx.lineJoin =
-        "round";
-
-
-    if (
-        document.body.classList.contains(
-            "light-theme"
-        )
-    ) {
-
-        ctx.strokeStyle =
-            "rgba(25,25,25,0.65)";
-
-
-        ctx.shadowColor =
-            "rgba(0,0,0,0.20)";
+        ctx.shadowBlur = 0;
 
     }
-    else {
-
-        ctx.strokeStyle =
-            "rgba(255,255,255,0.75)";
-
-
-        ctx.shadowColor =
-            "rgba(255,255,255,0.35)";
-
-    }
-
-
-    ctx.shadowBlur =
-        5;
-
-
-    ctx.stroke();
-
-
-    ctx.shadowBlur =
-        0;
 
 }
 
@@ -787,12 +632,10 @@ function playSong(index) {
             "songTitle"
         );
 
-
     const artist =
         document.getElementById(
             "artist"
         );
-
 
     const image =
         document.getElementById(
@@ -947,7 +790,7 @@ function previousSong() {
 
 
 /* =====================================
-   PROGRESS UPDATE
+   PROGRESS
 ===================================== */
 
 audio.addEventListener(
@@ -997,7 +840,7 @@ audio.addEventListener(
 
 
 /* =====================================
-   SONG DURATION
+   DURATION
 ===================================== */
 
 audio.addEventListener(
@@ -1152,9 +995,7 @@ audio.addEventListener(
    FORMAT TIME
 ===================================== */
 
-function formatTime(
-    seconds
-) {
+function formatTime(seconds) {
 
     if (
         !Number.isFinite(

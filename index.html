@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,79 +14,49 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-
         <h1>☕ Cafe Beats</h1>
-
     </aside>
-
 
     <!-- MAIN CONTENT -->
     <main>
+        <!-- ONLINE COUNTER -->
+        <div id="onlineCounter">
+            🟢 <span id="onlineCount">0</span> Online
+        </div>
 
         <header>
             <h2>Good Afternoon 👋</h2>
             <p>Listen to your favourite music</p>
         </header>
-
     </main>
-
 
     <!-- MUSIC PLAYER -->
     <div class="player">
 
-        <!-- CURRENT SONG -->
         <div class="current-song">
-
             <img
                 id="playerImage"
                 src="https://picsum.photos/60?random=2"
-                alt="Cover"
+                alt="Song cover"
             >
 
             <div>
-
-                <b id="songTitle">
-                    Be Intehaan
-                </b>
-
-                <small id="artist">
-                    Atif Aslam
-                </small>
-
+                <b id="songTitle">Be Intehaan</b>
+                <small id="artist">Atif Aslam</small>
             </div>
-
         </div>
-
 
         <!-- PLAYER CONTROLS -->
         <div class="controls">
 
             <div class="buttons">
-
-                <button onclick="previousSong()">
-                    ⏮
-                </button>
-
-                <button
-                    id="playBtn"
-                    onclick="togglePlay()"
-                >
-                    ▶
-                </button>
-
-                <button onclick="nextSong()">
-                    ⏭
-                </button>
-
+                <button onclick="previousSong()" aria-label="Previous song">⏮</button>
+                <button id="playBtn" onclick="togglePlay()" aria-label="Play or pause">▶</button>
+                <button onclick="nextSong()" aria-label="Next song">⏭</button>
             </div>
 
-
-            <!-- PROGRESS BAR -->
             <div class="progress-area">
-
-                <span id="currentTime">
-                    0:00
-                </span>
+                <span id="currentTime">0:00</span>
 
                 <input
                     type="range"
@@ -94,22 +64,17 @@
                     value="0"
                     min="0"
                     max="100"
+                    aria-label="Song progress"
                 >
 
-                <span id="duration">
-                    0:00
-                </span>
-
+                <span id="duration">0:00</span>
             </div>
 
         </div>
 
-
         <!-- VOLUME -->
         <div class="volume">
-
             🔊
-
             <input
                 type="range"
                 id="volume"
@@ -117,20 +82,21 @@
                 max="1"
                 step="0.01"
                 value="1"
+                aria-label="Volume"
             >
-
         </div>
 
     </div>
 
-
     <!-- AUDIO -->
     <audio id="audio"></audio>
 
+    <!-- FIREBASE LIBRARIES -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-    <!-- JAVASCRIPT -->
+    <!-- WEBSITE JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>
-
 </html>

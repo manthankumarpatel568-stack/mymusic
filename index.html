@@ -2,87 +2,55 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>MyMusic</title>
+    <title>Cafe Beats</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
-
     <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
         <h1>☕ Cafe Beats</h1>
 
-        <div class="menu">
-
-            <p>🏠 Home</p>
-
-            <p>🔍 Search</p>
-
-            <p>📚 Your Library</p>
-
-            <p>❤️ Favorites</p>
-
-        </div>
-
     </aside>
 
 
-
     <!-- MAIN CONTENT -->
-
     <main>
 
         <header>
-
             <h2>Good Afternoon 👋</h2>
-
-            <p>
-                Listen to your favourite music
-            </p>
-
+            <p>Listen to your favourite music</p>
         </header>
 
     </main>
 
 
-
     <!-- MUSIC PLAYER -->
-
     <div class="player">
 
-
         <!-- CURRENT SONG -->
-
         <div class="current-song">
 
             <img
                 id="playerImage"
-                src="https://picsum.photos/60?random=1"
+                src="https://picsum.photos/60?random=2"
                 alt="Cover"
             >
 
             <div>
 
                 <b id="songTitle">
-                    My First Song
+                    Be Intehaan
                 </b>
 
                 <small id="artist">
-                    Artist Name
+                    Atif Aslam
                 </small>
 
             </div>
@@ -90,9 +58,7 @@
         </div>
 
 
-
         <!-- PLAYER CONTROLS -->
-
         <div class="controls">
 
             <div class="buttons">
@@ -101,14 +67,12 @@
                     ⏮
                 </button>
 
-
                 <button
                     id="playBtn"
                     onclick="togglePlay()"
                 >
                     ▶
                 </button>
-
 
                 <button onclick="nextSong()">
                     ⏭
@@ -117,15 +81,12 @@
             </div>
 
 
-
             <!-- PROGRESS BAR -->
-
             <div class="progress-area">
 
                 <span id="currentTime">
                     0:00
                 </span>
-
 
                 <input
                     type="range"
@@ -134,7 +95,6 @@
                     min="0"
                     max="100"
                 >
-
 
                 <span id="duration">
                     0:00
@@ -145,9 +105,7 @@
         </div>
 
 
-
         <!-- VOLUME -->
-
         <div class="volume">
 
             🔊
@@ -166,17 +124,12 @@
     </div>
 
 
-
     <!-- AUDIO -->
-
     <audio id="audio"></audio>
 
 
-
     <!-- JAVASCRIPT -->
-
     <script src="script.js"></script>
-
 
 </body>
 

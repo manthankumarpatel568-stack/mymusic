@@ -145,7 +145,7 @@ setInterval(
 
 
 /* =====================================
-   SONGS
+   MUSIC
 ===================================== */
 
 const audio =
@@ -177,66 +177,84 @@ const songs = [
     },
 
     {
-        title: "Woh Lamhe",
+        title:
+            "Woh Lamhe",
 
-        artist: "Atif Aslam",
+        artist:
+            "Atif Aslam",
 
-        file: "song4.mp3",
+        file:
+            "song4.mp3",
 
         image:
             "https://picsum.photos/60?random=4"
     },
 
     {
-        title: "Song 5",
+        title:
+            "Song 5",
 
-        artist: "Artist 5",
+        artist:
+            "Artist 5",
 
-        file: "song5.mp3",
+        file:
+            "song5.mp3",
 
         image:
             "https://picsum.photos/60?random=5"
     },
 
     {
-        title: "Song 6",
+        title:
+            "Song 6",
 
-        artist: "Artist 6",
+        artist:
+            "Artist 6",
 
-        file: "song6.mp3",
+        file:
+            "song6.mp3",
 
         image:
             "https://picsum.photos/60?random=6"
     },
 
     {
-        title: "Song 7",
+        title:
+            "Song 7",
 
-        artist: "Artist 7",
+        artist:
+            "Artist 7",
 
-        file: "song7.mp3",
+        file:
+            "song7.mp3",
 
         image:
             "https://picsum.photos/60?random=7"
     },
 
     {
-        title: "Song 8",
+        title:
+            "Song 8",
 
-        artist: "Artist 8",
+        artist:
+            "Artist 8",
 
-        file: "song8.mp3",
+        file:
+            "song8.mp3",
 
         image:
             "https://picsum.photos/60?random=8"
     },
 
     {
-        title: "Song 9",
+        title:
+            "Song 9",
 
-        artist: "Artist 9",
+        artist:
+            "Artist 9",
 
-        file: "song9.mp3",
+        file:
+            "song9.mp3",
 
         image:
             "https://picsum.photos/60?random=9"
@@ -246,6 +264,135 @@ const songs = [
 
 
 let currentSong = 0;
+
+
+/* =====================================
+   VISUALIZER
+===================================== */
+
+let audioContext = null;
+
+let analyser = null;
+
+let source = null;
+
+let visualizerStarted = false;
+
+
+function startVisualizer() {
+
+    if (visualizerStarted) {
+
+        return;
+    }
+
+    try {
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+        analyser =
+            audioContext.createAnalyser();
+
+        analyser.fftSize = 64;
+
+        source =
+            audioContext.createMediaElementSource(
+                audio
+            );
+
+        source.connect(analyser);
+
+        analyser.connect(
+            audioContext.destination
+        );
+
+        visualizerStarted = true;
+
+        animateVisualizer();
+
+    } catch (error) {
+
+        console.error(
+            "Visualizer error:",
+            error
+        );
+
+    }
+}
+
+
+function animateVisualizer() {
+
+    if (!analyser) {
+
+        return;
+    }
+
+    const data =
+        new Uint8Array(
+            analyser.frequencyBinCount
+        );
+
+    function animate() {
+
+        requestAnimationFrame(
+            animate
+        );
+
+        analyser.getByteFrequencyData(
+            data
+        );
+
+        const bars =
+            document.querySelectorAll(
+                ".visualizer .bar"
+            );
+
+        bars.forEach(
+            function(bar, index) {
+
+                const value =
+                    data[index] || 0;
+
+                const height =
+                    Math.max(
+                        8,
+                        (value / 255) * 85
+                    );
+
+                bar.style.height =
+                    height + "px";
+            }
+        );
+    }
+
+    animate();
+}
+
+
+audio.addEventListener(
+    "play",
+    function() {
+
+        if (!visualizerStarted) {
+
+            startVisualizer();
+        }
+
+        if (
+            audioContext &&
+            audioContext.state === "suspended"
+        ) {
+
+            audioContext.resume();
+        }
+
+    }
+);
 
 
 /* =====================================
@@ -322,7 +469,7 @@ function togglePlay() {
 
 
 /* =====================================
-   NEXT
+   NEXT SONG
 ===================================== */
 
 function nextSong() {
@@ -341,7 +488,7 @@ function nextSong() {
 
 
 /* =====================================
-   PREVIOUS
+   PREVIOUS SONG
 ===================================== */
 
 function previousSong() {

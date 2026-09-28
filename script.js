@@ -4,7 +4,7 @@
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyDFdJAqe-g1EXo5qPYlLkoXd23xVrt78S0",
+    apiKey: "AIzaSyDFdJAqe-g1EXo5qPYpLkoXd23xVrt78S0",
 
     authDomain:
         "cafe-beats-6ba81.firebaseapp.com",
@@ -28,14 +28,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
-const database =
-    firebase.database();
-
+const database = firebase.database();
 
 const onlineUsersRef =
     database.ref("onlineUsers");
-
 
 const connectedRef =
     database.ref(".info/connected");
@@ -51,7 +47,6 @@ connectedRef.on("value", function(snapshot) {
 
         const userRef =
             onlineUsersRef.push();
-
 
         userRef
             .onDisconnect()
@@ -79,12 +74,10 @@ onlineUsersRef.on("value", function(snapshot) {
     const count =
         snapshot.numChildren();
 
-
     const counter =
         document.getElementById(
             "onlineCount"
         );
-
 
     if (counter) {
 
@@ -101,49 +94,34 @@ onlineUsersRef.on("value", function(snapshot) {
 
 function updateClock() {
 
-    const now =
-        new Date();
+    const now = new Date();
 
+    let hours = now.getHours();
 
-    let hours =
-        now.getHours();
+    let minutes = now.getMinutes();
 
-
-    let minutes =
-        now.getMinutes();
-
-
-    let seconds =
-        now.getSeconds();
-
+    let seconds = now.getSeconds();
 
     let ampm =
         hours >= 12
             ? "PM"
             : "AM";
 
-
-    hours =
-        hours % 12;
-
+    hours = hours % 12;
 
     if (hours === 0) {
-
         hours = 12;
     }
-
 
     minutes =
         minutes
             .toString()
             .padStart(2, "0");
 
-
     seconds =
         seconds
             .toString()
             .padStart(2, "0");
-
 
     document.getElementById(
         "liveClock"
@@ -153,7 +131,6 @@ function updateClock() {
 
 
 updateClock();
-
 
 setInterval(
     updateClock,
@@ -173,15 +150,11 @@ const songs = [
 
     {
         title: "Be Intehaan",
-
         artist: "Atif Aslam",
-
         file: "song2.mp3",
-
         image:
             "https://picsum.photos/60?random=2"
     },
-
 
     {
         title:
@@ -197,74 +170,50 @@ const songs = [
             "https://picsum.photos/60?random=3"
     },
 
-
     {
         title: "Woh Lamhe",
-
         artist: "Atif Aslam",
-
         file: "song4.mp3",
-
         image:
             "https://picsum.photos/60?random=4"
     },
 
-
     {
         title: "Song 5",
-
         artist: "Artist 5",
-
         file: "song5.mp3",
-
         image:
             "https://picsum.photos/60?random=5"
     },
 
-
     {
         title: "Song 6",
-
         artist: "Artist 6",
-
         file: "song6.mp3",
-
         image:
             "https://picsum.photos/60?random=6"
     },
 
-
     {
         title: "Song 7",
-
         artist: "Artist 7",
-
         file: "song7.mp3",
-
         image:
             "https://picsum.photos/60?random=7"
     },
 
-
     {
         title: "Song 8",
-
         artist: "Artist 8",
-
         file: "song8.mp3",
-
         image:
             "https://picsum.photos/60?random=8"
     },
 
-
     {
         title: "Song 9",
-
         artist: "Artist 9",
-
         file: "song9.mp3",
-
         image:
             "https://picsum.photos/60?random=9"
     }
@@ -281,31 +230,25 @@ let currentSong = 0;
 
 function playSong(index) {
 
-    currentSong =
-        index;
-
+    currentSong = index;
 
     audio.src =
         songs[currentSong].file;
-
 
     document.getElementById(
         "songTitle"
     ).textContent =
         songs[currentSong].title;
 
-
     document.getElementById(
         "artist"
     ).textContent =
         songs[currentSong].artist;
 
-
     document.getElementById(
         "playerImage"
     ).src =
         songs[currentSong].image;
-
 
     audio.play()
         .then(function() {
@@ -323,7 +266,6 @@ function playSong(index) {
             );
 
         });
-
 }
 
 
@@ -345,7 +287,6 @@ function togglePlay() {
             return;
         }
 
-
         audio.play()
             .then(function() {
 
@@ -363,9 +304,7 @@ function togglePlay() {
 
             });
 
-    }
-
-    else {
+    } else {
 
         audio.pause();
 
@@ -373,7 +312,6 @@ function togglePlay() {
             "playBtn"
         ).textContent = "▶";
     }
-
 }
 
 
@@ -385,14 +323,12 @@ function nextSong() {
 
     currentSong++;
 
-
     if (
         currentSong >= songs.length
     ) {
 
         currentSong = 0;
     }
-
 
     playSong(currentSong);
 }
@@ -406,13 +342,11 @@ function previousSong() {
 
     currentSong--;
 
-
     if (currentSong < 0) {
 
         currentSong =
             songs.length - 1;
     }
-
 
     playSong(currentSong);
 }
@@ -431,7 +365,6 @@ audio.addEventListener(
                 "progress"
             );
 
-
         if (
             audio.duration &&
             Number.isFinite(
@@ -445,7 +378,6 @@ audio.addEventListener(
                     audio.duration
                 ) * 100;
         }
-
 
         document.getElementById(
             "currentTime"
@@ -576,18 +508,15 @@ function formatTime(seconds) {
         return "0:00";
     }
 
-
     const minutes =
         Math.floor(
             seconds / 60
         );
 
-
     let secs =
         Math.floor(
             seconds % 60
         );
-
 
     if (secs < 10) {
 
@@ -595,10 +524,39 @@ function formatTime(seconds) {
             "0" + secs;
     }
 
-
     return (
         minutes +
         ":" +
         secs
     );
+}
+
+
+/* =====================================
+   DARK / LIGHT THEME
+===================================== */
+
+function toggleTheme() {
+
+    document.body.classList.toggle(
+        "light-theme"
+    );
+
+    const button =
+        document.getElementById(
+            "themeToggle"
+        );
+
+    if (
+        document.body.classList.contains(
+            "light-theme"
+        )
+    ) {
+
+        button.textContent = "🌙";
+
+    } else {
+
+        button.textContent = "☀️";
+    }
 }

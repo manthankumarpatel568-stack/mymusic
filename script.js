@@ -2,13 +2,6 @@ const audio = document.getElementById("audio");
 
 const songs = [
     {
-        title: "My First Song",
-        artist: "Artist Name",
-        file: "song1.mp3",
-        image: "https://picsum.photos/60?random=1"
-    },
-
-    {
         title: "Be Intehaan",
         artist: "Atif Aslam",
         file: "song2.mp3",
@@ -30,35 +23,35 @@ const songs = [
     },
 
     {
-        title: "Jenna Jenna",
+        title: "Song 5",
         artist: "Artist 5",
         file: "song5.mp3",
         image: "https://picsum.photos/60?random=5"
     },
 
     {
-        title: "Pehli Dafa",
+        title: "Song 6",
         artist: "Artist 6",
         file: "song6.mp3",
         image: "https://picsum.photos/60?random=6"
     },
 
     {
-        title: "O Satthi",
+        title: "Song 7",
         artist: "Artist 7",
         file: "song7.mp3",
         image: "https://picsum.photos/60?random=7"
     },
 
     {
-        title: "Shyad",
+        title: "Song 8",
         artist: "Artist 8",
         file: "song8.mp3",
         image: "https://picsum.photos/60?random=8"
     },
 
     {
-        title: "Channa Mereya",
+        title: "Song 9",
         artist: "Artist 9",
         file: "song9.mp3",
         image: "https://picsum.photos/60?random=9"
@@ -67,10 +60,8 @@ const songs = [
 
 let currentSong = 0;
 
-
 // PLAY SONG
 function playSong(index) {
-
     currentSong = index;
 
     audio.src = songs[currentSong].file;
@@ -89,29 +80,19 @@ function playSong(index) {
     document.getElementById("playBtn").textContent = "⏸";
 }
 
-
 // PLAY / PAUSE
 function togglePlay() {
-
     if (audio.paused) {
-
         audio.play();
-
         document.getElementById("playBtn").textContent = "⏸";
-
     } else {
-
         audio.pause();
-
         document.getElementById("playBtn").textContent = "▶";
-
     }
 }
 
-
 // NEXT SONG
 function nextSong() {
-
     currentSong++;
 
     if (currentSong >= songs.length) {
@@ -121,10 +102,8 @@ function nextSong() {
     playSong(currentSong);
 }
 
-
 // PREVIOUS SONG
 function previousSong() {
-
     currentSong--;
 
     if (currentSong < 0) {
@@ -134,24 +113,19 @@ function previousSong() {
     playSong(currentSong);
 }
 
-
 // PROGRESS
 audio.addEventListener("timeupdate", function () {
 
     const progress = document.getElementById("progress");
 
     if (audio.duration) {
-
         progress.value =
             (audio.currentTime / audio.duration) * 100;
-
     }
 
     document.getElementById("currentTime").textContent =
         formatTime(audio.currentTime);
-
 });
-
 
 // DURATION
 audio.addEventListener("loadedmetadata", function () {
@@ -161,22 +135,18 @@ audio.addEventListener("loadedmetadata", function () {
 
 });
 
-
 // PROGRESS BAR
 document.getElementById("progress").addEventListener(
     "input",
     function () {
 
         if (audio.duration) {
-
             audio.currentTime =
                 (this.value / 100) * audio.duration;
-
         }
 
     }
 );
-
 
 // VOLUME
 document.getElementById("volume").addEventListener(
@@ -188,14 +158,10 @@ document.getElementById("volume").addEventListener(
     }
 );
 
-
 // SONG ENDED
 audio.addEventListener("ended", function () {
-
     nextSong();
-
 });
-
 
 // FORMAT TIME
 function formatTime(seconds) {

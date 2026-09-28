@@ -26,6 +26,7 @@ const firebaseConfig = {
 };
 
 
+
 /* =====================================
    START FIREBASE
 ===================================== */
@@ -40,6 +41,7 @@ const onlineUsersRef =
 
 const connectedRef =
     database.ref(".info/connected");
+
 
 
 /* =====================================
@@ -92,6 +94,7 @@ onlineUsersRef.on("value", function(snapshot) {
     }
 
 });
+
 
 
 /* =====================================
@@ -159,12 +162,14 @@ setInterval(
 );
 
 
+
 /* =====================================
    AUDIO
 ===================================== */
 
 const audio =
     document.getElementById("audio");
+
 
 
 /* =====================================
@@ -281,6 +286,7 @@ const songs = [
 let currentSong = 0;
 
 
+
 /* =====================================
    CANVAS VISUALIZER
 ===================================== */
@@ -301,6 +307,7 @@ let analyser = null;
 let audioSource = null;
 
 let visualizerReady = false;
+
 
 
 /* =====================================
@@ -345,6 +352,7 @@ window.addEventListener(
 );
 
 
+
 /* =====================================
    SETUP VISUALIZER
 ===================================== */
@@ -383,17 +391,8 @@ function setupVisualizer() {
             audioContext.createAnalyser();
 
 
-        /*
-           MORE DATA POINTS
-           = SMOOTHER WAVE
-        */
-
         analyser.fftSize = 1024;
 
-
-        /*
-           HIGH SMOOTHING
-        */
 
         analyser.smoothingTimeConstant =
             0.97;
@@ -438,6 +437,7 @@ function setupVisualizer() {
 }
 
 
+
 /* =====================================
    CLEAN SMOOTH WAVE
 ===================================== */
@@ -471,10 +471,6 @@ function drawWave() {
     }
 
 
-    /* =================================
-       AUDIO DATA
-    ================================= */
-
     const bufferLength =
         analyser.fftSize;
 
@@ -489,11 +485,6 @@ function drawWave() {
         dataArray
     );
 
-
-    /* =================================
-       REDUCE DATA POINTS
-       FOR CLEAN WAVE
-    ================================= */
 
     const points = 70;
 
@@ -549,18 +540,9 @@ function drawWave() {
     }
 
 
-    /* =================================
-       WAVE SETTINGS
-    ================================= */
-
     const centerY =
         height / 2;
 
-
-    /*
-       LOW AMPLITUDE
-       = LESS MESSY
-    */
 
     const amplitude =
         height * 0.20;
@@ -570,10 +552,6 @@ function drawWave() {
         width /
         (points - 1);
 
-
-    /* =================================
-       DRAW SINGLE WAVE
-    ================================= */
 
     ctx.beginPath();
 
@@ -643,10 +621,6 @@ function drawWave() {
     }
 
 
-    /* =================================
-       WAVE STYLE
-    ================================= */
-
     ctx.lineWidth = 2.5;
 
     ctx.lineCap =
@@ -689,6 +663,7 @@ function drawWave() {
     ctx.shadowBlur = 0;
 
 }
+
 
 
 /* =====================================
@@ -774,6 +749,7 @@ function playSong(index) {
 }
 
 
+
 /* =====================================
    PLAY / PAUSE
 ===================================== */
@@ -831,6 +807,7 @@ function togglePlay() {
 }
 
 
+
 /* =====================================
    NEXT SONG
 ===================================== */
@@ -839,10 +816,6 @@ function nextSong() {
 
     currentSong++;
 
-
-    /*
-       LAST SONG IS SONG 8
-    */
 
     if (
         currentSong >=
@@ -859,6 +832,7 @@ function nextSong() {
     );
 
 }
+
 
 
 /* =====================================
@@ -885,6 +859,7 @@ function previousSong() {
     );
 
 }
+
 
 
 /* =====================================
@@ -937,6 +912,7 @@ audio.addEventListener(
 );
 
 
+
 /* =====================================
    DURATION
 ===================================== */
@@ -962,6 +938,7 @@ audio.addEventListener(
 
     }
 );
+
 
 
 /* =====================================
@@ -1002,6 +979,7 @@ if (progressBar) {
 }
 
 
+
 /* =====================================
    VOLUME
 ===================================== */
@@ -1029,6 +1007,7 @@ if (volume) {
 }
 
 
+
 /* =====================================
    SONG ENDED
 ===================================== */
@@ -1041,6 +1020,7 @@ audio.addEventListener(
 
     }
 );
+
 
 
 /* =====================================
@@ -1089,6 +1069,7 @@ audio.addEventListener(
 );
 
 
+
 /* =====================================
    FORMAT TIME
 ===================================== */
@@ -1135,6 +1116,7 @@ function formatTime(seconds) {
 }
 
 
+
 /* =====================================
    DARK / LIGHT THEME
 ===================================== */
@@ -1175,5 +1157,133 @@ function toggleTheme() {
             "☀️";
 
     }
+
+}
+
+
+
+/* =====================================
+   SLEEP TIMER
+===================================== */
+
+let sleepTimer = null;
+
+let sleepEndTime = null;
+
+
+/* =====================================
+   SET SLEEP TIMER
+===================================== */
+
+function setSleepTimer() {
+
+    const select =
+        document.getElementById(
+            "sleepTime"
+        );
+
+    const status =
+        document.getElementById(
+            "sleepStatus"
+        );
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    const minutes =
+        Number(
+            select.value
+        );
+
+
+    /* ================================
+       CANCEL OLD TIMER
+    ================================= */
+
+    if (sleepTimer) {
+
+        clearTimeout(
+            sleepTimer
+        );
+
+        sleepTimer = null;
+
+    }
+
+
+    /* ================================
+       TIMER OFF
+    ================================= */
+
+    if (minutes === 0) {
+
+        sleepEndTime = null;
+
+        if (status) {
+
+            status.textContent =
+                "";
+
+        }
+
+        return;
+
+    }
+
+
+    /* ================================
+       SET END TIME
+    ================================= */
+
+    sleepEndTime =
+        Date.now() +
+        minutes * 60 * 1000;
+
+
+    if (status) {
+
+        status.textContent =
+            `⏱️ ${minutes} min`;
+
+    }
+
+
+    /* ================================
+       START TIMER
+    ================================= */
+
+    sleepTimer =
+        setTimeout(
+            function() {
+
+                audio.pause();
+
+                audio.currentTime = 0;
+
+
+                if (status) {
+
+                    status.textContent =
+                        "😴 Music stopped";
+
+                }
+
+
+                select.value =
+                    "0";
+
+
+                sleepTimer = null;
+
+                sleepEndTime = null;
+
+            },
+            minutes * 60 * 1000
+        );
 
 }

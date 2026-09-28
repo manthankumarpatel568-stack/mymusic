@@ -27,7 +27,7 @@ const firebaseConfig = {
 
 
 /* =====================================
-   START FIREBASE
+   FIREBASE START
 ===================================== */
 
 firebase.initializeApp(firebaseConfig);
@@ -69,6 +69,7 @@ connectedRef.on("value", function(snapshot) {
                 );
 
             });
+
     }
 
 });
@@ -117,8 +118,10 @@ function updateClock() {
             ? "PM"
             : "AM";
 
+
     hours =
         hours % 12;
+
 
     if (hours === 0) {
 
@@ -126,20 +129,24 @@ function updateClock() {
 
     }
 
+
     minutes =
         minutes
             .toString()
             .padStart(2, "0");
+
 
     seconds =
         seconds
             .toString()
             .padStart(2, "0");
 
+
     const clock =
         document.getElementById(
             "liveClock"
         );
+
 
     if (clock) {
 
@@ -152,6 +159,7 @@ function updateClock() {
 
 
 updateClock();
+
 
 setInterval(
     updateClock,
@@ -177,56 +185,92 @@ const songs = [
         title: "Be Intehaan",
         artist: "Atif Aslam",
         file: "song2.mp3",
-        image: "https://picsum.photos/60?random=2"
+        image:
+            "https://picsum.photos/60?random=2"
     },
 
-    {
-        title: "Darkhast X Monsoon Mashup",
-        artist: "Artist Name",
-        file: "song3.mp3",
-        image: "https://picsum.photos/60?random=3"
-    },
 
     {
-        title: "Woh Lamhe",
-        artist: "Atif Aslam",
-        file: "song4.mp3",
-        image: "https://picsum.photos/60?random=4"
+        title:
+            "Darkhast X Monsoon Mashup",
+        artist:
+            "Artist Name",
+        file:
+            "song3.mp3",
+        image:
+            "https://picsum.photos/60?random=3"
     },
 
-    {
-        title: "Song 5",
-        artist: "Artist 5",
-        file: "song5.mp3",
-        image: "https://picsum.photos/60?random=5"
-    },
 
     {
-        title: "Song 6",
-        artist: "Artist 6",
-        file: "song6.mp3",
-        image: "https://picsum.photos/60?random=6"
+        title:
+            "Woh Lamhe",
+        artist:
+            "Atif Aslam",
+        file:
+            "song4.mp3",
+        image:
+            "https://picsum.photos/60?random=4"
     },
 
-    {
-        title: "Song 7",
-        artist: "Artist 7",
-        file: "song7.mp3",
-        image: "https://picsum.photos/60?random=7"
-    },
 
     {
-        title: "Song 8",
-        artist: "Artist 8",
-        file: "song8.mp3",
-        image: "https://picsum.photos/60?random=8"
+        title:
+            "Song 5",
+        artist:
+            "Artist 5",
+        file:
+            "song5.mp3",
+        image:
+            "https://picsum.photos/60?random=5"
     },
 
+
     {
-        title: "Song 9",
-        artist: "Artist 9",
-        file: "song9.mp3",
-        image: "https://picsum.photos/60?random=9"
+        title:
+            "Song 6",
+        artist:
+            "Artist 6",
+        file:
+            "song6.mp3",
+        image:
+            "https://picsum.photos/60?random=6"
+    },
+
+
+    {
+        title:
+            "Song 7",
+        artist:
+            "Artist 7",
+        file:
+            "song7.mp3",
+        image:
+            "https://picsum.photos/60?random=7"
+    },
+
+
+    {
+        title:
+            "Song 8",
+        artist:
+            "Artist 8",
+        file:
+            "song8.mp3",
+        image:
+            "https://picsum.photos/60?random=8"
+    },
+
+
+    {
+        title:
+            "Song 9",
+        artist:
+            "Artist 9",
+        file:
+            "song9.mp3",
+        image:
+            "https://picsum.photos/60?random=9"
     }
 
 ];
@@ -244,6 +288,7 @@ const canvas =
         "visualizer"
     );
 
+
 const ctx =
     canvas.getContext("2d");
 
@@ -258,7 +303,7 @@ let visualizerReady = false;
 
 
 /* =====================================
-   RESIZE CANVAS
+   CANVAS SIZE
 ===================================== */
 
 function resizeCanvas() {
@@ -266,17 +311,22 @@ function resizeCanvas() {
     const ratio =
         window.devicePixelRatio || 1;
 
+
     const width =
         canvas.clientWidth;
+
 
     const height =
         canvas.clientHeight;
 
+
     canvas.width =
         width * ratio;
 
+
     canvas.height =
         height * ratio;
+
 
     ctx.setTransform(
         ratio,
@@ -300,7 +350,7 @@ window.addEventListener(
 
 
 /* =====================================
-   SETUP AUDIO VISUALIZER
+   AUDIO VISUALIZER SETUP
 ===================================== */
 
 function setupVisualizer() {
@@ -310,6 +360,7 @@ function setupVisualizer() {
         return true;
 
     }
+
 
     try {
 
@@ -321,7 +372,7 @@ function setupVisualizer() {
         if (!AudioContext) {
 
             console.error(
-                "Web Audio API is not supported."
+                "Web Audio API not supported."
             );
 
             return false;
@@ -337,15 +388,21 @@ function setupVisualizer() {
             audioContext.createAnalyser();
 
 
-        /* MORE POINTS = SMOOTHER WAVE */
+        /*
+           HIGH FFT SIZE
+           Gives smoother data
+        */
 
-        analyser.fftSize = 512;
+        analyser.fftSize =
+            1024;
 
 
-        /* SMOOTH AUDIO MOVEMENT */
+        /*
+           HIGH SMOOTHING
+        */
 
         analyser.smoothingTimeConstant =
-            0.88;
+            0.97;
 
 
         audioSource =
@@ -380,6 +437,7 @@ function setupVisualizer() {
             error
         );
 
+
         return false;
 
     }
@@ -388,7 +446,7 @@ function setupVisualizer() {
 
 
 /* =====================================
-   SMOOTH MUSIC WAVE
+   FINAL CLEAN WAVE
 ===================================== */
 
 function drawWave() {
@@ -400,6 +458,7 @@ function drawWave() {
 
     const width =
         canvas.clientWidth;
+
 
     const height =
         canvas.clientHeight;
@@ -413,40 +472,16 @@ function drawWave() {
     );
 
 
-    /* =================================
-       CENTER LINE
-    ================================= */
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        0,
-        height / 2
-    );
-
-    ctx.lineTo(
-        width,
-        height / 2
-    );
-
-    ctx.lineWidth = 1;
-
-    ctx.strokeStyle =
-        "rgba(255,255,255,0.08)";
-
-    ctx.stroke();
-
-
-    /* =================================
-       WAIT FOR AUDIO
-    ================================= */
-
     if (!analyser) {
 
         return;
 
     }
 
+
+    /* =================================
+       AUDIO DATA
+    ================================= */
 
     const bufferLength =
         analyser.fftSize;
@@ -464,7 +499,119 @@ function drawWave() {
 
 
     /* =================================
-       SMOOTH WAVE
+       REDUCE POINTS
+       This prevents ugly zig-zags
+    ================================= */
+
+    const points = 70;
+
+
+    const values = [];
+
+
+    const samplesPerPoint =
+        Math.floor(
+            bufferLength / points
+        );
+
+
+    for (
+        let i = 0;
+        i < points;
+        i++
+    ) {
+
+        let total = 0;
+
+        let count = 0;
+
+
+        for (
+            let j = 0;
+            j < samplesPerPoint;
+            j++
+        ) {
+
+            const index =
+                i *
+                samplesPerPoint +
+                j;
+
+
+            if (
+                index <
+                bufferLength
+            ) {
+
+                total +=
+                    dataArray[index];
+
+                count++;
+
+            }
+
+        }
+
+
+        values.push(
+            total / count
+        );
+
+    }
+
+
+    /* =================================
+       EXTRA SMOOTHING
+    ================================= */
+
+    const smoothValues = [];
+
+
+    for (
+        let i = 0;
+        i < values.length;
+        i++
+    ) {
+
+        let total = 0;
+
+        let count = 0;
+
+
+        for (
+            let j = -2;
+            j <= 2;
+            j++
+        ) {
+
+            const index =
+                i + j;
+
+
+            if (
+                index >= 0 &&
+                index < values.length
+            ) {
+
+                total +=
+                    values[index];
+
+                count++;
+
+            }
+
+        }
+
+
+        smoothValues.push(
+            total / count
+        );
+
+    }
+
+
+    /* =================================
+       DRAW SINGLE WAVE
     ================================= */
 
     ctx.beginPath();
@@ -474,54 +621,36 @@ function drawWave() {
         height / 2;
 
 
+    const amplitude =
+        height * 0.18;
+
+
     const step =
         width /
-        (bufferLength - 1);
-
-
-    let previousY =
-        centerY;
+        (smoothValues.length - 1);
 
 
     for (
         let i = 0;
-        i < bufferLength;
+        i < smoothValues.length;
         i++
     ) {
 
-        /* AUDIO VALUE */
-
-        const value =
-            (dataArray[i] - 128) /
-            128;
-
-
-        /* REDUCED HEIGHT
-           = CLEANER LOOK */
-
-        const targetY =
-            centerY +
-            value *
-            (height * 0.32);
-
-
-        /* EXTRA SMOOTHING */
-
-        const smoothness =
-            0.15;
-
-
-        const y =
-            previousY +
+        const normalized =
             (
-                targetY -
-                previousY
-            ) *
-            smoothness;
+                smoothValues[i] -
+                128
+            ) / 128;
 
 
         const x =
             i * step;
+
+
+        const y =
+            centerY +
+            normalized *
+            amplitude;
 
 
         if (i === 0) {
@@ -534,14 +663,28 @@ function drawWave() {
         }
         else {
 
-            /* CURVED WAVE */
-
             const previousX =
                 (i - 1) * step;
 
 
+            const previousNormalized =
+                (
+                    smoothValues[i - 1] -
+                    128
+                ) / 128;
+
+
+            const previousY =
+                centerY +
+                previousNormalized *
+                amplitude;
+
+
             const controlX =
-                (previousX + x) / 2;
+                (
+                    previousX +
+                    x
+                ) / 2;
 
 
             ctx.quadraticCurveTo(
@@ -553,27 +696,24 @@ function drawWave() {
 
         }
 
-
-        previousY =
-            y;
-
     }
 
 
     /* =================================
-       WAVE APPEARANCE
+       WAVE STYLE
     ================================= */
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth =
+        2;
+
 
     ctx.lineCap =
         "round";
 
+
     ctx.lineJoin =
         "round";
 
-
-    /* DARK / LIGHT */
 
     if (
         document.body.classList.contains(
@@ -582,32 +722,34 @@ function drawWave() {
     ) {
 
         ctx.strokeStyle =
-            "rgba(25,25,25,0.9)";
+            "rgba(25,25,25,0.65)";
+
 
         ctx.shadowColor =
-            "rgba(0,0,0,0.35)";
+            "rgba(0,0,0,0.20)";
 
     }
     else {
 
         ctx.strokeStyle =
-            "rgba(255,255,255,0.95)";
+            "rgba(255,255,255,0.75)";
+
 
         ctx.shadowColor =
-            "rgba(255,255,255,0.75)";
+            "rgba(255,255,255,0.35)";
 
     }
 
 
-    /* SOFT GLOW */
-
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur =
+        5;
 
 
     ctx.stroke();
 
 
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur =
+        0;
 
 }
 
@@ -805,7 +947,7 @@ function previousSong() {
 
 
 /* =====================================
-   PROGRESS
+   PROGRESS UPDATE
 ===================================== */
 
 audio.addEventListener(
@@ -819,6 +961,7 @@ audio.addEventListener(
 
 
         if (
+            progress &&
             audio.duration &&
             Number.isFinite(
                 audio.duration
@@ -854,7 +997,7 @@ audio.addEventListener(
 
 
 /* =====================================
-   DURATION
+   SONG DURATION
 ===================================== */
 
 audio.addEventListener(

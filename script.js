@@ -3,23 +3,37 @@
 ===================================== */
 
 const firebaseConfig = {
+
     apiKey: "AIzaSyDFdJAqe-g1EXo5qPYpLkoXd23xVrt78S0",
-    authDomain: "cafe-beats-6ba81.firebaseapp.com",
-    projectId: "cafe-beats-6ba81",
-    storageBucket: "cafe-beats-6ba81.firebasestorage.app",
-    messagingSenderId: "375478395425",
-    appId: "1:375478395425:web:9ce597e11cfd5c212ef960",
-    measurementId: "G-WTCQGJ5F24"
+
+    authDomain:
+        "cafe-beats-6ba81.firebaseapp.com",
+
+    projectId:
+        "cafe-beats-6ba81",
+
+    storageBucket:
+        "cafe-beats-6ba81.firebasestorage.app",
+
+    messagingSenderId:
+        "375478395425",
+
+    appId:
+        "1:375478395425:web:9ce597e11cfd5c212ef960",
+
+    measurementId:
+        "G-WTCQGJ5F24"
 };
 
 
 /* =====================================
-   FIREBASE START
+   START FIREBASE
 ===================================== */
 
 firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
+const database =
+    firebase.database();
 
 const onlineUsersRef =
     database.ref("onlineUsers");
@@ -71,7 +85,10 @@ onlineUsersRef.on("value", function(snapshot) {
         );
 
     if (counter) {
-        counter.textContent = count;
+
+        counter.textContent =
+            count;
+
     }
 
 });
@@ -83,28 +100,41 @@ onlineUsersRef.on("value", function(snapshot) {
 
 function updateClock() {
 
-    const now = new Date();
+    const now =
+        new Date();
 
-    let hours = now.getHours();
+    let hours =
+        now.getHours();
 
-    let minutes = now.getMinutes();
+    let minutes =
+        now.getMinutes();
 
-    let seconds = now.getSeconds();
+    let seconds =
+        now.getSeconds();
 
-    const ampm =
-        hours >= 12 ? "PM" : "AM";
+    let ampm =
+        hours >= 12
+            ? "PM"
+            : "AM";
 
-    hours = hours % 12;
+    hours =
+        hours % 12;
 
     if (hours === 0) {
+
         hours = 12;
+
     }
 
     minutes =
-        minutes.toString().padStart(2, "0");
+        minutes
+            .toString()
+            .padStart(2, "0");
 
     seconds =
-        seconds.toString().padStart(2, "0");
+        seconds
+            .toString()
+            .padStart(2, "0");
 
     const clock =
         document.getElementById(
@@ -123,7 +153,10 @@ function updateClock() {
 
 updateClock();
 
-setInterval(updateClock, 1000);
+setInterval(
+    updateClock,
+    1000
+);
 
 
 /* =====================================
@@ -136,60 +169,111 @@ const audio =
 
 /* =====================================
    SONGS
+   SONG 9 REMOVED
 ===================================== */
 
 const songs = [
 
     {
         title: "Be Intehaan",
+
         artist: "Atif Aslam",
+
         file: "song2.mp3",
-        image: "https://picsum.photos/60?random=2"
+
+        image:
+            "https://picsum.photos/60?random=2"
     },
+
 
     {
-        title: "Darkhast X Monsoon Mashup",
-        artist: "Artist Name",
-        file: "song3.mp3",
-        image: "https://picsum.photos/60?random=3"
+        title:
+            "Darkhast X Monsoon Mashup",
+
+        artist:
+            "Artist Name",
+
+        file:
+            "song3.mp3",
+
+        image:
+            "https://picsum.photos/60?random=3"
     },
+
 
     {
-        title: "Woh Lamhe",
-        artist: "Atif Aslam",
-        file: "song4.mp3",
-        image: "https://picsum.photos/60?random=4"
+        title:
+            "Woh Lamhe",
+
+        artist:
+            "Atif Aslam",
+
+        file:
+            "song4.mp3",
+
+        image:
+            "https://picsum.photos/60?random=4"
     },
+
 
     {
-        title: "Jenna Jenna",
-        artist: "Artist 5",
-        file: "song5.mp3",
-        image: "https://picsum.photos/60?random=5"
+        title:
+            "Song 5",
+
+        artist:
+            "Artist 5",
+
+        file:
+            "song5.mp3",
+
+        image:
+            "https://picsum.photos/60?random=5"
     },
+
 
     {
-        title: "Suna Hai",
-        artist: "Artist 6",
-        file: "song6.mp3",
-        image: "https://picsum.photos/60?random=6"
+        title:
+            "Song 6",
+
+        artist:
+            "Artist 6",
+
+        file:
+            "song6.mp3",
+
+        image:
+            "https://picsum.photos/60?random=6"
     },
+
 
     {
-        title: "O Satthi",
-        artist: "Artist 7",
-        file: "song7.mp3",
-        image: "https://picsum.photos/60?random=7"
+        title:
+            "Song 7",
+
+        artist:
+            "Artist 7",
+
+        file:
+            "song7.mp3",
+
+        image:
+            "https://picsum.photos/60?random=7"
     },
+
 
     {
-        title: "Shayd Kabhi Na",
-        artist: "Artist 8",
-        file: "song8.mp3",
-        image: "https://picsum.photos/60?random=8"
-    },
+        title:
+            "Song 8",
 
-   
+        artist:
+            "Artist 8",
+
+        file:
+            "song8.mp3",
+
+        image:
+            "https://picsum.photos/60?random=8"
+    }
 
 ];
 
@@ -198,7 +282,7 @@ let currentSong = 0;
 
 
 /* =====================================
-   EQUALIZER
+   CANVAS VISUALIZER
 ===================================== */
 
 const canvas =
@@ -220,7 +304,7 @@ let visualizerReady = false;
 
 
 /* =====================================
-   CANVAS RESIZE
+   RESIZE CANVAS
 ===================================== */
 
 function resizeCanvas() {
@@ -254,6 +338,7 @@ function resizeCanvas() {
 
 resizeCanvas();
 
+
 window.addEventListener(
     "resize",
     resizeCanvas
@@ -261,13 +346,15 @@ window.addEventListener(
 
 
 /* =====================================
-   VISUALIZER SETUP
+   SETUP VISUALIZER
 ===================================== */
 
 function setupVisualizer() {
 
     if (visualizerReady) {
+
         return true;
+
     }
 
     try {
@@ -276,40 +363,63 @@ function setupVisualizer() {
             window.AudioContext ||
             window.webkitAudioContext;
 
+
         if (!AudioContext) {
 
             console.error(
-                "Web Audio API not supported."
+                "Web Audio API is not supported."
             );
 
             return false;
+
         }
+
 
         audioContext =
             new AudioContext();
 
+
         analyser =
             audioContext.createAnalyser();
 
-        analyser.fftSize = 256;
+
+        /*
+           MORE DATA POINTS
+           = SMOOTHER WAVE
+        */
+
+        analyser.fftSize = 1024;
+
+
+        /*
+           HIGH SMOOTHING
+        */
 
         analyser.smoothingTimeConstant =
-            0.85;
+            0.97;
+
 
         audioSource =
             audioContext.createMediaElementSource(
                 audio
             );
 
-        audioSource.connect(analyser);
+
+        audioSource.connect(
+            analyser
+        );
+
 
         analyser.connect(
             audioContext.destination
         );
 
+
         visualizerReady = true;
 
-        drawEqualizer();
+
+        drawWave();
+
 
         return true;
 
@@ -322,26 +432,29 @@ function setupVisualizer() {
         );
 
         return false;
+
     }
 
 }
 
 
 /* =====================================
-   EQUALIZER DRAW
+   CLEAN SMOOTH WAVE
 ===================================== */
 
-function drawEqualizer() {
+function drawWave() {
 
     requestAnimationFrame(
-        drawEqualizer
+        drawWave
     );
+
 
     const width =
         canvas.clientWidth;
 
     const height =
         canvas.clientHeight;
+
 
     ctx.clearRect(
         0,
@@ -350,172 +463,230 @@ function drawEqualizer() {
         height
     );
 
+
     if (!analyser) {
+
         return;
+
     }
 
 
-    /* GET FREQUENCY DATA */
+    /* =================================
+       AUDIO DATA
+    ================================= */
 
     const bufferLength =
-        analyser.frequencyBinCount;
+        analyser.fftSize;
+
 
     const dataArray =
         new Uint8Array(
             bufferLength
         );
 
-    analyser.getByteFrequencyData(
+
+    analyser.getByteTimeDomainData(
         dataArray
     );
 
 
-    /* NUMBER OF BARS */
+    /* =================================
+       REDUCE DATA POINTS
+       FOR CLEAN WAVE
+    ================================= */
 
-    const bars = 45;
+    const points = 70;
 
-    const gap = 4;
-
-    const barWidth =
-        (
-            width -
-            gap * (bars - 1)
-        ) / bars;
+    const step =
+        Math.floor(
+            bufferLength / points
+        );
 
 
-    /* DRAW EACH BAR */
+    const values = [];
+
 
     for (
         let i = 0;
-        i < bars;
+        i < points;
         i++
     ) {
 
-        const index =
-            Math.floor(
-                i *
-                bufferLength /
-                bars
-            );
+        let total = 0;
 
-        const value =
-            dataArray[index] || 0;
+        let count = 0;
 
 
-        /*
-           HEIGHT
-        */
-
-        let barHeight =
-            (value / 255) *
-            (height * 0.85);
-
-
-        /*
-           MINIMUM HEIGHT
-        */
-
-        barHeight =
-            Math.max(
-                5,
-                barHeight
-            );
-
-
-        /*
-           POSITION
-        */
-
-        const x =
-            i *
-            (barWidth + gap);
-
-        const y =
-            (
-                height -
-                barHeight
-            ) / 2;
-
-
-        /*
-           ROUNDED BAR
-        */
-
-        const radius =
-            Math.min(
-                5,
-                barWidth / 2
-            );
-
-
-        ctx.beginPath();
-
-
-        /*
-           roundRect compatibility
-        */
-
-        if (
-            typeof ctx.roundRect ===
-            "function"
+        for (
+            let j = 0;
+            j < step;
+            j++
         ) {
 
-            ctx.roundRect(
-                x,
-                y,
-                barWidth,
-                barHeight,
-                radius
-            );
-
-        }
-        else {
-
-            ctx.rect(
-                x,
-                y,
-                barWidth,
-                barHeight
-            );
-
-        }
+            const index =
+                i * step + j;
 
 
-        /* COLOR */
+            if (
+                index <
+                bufferLength
+            ) {
 
-        if (
-            document.body.classList.contains(
-                "light-theme"
-            )
-        ) {
+                total +=
+                    dataArray[index];
 
-            ctx.fillStyle =
-                "rgba(30,30,30,0.75)";
+                count++;
 
-            ctx.shadowColor =
-                "rgba(0,0,0,0.25)";
-
-        }
-        else {
-
-            ctx.fillStyle =
-                "rgba(255,255,255,0.9)";
-
-            ctx.shadowColor =
-                "rgba(255,255,255,0.45)";
+            }
 
         }
 
 
-        /* GLOW */
-
-        ctx.shadowBlur = 6;
-
-        ctx.fill();
-
-        ctx.shadowBlur = 0;
+        values.push(
+            total / count
+        );
 
     }
+
+
+    /* =================================
+       WAVE SETTINGS
+    ================================= */
+
+    const centerY =
+        height / 2;
+
+
+    /*
+       LOW AMPLITUDE
+       = LESS MESSY
+    */
+
+    const amplitude =
+        height * 0.20;
+
+
+    const pointWidth =
+        width /
+        (points - 1);
+
+
+    /* =================================
+       DRAW SINGLE WAVE
+    ================================= */
+
+    ctx.beginPath();
+
+
+    for (
+        let i = 0;
+        i < points;
+        i++
+    ) {
+
+        const value =
+            (values[i] - 128) /
+            128;
+
+
+        const x =
+            i * pointWidth;
+
+
+        const y =
+            centerY +
+            value * amplitude;
+
+
+        if (i === 0) {
+
+            ctx.moveTo(
+                x,
+                y
+            );
+
+        }
+        else {
+
+            const previousX =
+                (i - 1) *
+                pointWidth;
+
+
+            const previousValue =
+                (values[i - 1] - 128) /
+                128;
+
+
+            const previousY =
+                centerY +
+                previousValue *
+                amplitude;
+
+
+            const controlX =
+                (
+                    previousX +
+                    x
+                ) / 2;
+
+
+            ctx.quadraticCurveTo(
+                controlX,
+                previousY,
+                x,
+                y
+            );
+
+        }
+
+    }
+
+
+    /* =================================
+       WAVE STYLE
+    ================================= */
+
+    ctx.lineWidth = 2.5;
+
+    ctx.lineCap =
+        "round";
+
+    ctx.lineJoin =
+        "round";
+
+
+    if (
+        document.body.classList.contains(
+            "light-theme"
+        )
+    ) {
+
+        ctx.strokeStyle =
+            "rgba(25,25,25,0.75)";
+
+        ctx.shadowColor =
+            "rgba(0,0,0,0.25)";
+
+    }
+    else {
+
+        ctx.strokeStyle =
+            "rgba(255,255,255,0.85)";
+
+        ctx.shadowColor =
+            "rgba(255,255,255,0.55)";
+
+    }
+
+
+    ctx.shadowBlur = 7;
+
+
+    ctx.stroke();
+
+
+    ctx.shadowBlur = 0;
 
 }
 
@@ -526,7 +697,9 @@ function drawEqualizer() {
 
 function playSong(index) {
 
-    currentSong = index;
+    currentSong =
+        index;
+
 
     setupVisualizer();
 
@@ -551,10 +724,12 @@ function playSong(index) {
             "songTitle"
         );
 
+
     const artist =
         document.getElementById(
             "artist"
         );
+
 
     const image =
         document.getElementById(
@@ -627,9 +802,12 @@ function togglePlay() {
             window.location.href
         ) {
 
-            playSong(currentSong);
+            playSong(
+                currentSong
+            );
 
             return;
+
         }
 
 
@@ -661,6 +839,11 @@ function nextSong() {
 
     currentSong++;
 
+
+    /*
+       LAST SONG IS SONG 8
+    */
+
     if (
         currentSong >=
         songs.length
@@ -670,7 +853,10 @@ function nextSong() {
 
     }
 
-    playSong(currentSong);
+
+    playSong(
+        currentSong
+    );
 
 }
 
@@ -683,14 +869,20 @@ function previousSong() {
 
     currentSong--;
 
-    if (currentSong < 0) {
+
+    if (
+        currentSong < 0
+    ) {
 
         currentSong =
             songs.length - 1;
 
     }
 
-    playSong(currentSong);
+
+    playSong(
+        currentSong
+    );
 
 }
 
@@ -797,7 +989,8 @@ if (progressBar) {
 
                 audio.currentTime =
                     (
-                        this.value / 100
+                        this.value /
+                        100
                     ) *
                     audio.duration;
 
@@ -851,7 +1044,7 @@ audio.addEventListener(
 
 
 /* =====================================
-   PLAY BUTTON ICON
+   PLAY ICON
 ===================================== */
 
 audio.addEventListener(
@@ -903,7 +1096,9 @@ audio.addEventListener(
 function formatTime(seconds) {
 
     if (
-        !Number.isFinite(seconds)
+        !Number.isFinite(
+            seconds
+        )
     ) {
 
         return "0:00";
@@ -915,6 +1110,7 @@ function formatTime(seconds) {
         Math.floor(
             seconds / 60
         );
+
 
     let secs =
         Math.floor(
@@ -957,7 +1153,9 @@ function toggleTheme() {
 
 
     if (!button) {
+
         return;
+
     }
 
 

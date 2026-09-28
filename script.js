@@ -1,3 +1,63 @@
+
+/* =====================================
+   FIREBASE CONFIGURATION
+===================================== */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDFdJAqe-g1EXo5qPYlLkoXd23xVrt78S0",
+    authDomain: "cafe-beats-6ba81.firebaseapp.com",
+    projectId: "cafe-beats-6ba81",
+    storageBucket: "cafe-beats-6ba81.firebasestorage.app",
+    messagingSenderId: "375478395425",
+    appId: "1:375478395425:web:9ce597e11cfd5c212ef960",
+    measurementId: "G-WTCQGJ5F24"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const database = firebase.database();
+
+const onlineUsersRef = database.ref("onlineUsers");
+const connectedRef = database.ref(".info/connected");
+
+
+/* =====================================
+   LIVE ONLINE COUNTER
+===================================== */
+
+connectedRef.on("value", function(snapshot) {
+
+    if (snapshot.val() === true) {
+
+        const userRef = onlineUsersRef.push();
+
+        userRef.onDisconnect()
+            .remove()
+            .then(function() {
+                return userRef.set(true);
+            })
+            .catch(function(error) {
+                console.error("Presence error:", error);
+            });
+    }
+});
+
+onlineUsersRef.on("value", function(snapshot) {
+
+    const count = snapshot.numChildren();
+
+    const counter = document.getElementById("onlineCount");
+
+    if (counter) {
+        counter.textContent = count;
+    }
+});
+
+
+/* =====================================
+   MUSIC PLAYER
+===================================== */
+
 const audio = document.getElementById("audio");
 
 const songs = [
@@ -60,8 +120,13 @@ const songs = [
 
 let currentSong = 0;
 
-// PLAY SONG
+
+/* =====================================
+   PLAY SONG
+===================================== */
+
 function playSong(index) {
+
     currentSong = index;
 
     audio.src = songs[currentSong].file;
@@ -75,24 +140,53 @@ function playSong(index) {
     document.getElementById("playerImage").src =
         songs[currentSong].image;
 
-    audio.play();
-
-    document.getElementById("playBtn").textContent = "⏸";
+    audio.play()
+        .then(function() {
+            document.getElementById("playBtn").textContent = "⏸";
+        })
+        .catch(function(error) {
+            console.error("Song playback error:", error);
+            document.getElementById("playBtn").textContent = "▶";
+        });
 }
 
-// PLAY / PAUSE
+
+/* =====================================
+   PLAY / PAUSE
+===================================== */
+
 function togglePlay() {
+
     if (audio.paused) {
-        audio.play();
-        document.getElementById("playBtn").textContent = "⏸";
+
+        if (!audio.src || audio.src === window.location.href) {
+            playSong(currentSong);
+            return;
+        }
+
+        audio.play()
+            .then(function() {
+                document.getElementById("playBtn").textContent = "⏸";
+            })
+            .catch(function(error) {
+                console.error("Playback error:", error);
+            });
+
     } else {
+
         audio.pause();
+
         document.getElementById("playBtn").textContent = "▶";
     }
 }
 
-// NEXT SONG
+
+/* =====================================
+   NEXT SONG
+===================================== */
+
 function nextSong() {
+
     currentSong++;
 
     if (currentSong >= songs.length) {
@@ -102,8 +196,13 @@ function nextSong() {
     playSong(currentSong);
 }
 
-// PREVIOUS SONG
+
+/* =====================================
+   PREVIOUS SONG
+===================================== */
+
 function previousSong() {
+
     currentSong--;
 
     if (currentSong < 0) {
@@ -113,12 +212,16 @@ function previousSong() {
     playSong(currentSong);
 }
 
-// PROGRESS
-audio.addEventListener("timeupdate", function () {
+
+/* =====================================
+   PLAYBACK TIME / PROGRESS
+===================================== */
+
+audio.addEventListener("timeupdate", function() {
 
     const progress = document.getElementById("progress");
 
-    if (audio.duration) {
+    if (audio.duration && Number.isFinite(audio.duration)) {
         progress.value =
             (audio.currentTime / audio.duration) * 100;
     }
@@ -127,50 +230,80 @@ audio.addEventListener("timeupdate", function () {
         formatTime(audio.currentTime);
 });
 
-// DURATION
-audio.addEventListener("loadedmetadata", function () {
+
+/* =====================================
+   SONG DURATION
+===================================== */
+
+audio.addEventListener("loadedmetadata", function() {
 
     document.getElementById("duration").textContent =
         formatTime(audio.duration);
-
 });
 
-// PROGRESS BAR
+
+/* =====================================
+   PROGRESS BAR SEEKING
+===================================== */
+
 document.getElementById("progress").addEventListener(
     "input",
-    function () {
+    function() {
 
-        if (audio.duration) {
+        if (audio.duration && Number.isFinite(audio.duration)) {
             audio.currentTime =
                 (this.value / 100) * audio.duration;
         }
-
     }
 );
 
-// VOLUME
+
+/* =====================================
+   VOLUME
+===================================== */
+
 document.getElementById("volume").addEventListener(
     "input",
-    function () {
+    function() {
 
-        audio.volume = this.value;
-
+        audio.volume = Number(this.value);
     }
 );
 
-// SONG ENDED
-audio.addEventListener("ended", function () {
+
+/* =====================================
+   SONG ENDED
+===================================== */
+
+audio.addEventListener("ended", function() {
     nextSong();
 });
 
-// FORMAT TIME
+
+/* =====================================
+   PLAYBACK STATE
+===================================== */
+
+audio.addEventListener("pause", function() {
+    document.getElementById("playBtn").textContent = "▶";
+});
+
+audio.addEventListener("play", function() {
+    document.getElementById("playBtn").textContent = "⏸";
+});
+
+
+/* =====================================
+   FORMAT TIME
+===================================== */
+
 function formatTime(seconds) {
 
-    if (isNaN(seconds)) {
+    if (!Number.isFinite(seconds)) {
         return "0:00";
     }
 
-    let minutes = Math.floor(seconds / 60);
+    const minutes = Math.floor(seconds / 60);
 
     let secs = Math.floor(seconds % 60);
 

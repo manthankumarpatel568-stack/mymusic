@@ -26,7 +26,6 @@ const firebaseConfig = {
 };
 
 
-
 /* =====================================
    START FIREBASE
 ===================================== */
@@ -41,7 +40,6 @@ const onlineUsersRef =
 
 const connectedRef =
     database.ref(".info/connected");
-
 
 
 /* =====================================
@@ -96,7 +94,6 @@ onlineUsersRef.on("value", function(snapshot) {
 });
 
 
-
 /* =====================================
    LIVE CLOCK
 ===================================== */
@@ -124,9 +121,7 @@ function updateClock() {
         hours % 12;
 
     if (hours === 0) {
-
         hours = 12;
-
     }
 
     minutes =
@@ -162,7 +157,6 @@ setInterval(
 );
 
 
-
 /* =====================================
    AUDIO
 ===================================== */
@@ -171,10 +165,8 @@ const audio =
     document.getElementById("audio");
 
 
-
 /* =====================================
    SONGS
-   SONG 9 REMOVED
 ===================================== */
 
 const songs = [
@@ -286,9 +278,8 @@ const songs = [
 let currentSong = 0;
 
 
-
 /* =====================================
-   CANVAS VISUALIZER
+   VISUALIZER
 ===================================== */
 
 const canvas =
@@ -307,7 +298,6 @@ let analyser = null;
 let audioSource = null;
 
 let visualizerReady = false;
-
 
 
 /* =====================================
@@ -352,7 +342,6 @@ window.addEventListener(
 );
 
 
-
 /* =====================================
    SETUP VISUALIZER
 ===================================== */
@@ -360,9 +349,7 @@ window.addEventListener(
 function setupVisualizer() {
 
     if (visualizerReady) {
-
         return true;
-
     }
 
     try {
@@ -371,7 +358,6 @@ function setupVisualizer() {
             window.AudioContext ||
             window.webkitAudioContext;
 
-
         if (!AudioContext) {
 
             console.error(
@@ -379,46 +365,35 @@ function setupVisualizer() {
             );
 
             return false;
-
         }
-
 
         audioContext =
             new AudioContext();
 
-
         analyser =
             audioContext.createAnalyser();
 
-
         analyser.fftSize = 1024;
-
 
         analyser.smoothingTimeConstant =
             0.97;
-
 
         audioSource =
             audioContext.createMediaElementSource(
                 audio
             );
 
-
         audioSource.connect(
             analyser
         );
-
 
         analyser.connect(
             audioContext.destination
         );
 
-
         visualizerReady = true;
 
-
         drawWave();
-
 
         return true;
 
@@ -431,15 +406,13 @@ function setupVisualizer() {
         );
 
         return false;
-
     }
 
 }
 
 
-
 /* =====================================
-   CLEAN SMOOTH WAVE
+   SMOOTH WAVE
 ===================================== */
 
 function drawWave() {
@@ -448,13 +421,11 @@ function drawWave() {
         drawWave
     );
 
-
     const width =
         canvas.clientWidth;
 
     const height =
         canvas.clientHeight;
-
 
     ctx.clearRect(
         0,
@@ -463,28 +434,21 @@ function drawWave() {
         height
     );
 
-
     if (!analyser) {
-
         return;
-
     }
-
 
     const bufferLength =
         analyser.fftSize;
-
 
     const dataArray =
         new Uint8Array(
             bufferLength
         );
 
-
     analyser.getByteTimeDomainData(
         dataArray
     );
-
 
     const points = 70;
 
@@ -493,9 +457,7 @@ function drawWave() {
             bufferLength / points
         );
 
-
     const values = [];
-
 
     for (
         let i = 0;
@@ -507,7 +469,6 @@ function drawWave() {
 
         let count = 0;
 
-
         for (
             let j = 0;
             j < step;
@@ -516,7 +477,6 @@ function drawWave() {
 
             const index =
                 i * step + j;
-
 
             if (
                 index <
@@ -532,7 +492,6 @@ function drawWave() {
 
         }
 
-
         values.push(
             total / count
         );
@@ -543,15 +502,12 @@ function drawWave() {
     const centerY =
         height / 2;
 
-
     const amplitude =
         height * 0.20;
-
 
     const pointWidth =
         width /
         (points - 1);
-
 
     ctx.beginPath();
 
@@ -566,10 +522,8 @@ function drawWave() {
             (values[i] - 128) /
             128;
 
-
         const x =
             i * pointWidth;
-
 
         const y =
             centerY +
@@ -590,24 +544,20 @@ function drawWave() {
                 (i - 1) *
                 pointWidth;
 
-
             const previousValue =
                 (values[i - 1] - 128) /
                 128;
-
 
             const previousY =
                 centerY +
                 previousValue *
                 amplitude;
 
-
             const controlX =
                 (
                     previousX +
                     x
                 ) / 2;
-
 
             ctx.quadraticCurveTo(
                 controlX,
@@ -656,14 +606,11 @@ function drawWave() {
 
     ctx.shadowBlur = 7;
 
-
     ctx.stroke();
-
 
     ctx.shadowBlur = 0;
 
 }
-
 
 
 /* =====================================
@@ -674,7 +621,6 @@ function playSong(index) {
 
     currentSong =
         index;
-
 
     setupVisualizer();
 
@@ -699,12 +645,10 @@ function playSong(index) {
             "songTitle"
         );
 
-
     const artist =
         document.getElementById(
             "artist"
         );
-
 
     const image =
         document.getElementById(
@@ -749,7 +693,6 @@ function playSong(index) {
 }
 
 
-
 /* =====================================
    PLAY / PAUSE
 ===================================== */
@@ -783,7 +726,6 @@ function togglePlay() {
             );
 
             return;
-
         }
 
 
@@ -807,7 +749,6 @@ function togglePlay() {
 }
 
 
-
 /* =====================================
    NEXT SONG
 ===================================== */
@@ -815,7 +756,6 @@ function togglePlay() {
 function nextSong() {
 
     currentSong++;
-
 
     if (
         currentSong >=
@@ -826,13 +766,11 @@ function nextSong() {
 
     }
 
-
     playSong(
         currentSong
     );
 
 }
-
 
 
 /* =====================================
@@ -843,7 +781,6 @@ function previousSong() {
 
     currentSong--;
 
-
     if (
         currentSong < 0
     ) {
@@ -853,13 +790,11 @@ function previousSong() {
 
     }
 
-
     playSong(
         currentSong
     );
 
 }
-
 
 
 /* =====================================
@@ -874,7 +809,6 @@ audio.addEventListener(
             document.getElementById(
                 "progress"
             );
-
 
         if (
             progress &&
@@ -898,7 +832,6 @@ audio.addEventListener(
                 "currentTime"
             );
 
-
         if (currentTime) {
 
             currentTime.textContent =
@@ -910,7 +843,6 @@ audio.addEventListener(
 
     }
 );
-
 
 
 /* =====================================
@@ -926,7 +858,6 @@ audio.addEventListener(
                 "duration"
             );
 
-
         if (duration) {
 
             duration.textContent =
@@ -938,7 +869,6 @@ audio.addEventListener(
 
     }
 );
-
 
 
 /* =====================================
@@ -979,7 +909,6 @@ if (progressBar) {
 }
 
 
-
 /* =====================================
    VOLUME
 ===================================== */
@@ -1007,7 +936,6 @@ if (volume) {
 }
 
 
-
 /* =====================================
    SONG ENDED
 ===================================== */
@@ -1022,7 +950,6 @@ audio.addEventListener(
 );
 
 
-
 /* =====================================
    PLAY ICON
 ===================================== */
@@ -1035,7 +962,6 @@ audio.addEventListener(
             document.getElementById(
                 "playBtn"
             );
-
 
         if (playBtn) {
 
@@ -1057,7 +983,6 @@ audio.addEventListener(
                 "playBtn"
             );
 
-
         if (playBtn) {
 
             playBtn.textContent =
@@ -1067,7 +992,6 @@ audio.addEventListener(
 
     }
 );
-
 
 
 /* =====================================
@@ -1086,18 +1010,15 @@ function formatTime(seconds) {
 
     }
 
-
     const minutes =
         Math.floor(
             seconds / 60
         );
 
-
     let secs =
         Math.floor(
             seconds % 60
         );
-
 
     if (secs < 10) {
 
@@ -1106,7 +1027,6 @@ function formatTime(seconds) {
 
     }
 
-
     return (
         minutes +
         ":" +
@@ -1114,7 +1034,6 @@ function formatTime(seconds) {
     );
 
 }
-
 
 
 /* =====================================
@@ -1127,17 +1046,13 @@ function toggleTheme() {
         "light-theme"
     );
 
-
     const button =
         document.getElementById(
             "themeToggle"
         );
 
-
     if (!button) {
-
         return;
-
     }
 
 
@@ -1161,14 +1076,11 @@ function toggleTheme() {
 }
 
 
-
 /* =====================================
    SLEEP TIMER
 ===================================== */
 
 let sleepTimer = null;
-
-let sleepEndTime = null;
 
 
 /* =====================================
@@ -1189,9 +1101,7 @@ function setSleepTimer() {
 
 
     if (!select) {
-
         return;
-
     }
 
 
@@ -1201,9 +1111,7 @@ function setSleepTimer() {
         );
 
 
-    /* ================================
-       CANCEL OLD TIMER
-    ================================= */
+    /* CANCEL OLD TIMER */
 
     if (sleepTimer) {
 
@@ -1216,13 +1124,9 @@ function setSleepTimer() {
     }
 
 
-    /* ================================
-       TIMER OFF
-    ================================= */
+    /* OFF */
 
     if (minutes === 0) {
-
-        sleepEndTime = null;
 
         if (status) {
 
@@ -1236,14 +1140,7 @@ function setSleepTimer() {
     }
 
 
-    /* ================================
-       SET END TIME
-    ================================= */
-
-    sleepEndTime =
-        Date.now() +
-        minutes * 60 * 1000;
-
+    /* SHOW TIMER */
 
     if (status) {
 
@@ -1253,9 +1150,7 @@ function setSleepTimer() {
     }
 
 
-    /* ================================
-       START TIMER
-    ================================= */
+    /* START TIMER */
 
     sleepTimer =
         setTimeout(
@@ -1279,8 +1174,6 @@ function setSleepTimer() {
 
 
                 sleepTimer = null;
-
-                sleepEndTime = null;
 
             },
             minutes * 60 * 1000

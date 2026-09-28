@@ -12,6 +12,10 @@
 
 <body>
 
+    <!-- 🌧️ RAIN EFFECT -->
+    <div class="rain"></div>
+
+
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <h1>☕ Cafe Beats</h1>
@@ -34,7 +38,7 @@
     </div>
 
 
-    <!-- COFFEE CUP -->
+    <!-- ☕ COFFEE CUP -->
     <div class="coffee-animation">
 
         <div class="steam steam1"></div>
@@ -42,8 +46,11 @@
         <div class="steam steam3"></div>
 
         <div class="coffee-cup">
+
             <div class="coffee"></div>
+
             <div class="cup-handle"></div>
+
         </div>
 
         <div class="saucer"></div>
@@ -54,26 +61,37 @@
     <!-- MAIN -->
     <main>
 
-        <!-- MUSIC WAVE -->
+        <!-- 🎵 MUSIC WAVE -->
         <canvas id="visualizer"></canvas>
 
     </main>
 
 
-    <!-- SLEEP TIMER -->
+    <!-- ⏱️ SLEEP TIMER -->
     <div class="sleep-timer">
 
         <span>⏱️ Sleep Timer</span>
 
-        <select id="sleepTime" onchange="setSleepTimer()">
+        <select
+            id="sleepTime"
+            onchange="setSleepTimer()"
+        >
 
-            <option value="0">Off</option>
+            <option value="0">
+                Off
+            </option>
 
-            <option value="15">15 Minutes</option>
+            <option value="15">
+                15 Minutes
+            </option>
 
-            <option value="30">30 Minutes</option>
+            <option value="30">
+                30 Minutes
+            </option>
 
-            <option value="60">60 Minutes</option>
+            <option value="60">
+                60 Minutes
+            </option>
 
         </select>
 
@@ -82,8 +100,9 @@
     </div>
 
 
-    <!-- MUSIC PLAYER -->
+    <!-- 🎵 MUSIC PLAYER -->
     <div class="player">
+
 
         <!-- CURRENT SONG -->
         <div class="current-song">
@@ -114,18 +133,27 @@
 
             <div class="buttons">
 
-                <button onclick="previousSong()">
+                <button
+                    onclick="previousSong()"
+                    title="Previous"
+                >
                     ⏮
                 </button>
+
 
                 <button
                     id="playBtn"
                     onclick="togglePlay()"
+                    title="Play / Pause"
                 >
                     ▶
                 </button>
 
-                <button onclick="nextSong()">
+
+                <button
+                    onclick="nextSong()"
+                    title="Next"
+                >
                     ⏭
                 </button>
 
@@ -139,6 +167,7 @@
                     0:00
                 </span>
 
+
                 <input
                     type="range"
                     id="progress"
@@ -146,6 +175,7 @@
                     min="0"
                     max="100"
                 >
+
 
                 <span id="duration">
                     0:00
@@ -156,7 +186,7 @@
         </div>
 
 
-        <!-- VOLUME -->
+        <!-- 🔊 VOLUME -->
         <div class="volume">
 
             🔊
@@ -187,6 +217,7 @@
 
     <!-- JAVASCRIPT -->
     <script src="script.js"></script>
+
 
 </body>
 

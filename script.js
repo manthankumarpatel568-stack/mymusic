@@ -189,12 +189,7 @@ const songs = [
         image: "https://picsum.photos/60?random=8"
     },
 
-    {
-        title: "Channa Mereya",
-        artist: "Artist 9",
-        file: "song9.mp3",
-        image: "https://picsum.photos/60?random=9"
-    }
+   
 
 ];
 

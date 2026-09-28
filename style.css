@@ -44,6 +44,8 @@ body {
 
     backdrop-filter: none !important;
 
+    -webkit-backdrop-filter: none !important;
+
     border: none !important;
 
     box-shadow: none !important;
@@ -148,7 +150,10 @@ main {
 
     backdrop-filter: blur(8px);
 
-    border: 1px solid rgba(255,255,255,0.15);
+    -webkit-backdrop-filter: blur(8px);
+
+    border:
+        1px solid rgba(255,255,255,0.15);
 }
 
 
@@ -181,6 +186,55 @@ main {
 
 
 /* ================================
+   MUSIC VISUALIZER
+================================ */
+
+.visualizer {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 110px;
+
+    transform: translateX(-50%);
+
+    width: 320px;
+
+    height: 90px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    z-index: 8;
+
+    pointer-events: none;
+}
+
+.visualizer .bar {
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 10px;
+
+    background: white;
+
+    opacity: 0.9;
+
+    box-shadow:
+        0 0 8px rgba(255,255,255,0.6);
+
+    transition:
+        height 0.08s ease;
+}
+
+
+/* ================================
    PLAYER
 ================================ */
 
@@ -208,6 +262,8 @@ main {
     background: rgba(15,9,6,0.94);
 
     backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
 
     border-top:
         1px solid rgba(255,255,255,0.15);
@@ -410,6 +466,13 @@ body.light-theme #themeToggle {
     border-color: #222 !important;
 }
 
+body.light-theme .visualizer .bar {
+    background: #222;
+
+    box-shadow:
+        0 0 8px rgba(0,0,0,0.3);
+}
+
 
 /* ================================
    MOBILE
@@ -503,5 +566,19 @@ body.light-theme #themeToggle {
         height: 38px !important;
 
         font-size: 18px !important;
+    }
+
+    .visualizer {
+        width: 220px;
+
+        height: 65px;
+
+        bottom: 95px;
+
+        gap: 4px;
+    }
+
+    .visualizer .bar {
+        width: 5px;
     }
 }

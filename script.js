@@ -28,7 +28,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
+const database =
+    firebase.database();
 
 const onlineUsersRef =
     database.ref("onlineUsers");
@@ -38,7 +39,7 @@ const connectedRef =
 
 
 /* =====================================
-   REAL-TIME ONLINE USERS
+   ONLINE USERS
 ===================================== */
 
 connectedRef.on("value", function(snapshot) {
@@ -96,20 +97,25 @@ function updateClock() {
 
     const now = new Date();
 
-    let hours = now.getHours();
+    let hours =
+        now.getHours();
 
-    let minutes = now.getMinutes();
+    let minutes =
+        now.getMinutes();
 
-    let seconds = now.getSeconds();
+    let seconds =
+        now.getSeconds();
 
     let ampm =
         hours >= 12
             ? "PM"
             : "AM";
 
-    hours = hours % 12;
+    hours =
+        hours % 12;
 
     if (hours === 0) {
+
         hours = 12;
     }
 
@@ -139,7 +145,7 @@ setInterval(
 
 
 /* =====================================
-   MUSIC PLAYER
+   SONGS
 ===================================== */
 
 const audio =
@@ -172,48 +178,66 @@ const songs = [
 
     {
         title: "Woh Lamhe",
+
         artist: "Atif Aslam",
+
         file: "song4.mp3",
+
         image:
             "https://picsum.photos/60?random=4"
     },
 
     {
         title: "Song 5",
+
         artist: "Artist 5",
+
         file: "song5.mp3",
+
         image:
             "https://picsum.photos/60?random=5"
     },
 
     {
         title: "Song 6",
+
         artist: "Artist 6",
+
         file: "song6.mp3",
+
         image:
             "https://picsum.photos/60?random=6"
     },
 
     {
         title: "Song 7",
+
         artist: "Artist 7",
+
         file: "song7.mp3",
+
         image:
             "https://picsum.photos/60?random=7"
     },
 
     {
         title: "Song 8",
+
         artist: "Artist 8",
+
         file: "song8.mp3",
+
         image:
             "https://picsum.photos/60?random=8"
     },
 
     {
         title: "Song 9",
+
         artist: "Artist 9",
+
         file: "song9.mp3",
+
         image:
             "https://picsum.photos/60?random=9"
     }
@@ -251,13 +275,6 @@ function playSong(index) {
         songs[currentSong].image;
 
     audio.play()
-        .then(function() {
-
-            document.getElementById(
-                "playBtn"
-            ).textContent = "⏸";
-
-        })
         .catch(function(error) {
 
             console.error(
@@ -288,13 +305,6 @@ function togglePlay() {
         }
 
         audio.play()
-            .then(function() {
-
-                document.getElementById(
-                    "playBtn"
-                ).textContent = "⏸";
-
-            })
             .catch(function(error) {
 
                 console.error(
@@ -307,16 +317,12 @@ function togglePlay() {
     } else {
 
         audio.pause();
-
-        document.getElementById(
-            "playBtn"
-        ).textContent = "▶";
     }
 }
 
 
 /* =====================================
-   NEXT SONG
+   NEXT
 ===================================== */
 
 function nextSong() {
@@ -335,7 +341,7 @@ function nextSong() {
 
 
 /* =====================================
-   PREVIOUS SONG
+   PREVIOUS
 ===================================== */
 
 function previousSong() {
@@ -468,7 +474,7 @@ audio.addEventListener(
 
 
 /* =====================================
-   PLAY / PAUSE ICON
+   PLAY ICON
 ===================================== */
 
 audio.addEventListener(

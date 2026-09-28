@@ -3,26 +3,13 @@
 ===================================== */
 
 const firebaseConfig = {
-
     apiKey: "AIzaSyDFdJAqe-g1EXo5qPYpLkoXd23xVrt78S0",
-
-    authDomain:
-        "cafe-beats-6ba81.firebaseapp.com",
-
-    projectId:
-        "cafe-beats-6ba81",
-
-    storageBucket:
-        "cafe-beats-6ba81.firebasestorage.app",
-
-    messagingSenderId:
-        "375478395425",
-
-    appId:
-        "1:375478395425:web:9ce597e11cfd5c212ef960",
-
-    measurementId:
-        "G-WTCQGJ5F24"
+    authDomain: "cafe-beats-6ba81.firebaseapp.com",
+    projectId: "cafe-beats-6ba81",
+    storageBucket: "cafe-beats-6ba81.firebasestorage.app",
+    messagingSenderId: "375478395425",
+    appId: "1:375478395425:web:9ce597e11cfd5c212ef960",
+    measurementId: "G-WTCQGJ5F24"
 };
 
 
@@ -32,8 +19,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const database =
-    firebase.database();
+const database = firebase.database();
 
 const onlineUsersRef =
     database.ref("onlineUsers");
@@ -69,7 +55,6 @@ connectedRef.on("value", function(snapshot) {
                 );
 
             });
-
     }
 
 });
@@ -86,10 +71,7 @@ onlineUsersRef.on("value", function(snapshot) {
         );
 
     if (counter) {
-
-        counter.textContent =
-            count;
-
+        counter.textContent = count;
     }
 
 });
@@ -101,41 +83,28 @@ onlineUsersRef.on("value", function(snapshot) {
 
 function updateClock() {
 
-    const now =
-        new Date();
+    const now = new Date();
 
-    let hours =
-        now.getHours();
+    let hours = now.getHours();
 
-    let minutes =
-        now.getMinutes();
+    let minutes = now.getMinutes();
 
-    let seconds =
-        now.getSeconds();
+    let seconds = now.getSeconds();
 
-    let ampm =
-        hours >= 12
-            ? "PM"
-            : "AM";
+    const ampm =
+        hours >= 12 ? "PM" : "AM";
 
-    hours =
-        hours % 12;
+    hours = hours % 12;
 
     if (hours === 0) {
-
         hours = 12;
-
     }
 
     minutes =
-        minutes
-            .toString()
-            .padStart(2, "0");
+        minutes.toString().padStart(2, "0");
 
     seconds =
-        seconds
-            .toString()
-            .padStart(2, "0");
+        seconds.toString().padStart(2, "0");
 
     const clock =
         document.getElementById(
@@ -151,12 +120,10 @@ function updateClock() {
 
 }
 
+
 updateClock();
 
-setInterval(
-    updateClock,
-    1000
-);
+setInterval(updateClock, 1000);
 
 
 /* =====================================
@@ -236,7 +203,7 @@ let currentSong = 0;
 
 
 /* =====================================
-   EQUALIZER CANVAS
+   EQUALIZER
 ===================================== */
 
 const canvas =
@@ -258,7 +225,7 @@ let visualizerReady = false;
 
 
 /* =====================================
-   CANVAS SIZE
+   CANVAS RESIZE
 ===================================== */
 
 function resizeCanvas() {
@@ -292,7 +259,6 @@ function resizeCanvas() {
 
 resizeCanvas();
 
-
 window.addEventListener(
     "resize",
     resizeCanvas
@@ -300,15 +266,13 @@ window.addEventListener(
 
 
 /* =====================================
-   AUDIO VISUALIZER SETUP
+   VISUALIZER SETUP
 ===================================== */
 
 function setupVisualizer() {
 
     if (visualizerReady) {
-
         return true;
-
     }
 
     try {
@@ -324,7 +288,6 @@ function setupVisualizer() {
             );
 
             return false;
-
         }
 
         audioContext =
@@ -333,38 +296,25 @@ function setupVisualizer() {
         analyser =
             audioContext.createAnalyser();
 
-
-        /* AUDIO DATA */
-
-        analyser.fftSize =
-            256;
-
-
-        /* SMOOTH MOVEMENT */
+        analyser.fftSize = 256;
 
         analyser.smoothingTimeConstant =
-            0.82;
-
+            0.85;
 
         audioSource =
             audioContext.createMediaElementSource(
                 audio
             );
 
-        audioSource.connect(
-            analyser
-        );
+        audioSource.connect(analyser);
 
         analyser.connect(
             audioContext.destination
         );
 
-
         visualizerReady = true;
 
-
         drawEqualizer();
-
 
         return true;
 
@@ -377,14 +327,13 @@ function setupVisualizer() {
         );
 
         return false;
-
     }
 
 }
 
 
 /* =====================================
-   MUSIC EQUALIZER
+   EQUALIZER DRAW
 ===================================== */
 
 function drawEqualizer() {
@@ -393,13 +342,11 @@ function drawEqualizer() {
         drawEqualizer
     );
 
-
     const width =
         canvas.clientWidth;
 
     const height =
         canvas.clientHeight;
-
 
     ctx.clearRect(
         0,
@@ -408,53 +355,40 @@ function drawEqualizer() {
         height
     );
 
-
     if (!analyser) {
-
         return;
-
     }
 
 
-    /* =================================
-       FREQUENCY DATA
-    ================================= */
+    /* GET FREQUENCY DATA */
 
     const bufferLength =
         analyser.frequencyBinCount;
-
 
     const dataArray =
         new Uint8Array(
             bufferLength
         );
 
-
     analyser.getByteFrequencyData(
         dataArray
     );
 
 
-    /* =================================
-       NUMBER OF BARS
-    ================================= */
+    /* NUMBER OF BARS */
 
     const bars = 45;
 
-
-    const gap = 5;
-
+    const gap = 4;
 
     const barWidth =
         (
             width -
-            (bars - 1) * gap
+            gap * (bars - 1)
         ) / bars;
 
 
-    /* =================================
-       DRAW BARS
-    ================================= */
+    /* DRAW EACH BAR */
 
     for (
         let i = 0;
@@ -462,63 +396,44 @@ function drawEqualizer() {
         i++
     ) {
 
-        /*
-           Pick frequency data
-        */
-
-        const dataIndex =
+        const index =
             Math.floor(
                 i *
                 bufferLength /
                 bars
             );
 
-
         const value =
-            dataArray[dataIndex] || 0;
+            dataArray[index] || 0;
 
 
         /*
-           Minimum height
+           HEIGHT
         */
-
-        const minHeight = 4;
-
-
-        /*
-           Maximum height
-        */
-
-        const maxHeight =
-            height * 0.85;
-
 
         let barHeight =
-            (
-                value / 255
-            ) *
-            maxHeight;
+            (value / 255) *
+            (height * 0.85);
 
 
         /*
-           Keep bars visible
+           MINIMUM HEIGHT
         */
 
         barHeight =
             Math.max(
-                minHeight,
+                5,
                 barHeight
             );
 
 
         /*
-           Center the equalizer
+           POSITION
         */
 
         const x =
             i *
             (barWidth + gap);
-
 
         const y =
             (
@@ -527,36 +442,51 @@ function drawEqualizer() {
             ) / 2;
 
 
-        /* =================================
-           BAR STYLE
-        ================================= */
+        /*
+           ROUNDED BAR
+        */
+
+        const radius =
+            Math.min(
+                5,
+                barWidth / 2
+            );
+
 
         ctx.beginPath();
 
 
         /*
-           Rounded bars
+           roundRect compatibility
         */
 
-        const radius =
-            Math.min(
-                barWidth / 2,
-                5
+        if (
+            typeof ctx.roundRect ===
+            "function"
+        ) {
+
+            ctx.roundRect(
+                x,
+                y,
+                barWidth,
+                barHeight,
+                radius
             );
 
+        }
+        else {
 
-        ctx.roundRect(
-            x,
-            y,
-            barWidth,
-            barHeight,
-            radius
-        );
+            ctx.rect(
+                x,
+                y,
+                barWidth,
+                barHeight
+            );
+
+        }
 
 
-        /* =================================
-           COLOR
-        ================================= */
+        /* COLOR */
 
         if (
             document.body.classList.contains(
@@ -565,7 +495,7 @@ function drawEqualizer() {
         ) {
 
             ctx.fillStyle =
-                "rgba(25,25,25,0.75)";
+                "rgba(30,30,30,0.75)";
 
             ctx.shadowColor =
                 "rgba(0,0,0,0.25)";
@@ -577,20 +507,16 @@ function drawEqualizer() {
                 "rgba(255,255,255,0.9)";
 
             ctx.shadowColor =
-                "rgba(255,255,255,0.5)";
+                "rgba(255,255,255,0.45)";
 
         }
 
 
-        /*
-           Soft glow
-        */
+        /* GLOW */
 
-        ctx.shadowBlur = 7;
-
+        ctx.shadowBlur = 6;
 
         ctx.fill();
-
 
         ctx.shadowBlur = 0;
 
@@ -605,9 +531,7 @@ function drawEqualizer() {
 
 function playSong(index) {
 
-    currentSong =
-        index;
-
+    currentSong = index;
 
     setupVisualizer();
 
@@ -708,12 +632,9 @@ function togglePlay() {
             window.location.href
         ) {
 
-            playSong(
-                currentSong
-            );
+            playSong(currentSong);
 
             return;
-
         }
 
 
@@ -745,7 +666,6 @@ function nextSong() {
 
     currentSong++;
 
-
     if (
         currentSong >=
         songs.length
@@ -755,10 +675,7 @@ function nextSong() {
 
     }
 
-
-    playSong(
-        currentSong
-    );
+    playSong(currentSong);
 
 }
 
@@ -771,20 +688,14 @@ function previousSong() {
 
     currentSong--;
 
-
-    if (
-        currentSong < 0
-    ) {
+    if (currentSong < 0) {
 
         currentSong =
             songs.length - 1;
 
     }
 
-
-    playSong(
-        currentSong
-    );
+    playSong(currentSong);
 
 }
 
@@ -891,8 +802,7 @@ if (progressBar) {
 
                 audio.currentTime =
                     (
-                        this.value /
-                        100
+                        this.value / 100
                     ) *
                     audio.duration;
 
@@ -946,7 +856,7 @@ audio.addEventListener(
 
 
 /* =====================================
-   PLAY ICON
+   PLAY BUTTON ICON
 ===================================== */
 
 audio.addEventListener(
@@ -998,9 +908,7 @@ audio.addEventListener(
 function formatTime(seconds) {
 
     if (
-        !Number.isFinite(
-            seconds
-        )
+        !Number.isFinite(seconds)
     ) {
 
         return "0:00";
@@ -1012,7 +920,6 @@ function formatTime(seconds) {
         Math.floor(
             seconds / 60
         );
-
 
     let secs =
         Math.floor(
@@ -1055,9 +962,7 @@ function toggleTheme() {
 
 
     if (!button) {
-
         return;
-
     }
 
 

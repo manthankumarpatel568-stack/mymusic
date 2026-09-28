@@ -36,12 +36,35 @@
 
     <!-- MAIN CONTENT -->
     <main>
+
+        <!-- MUSIC VISUALIZER -->
+        <div class="visualizer">
+
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+
+        </div>
+
     </main>
 
 
     <!-- MUSIC PLAYER -->
     <div class="player">
 
+        <!-- CURRENT SONG -->
         <div class="current-song">
 
             <img
@@ -52,20 +75,27 @@
 
             <div>
 
-                <b id="songTitle">Be Intehaan</b>
+                <b id="songTitle">
+                    Be Intehaan
+                </b>
 
-                <small id="artist">Atif Aslam</small>
+                <small id="artist">
+                    Atif Aslam
+                </small>
 
             </div>
 
         </div>
 
 
+        <!-- CONTROLS -->
         <div class="controls">
 
             <div class="buttons">
 
-                <button onclick="previousSong()">⏮</button>
+                <button onclick="previousSong()">
+                    ⏮
+                </button>
 
                 <button
                     id="playBtn"
@@ -74,14 +104,19 @@
                     ▶
                 </button>
 
-                <button onclick="nextSong()">⏭</button>
+                <button onclick="nextSong()">
+                    ⏭
+                </button>
 
             </div>
 
 
+            <!-- PROGRESS -->
             <div class="progress-area">
 
-                <span id="currentTime">0:00</span>
+                <span id="currentTime">
+                    0:00
+                </span>
 
                 <input
                     type="range"
@@ -91,13 +126,16 @@
                     max="100"
                 >
 
-                <span id="duration">0:00</span>
+                <span id="duration">
+                    0:00
+                </span>
 
             </div>
 
         </div>
 
 
+        <!-- VOLUME -->
         <div class="volume">
 
             🔊

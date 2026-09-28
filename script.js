@@ -162,35 +162,35 @@ const songs = [
     },
 
     {
-        title: "Song 5",
+        title: "Jenna Jenna",
         artist: "Artist 5",
         file: "song5.mp3",
         image: "https://picsum.photos/60?random=5"
     },
 
     {
-        title: "Song 6",
+        title: "Suna Hai",
         artist: "Artist 6",
         file: "song6.mp3",
         image: "https://picsum.photos/60?random=6"
     },
 
     {
-        title: "Song 7",
+        title: "O Satthi",
         artist: "Artist 7",
         file: "song7.mp3",
         image: "https://picsum.photos/60?random=7"
     },
 
     {
-        title: "Song 8",
+        title: "Shayd Kabhi Na",
         artist: "Artist 8",
         file: "song8.mp3",
         image: "https://picsum.photos/60?random=8"
     },
 
     {
-        title: "Song 9",
+        title: "Channa Mereya",
         artist: "Artist 9",
         file: "song9.mp3",
         image: "https://picsum.photos/60?random=9"

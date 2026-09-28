@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
 
@@ -53,6 +54,7 @@ body {
     z-index: 5;
 }
 
+
 .sidebar h1 {
     margin: 0;
 
@@ -102,6 +104,7 @@ body {
 
     transition: 0.2s ease;
 }
+
 
 #themeToggle:hover {
     transform: scale(1.1);
@@ -186,51 +189,27 @@ main {
 
 
 /* ================================
-   MUSIC VISUALIZER
+   MUSIC WAVE
 ================================ */
 
-.visualizer {
+#visualizer {
     position: fixed;
 
     left: 50%;
 
-    bottom: 110px;
+    bottom: 105px;
 
     transform: translateX(-50%);
 
-    width: 320px;
+    width: 75%;
 
-    height: 90px;
+    height: 130px;
 
-    display: flex;
-
-    align-items: flex-end;
-
-    justify-content: center;
-
-    gap: 6px;
-
-    z-index: 8;
+    z-index: 7;
 
     pointer-events: none;
-}
 
-.visualizer .bar {
-    width: 8px;
-
-    height: 8px;
-
-    border-radius: 10px;
-
-    background: white;
-
-    opacity: 0.9;
-
-    box-shadow:
-        0 0 8px rgba(255,255,255,0.6);
-
-    transition:
-        height 0.08s ease;
+    display: block;
 }
 
 
@@ -290,6 +269,7 @@ main {
     min-width: 0;
 }
 
+
 .current-song img {
     width: 55px;
 
@@ -302,9 +282,11 @@ main {
     flex-shrink: 0;
 }
 
+
 .current-song b {
     display: block;
 }
+
 
 .current-song small {
     display: block;
@@ -327,6 +309,7 @@ main {
     text-align: center;
 }
 
+
 .buttons button {
     background: transparent;
 
@@ -341,9 +324,11 @@ main {
     cursor: pointer;
 }
 
+
 .buttons button:hover {
     opacity: 0.75;
 }
+
 
 #playBtn {
     width: 42px;
@@ -374,6 +359,7 @@ main {
     margin-top: 8px;
 }
 
+
 .progress-area span {
     font-size: 12px;
 
@@ -381,6 +367,7 @@ main {
 
     white-space: nowrap;
 }
+
 
 #progress {
     width: 100%;
@@ -409,6 +396,7 @@ main {
     gap: 8px;
 }
 
+
 #volume {
     width: 100px;
 
@@ -431,9 +419,11 @@ body.light-theme .player {
         1px solid rgba(0,0,0,0.15);
 }
 
+
 body.light-theme .buttons button {
     color: #222;
 }
+
 
 body.light-theme #playBtn {
     background: #222;
@@ -441,13 +431,16 @@ body.light-theme #playBtn {
     color: white;
 }
 
+
 body.light-theme .current-song small {
     color: #555;
 }
 
+
 body.light-theme .progress-area span {
     color: #555;
 }
+
 
 body.light-theme #onlineCounter {
     background: rgba(255,255,255,0.9);
@@ -458,19 +451,13 @@ body.light-theme #onlineCounter {
         1px solid rgba(0,0,0,0.15);
 }
 
+
 body.light-theme #themeToggle {
     background: white !important;
 
     color: #222 !important;
 
     border-color: #222 !important;
-}
-
-body.light-theme .visualizer .bar {
-    background: #222;
-
-    box-shadow:
-        0 0 8px rgba(0,0,0,0.3);
 }
 
 
@@ -486,15 +473,18 @@ body.light-theme .visualizer .bar {
         padding: 20px 12px;
     }
 
+
     .sidebar h1 {
         font-size: 20px;
     }
+
 
     main {
         margin-left: 180px;
 
         padding: 110px 15px 130px;
     }
+
 
     .player {
         padding: 12px;
@@ -504,11 +494,13 @@ body.light-theme .visualizer .bar {
         min-height: 85px;
     }
 
+
     .current-song {
         width: 35%;
 
         gap: 7px;
     }
+
 
     .current-song img {
         width: 40px;
@@ -516,17 +508,21 @@ body.light-theme .visualizer .bar {
         height: 40px;
     }
 
+
     .current-song b {
         font-size: 12px;
     }
+
 
     .current-song small {
         font-size: 10px;
     }
 
+
     .controls {
         width: 65%;
     }
+
 
     .buttons button {
         font-size: 17px;
@@ -534,15 +530,18 @@ body.light-theme .visualizer .bar {
         margin: 0 5px;
     }
 
+
     #playBtn {
         width: 34px;
 
         height: 34px;
     }
 
+
     .volume {
         display: none;
     }
+
 
     #onlineCounter {
         top: 12px;
@@ -550,11 +549,13 @@ body.light-theme .visualizer .bar {
         font-size: 12px;
     }
 
+
     #liveClock {
         top: 48px;
 
         font-size: 15px;
     }
+
 
     #themeToggle {
         top: 12px !important;
@@ -568,17 +569,12 @@ body.light-theme .visualizer .bar {
         font-size: 18px !important;
     }
 
-    .visualizer {
-        width: 220px;
 
-        height: 65px;
+    #visualizer {
+        width: 90%;
 
-        bottom: 95px;
+        height: 90px;
 
-        gap: 4px;
-    }
-
-    .visualizer .bar {
-        width: 5px;
+        bottom: 92px;
     }
 }

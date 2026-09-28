@@ -3,6 +3,10 @@
 }
 
 
+/* ================================
+   BODY
+================================ */
+
 body {
     margin: 0;
 
@@ -240,6 +244,7 @@ main {
     top: 5px;
 
     width: 68px;
+
     height: 15px;
 
     background:
@@ -687,6 +692,129 @@ body.light-theme #themeToggle {
 
 
 /* ================================
+   SLEEP TIMER
+================================ */
+
+.sleep-timer {
+
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 125px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 12px;
+
+    background:
+        rgba(15,9,6,0.75);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.2);
+
+    border-radius: 10px;
+
+    backdrop-filter: blur(8px);
+
+    color: white;
+
+    font-size: 14px;
+
+    z-index: 1000;
+}
+
+
+/* SLEEP TIMER SELECT */
+
+.sleep-timer select {
+
+    background:
+        rgba(0,0,0,0.75);
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.3);
+
+    border-radius: 7px;
+
+    padding: 7px 9px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+
+/* OPTIONS */
+
+.sleep-timer select option {
+
+    background: #222;
+
+    color: white;
+}
+
+
+/* STATUS */
+
+#sleepStatus {
+
+    color: white;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+}
+
+
+/* LIGHT THEME SLEEP TIMER */
+
+body.light-theme .sleep-timer {
+
+    background:
+        rgba(255,255,255,0.88);
+
+    color: #222;
+
+    border-color:
+        rgba(0,0,0,0.15);
+}
+
+
+body.light-theme .sleep-timer select {
+
+    background: white;
+
+    color: #222;
+
+    border-color:
+        rgba(0,0,0,0.25);
+}
+
+
+body.light-theme .sleep-timer select option {
+
+    background: white;
+
+    color: #222;
+}
+
+
+body.light-theme #sleepStatus {
+
+    color: #222;
+}
+
+
+/* ================================
    MOBILE
 ================================ */
 
@@ -828,4 +956,35 @@ body.light-theme #themeToggle {
 
         bottom: 92px;
     }
+
+
+    /* SLEEP TIMER MOBILE */
+
+    .sleep-timer {
+
+        right: 10px;
+
+        bottom: 110px;
+
+        padding: 6px 8px;
+
+        font-size: 11px;
+
+        gap: 5px;
+    }
+
+
+    .sleep-timer select {
+
+        padding: 5px 6px;
+
+        font-size: 11px;
+    }
+
+
+    #sleepStatus {
+
+        font-size: 10px;
+    }
+
 }

@@ -28,11 +28,14 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
 const database =
     firebase.database();
 
+
 const onlineUsersRef =
     database.ref("onlineUsers");
+
 
 const connectedRef =
     database.ref(".info/connected");
@@ -48,6 +51,7 @@ connectedRef.on("value", function(snapshot) {
 
         const userRef =
             onlineUsersRef.push();
+
 
         userRef
             .onDisconnect()
@@ -75,15 +79,18 @@ onlineUsersRef.on("value", function(snapshot) {
     const count =
         snapshot.numChildren();
 
+
     const counter =
         document.getElementById(
             "onlineCount"
         );
 
+
     if (counter) {
 
         counter.textContent =
             count;
+
     }
 
 });
@@ -95,48 +102,61 @@ onlineUsersRef.on("value", function(snapshot) {
 
 function updateClock() {
 
-    const now = new Date();
+    const now =
+        new Date();
+
 
     let hours =
         now.getHours();
 
+
     let minutes =
         now.getMinutes();
 
+
     let seconds =
         now.getSeconds();
+
 
     let ampm =
         hours >= 12
             ? "PM"
             : "AM";
 
+
     hours =
         hours % 12;
+
 
     if (hours === 0) {
 
         hours = 12;
+
     }
+
 
     minutes =
         minutes
             .toString()
             .padStart(2, "0");
 
+
     seconds =
         seconds
             .toString()
             .padStart(2, "0");
 
+
     document.getElementById(
         "liveClock"
     ).textContent =
         `${hours}:${minutes}:${seconds} ${ampm}`;
+
 }
 
 
 updateClock();
+
 
 setInterval(
     updateClock,
@@ -145,22 +165,30 @@ setInterval(
 
 
 /* =====================================
-   MUSIC
+   AUDIO
 ===================================== */
 
 const audio =
     document.getElementById("audio");
 
 
+/* =====================================
+   SONGS
+===================================== */
+
 const songs = [
 
     {
         title: "Be Intehaan",
+
         artist: "Atif Aslam",
+
         file: "song2.mp3",
+
         image:
             "https://picsum.photos/60?random=2"
     },
+
 
     {
         title:
@@ -176,6 +204,7 @@ const songs = [
             "https://picsum.photos/60?random=3"
     },
 
+
     {
         title:
             "Woh Lamhe",
@@ -189,6 +218,7 @@ const songs = [
         image:
             "https://picsum.photos/60?random=4"
     },
+
 
     {
         title:
@@ -204,6 +234,7 @@ const songs = [
             "https://picsum.photos/60?random=5"
     },
 
+
     {
         title:
             "Song 6",
@@ -217,6 +248,7 @@ const songs = [
         image:
             "https://picsum.photos/60?random=6"
     },
+
 
     {
         title:
@@ -232,6 +264,7 @@ const songs = [
             "https://picsum.photos/60?random=7"
     },
 
+
     {
         title:
             "Song 8",
@@ -245,6 +278,7 @@ const songs = [
         image:
             "https://picsum.photos/60?random=8"
     },
+
 
     {
         title:
@@ -267,132 +301,316 @@ let currentSong = 0;
 
 
 /* =====================================
-   VISUALIZER
+   CANVAS VISUALIZER
 ===================================== */
+
+const canvas =
+    document.getElementById(
+        "visualizer"
+    );
+
+
+const ctx =
+    canvas.getContext("2d");
+
 
 let audioContext = null;
 
 let analyser = null;
 
-let source = null;
+let audioSource = null;
 
-let visualizerStarted = false;
+let visualizerReady = false;
 
 
-function startVisualizer() {
+/* =====================================
+   SET CANVAS SIZE
+===================================== */
 
-    if (visualizerStarted) {
+function resizeCanvas() {
 
-        return;
+    const ratio =
+        window.devicePixelRatio || 1;
+
+
+    const width =
+        canvas.clientWidth;
+
+
+    const height =
+        canvas.clientHeight;
+
+
+    canvas.width =
+        width * ratio;
+
+
+    canvas.height =
+        height * ratio;
+
+
+    ctx.setTransform(
+        ratio,
+        0,
+        0,
+        ratio,
+        0,
+        0
+    );
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* =====================================
+   START AUDIO ANALYSER
+===================================== */
+
+function setupVisualizer() {
+
+    if (visualizerReady) {
+
+        return true;
     }
+
 
     try {
 
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+
+        if (!AudioContext) {
+
+            console.error(
+                "Web Audio API not supported."
+            );
+
+            return false;
+        }
+
+
         audioContext =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
+            new AudioContext();
+
 
         analyser =
             audioContext.createAnalyser();
 
-        analyser.fftSize = 64;
 
-        source =
+        analyser.fftSize = 256;
+
+
+        analyser.smoothingTimeConstant =
+            0.75;
+
+
+        audioSource =
             audioContext.createMediaElementSource(
                 audio
             );
 
-        source.connect(analyser);
+
+        audioSource.connect(
+            analyser
+        );
+
 
         analyser.connect(
             audioContext.destination
         );
 
-        visualizerStarted = true;
 
-        animateVisualizer();
+        visualizerReady = true;
+
+
+        drawWave();
+
+
+        return true;
 
     } catch (error) {
 
         console.error(
-            "Visualizer error:",
+            "Visualizer setup error:",
             error
         );
 
+
+        return false;
     }
 }
 
 
-function animateVisualizer() {
+/* =====================================
+   DRAW WAVE
+===================================== */
+
+function drawWave() {
+
+    requestAnimationFrame(
+        drawWave
+    );
+
+
+    const width =
+        canvas.clientWidth;
+
+
+    const height =
+        canvas.clientHeight;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /* CENTER LINE */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        0,
+        height / 2
+    );
+
+    ctx.lineTo(
+        width,
+        height / 2
+    );
+
+    ctx.lineWidth = 1;
+
+    ctx.strokeStyle =
+        "rgba(255,255,255,0.12)";
+
+    ctx.stroke();
+
+
+    /* NO AUDIO YET */
 
     if (!analyser) {
 
         return;
     }
 
-    const data =
+
+    const bufferLength =
+        analyser.fftSize;
+
+
+    const dataArray =
         new Uint8Array(
-            analyser.frequencyBinCount
+            bufferLength
         );
 
-    function animate() {
 
-        requestAnimationFrame(
-            animate
-        );
+    analyser.getByteTimeDomainData(
+        dataArray
+    );
 
-        analyser.getByteFrequencyData(
-            data
-        );
 
-        const bars =
-            document.querySelectorAll(
-                ".visualizer .bar"
+    /* WAVE */
+
+    ctx.beginPath();
+
+
+    const sliceWidth =
+        width / bufferLength;
+
+
+    let x = 0;
+
+
+    for (
+        let i = 0;
+        i < bufferLength;
+        i++
+    ) {
+
+        const value =
+            dataArray[i] / 128.0;
+
+
+        const y =
+            (value * height) / 2;
+
+
+        if (i === 0) {
+
+            ctx.moveTo(
+                x,
+                y
             );
 
-        bars.forEach(
-            function(bar, index) {
+        } else {
 
-                const value =
-                    data[index] || 0;
+            ctx.lineTo(
+                x,
+                y
+            );
+        }
 
-                const height =
-                    Math.max(
-                        8,
-                        (value / 255) * 85
-                    );
 
-                bar.style.height =
-                    height + "px";
-            }
-        );
+        x += sliceWidth;
     }
 
-    animate();
+
+    ctx.lineWidth = 3;
+
+
+    if (
+        document.body.classList.contains(
+            "light-theme"
+        )
+    ) {
+
+        ctx.strokeStyle =
+            "rgba(20,20,20,0.9)";
+
+    } else {
+
+        ctx.strokeStyle =
+            "rgba(255,255,255,0.95)";
+    }
+
+
+    ctx.shadowBlur = 12;
+
+
+    if (
+        document.body.classList.contains(
+            "light-theme"
+        )
+    ) {
+
+        ctx.shadowColor =
+            "rgba(0,0,0,0.4)";
+
+    } else {
+
+        ctx.shadowColor =
+            "rgba(255,255,255,0.8)";
+    }
+
+
+    ctx.stroke();
+
+
+    ctx.shadowBlur = 0;
 }
-
-
-audio.addEventListener(
-    "play",
-    function() {
-
-        if (!visualizerStarted) {
-
-            startVisualizer();
-        }
-
-        if (
-            audioContext &&
-            audioContext.state === "suspended"
-        ) {
-
-            audioContext.resume();
-        }
-
-    }
-);
 
 
 /* =====================================
@@ -403,23 +621,45 @@ function playSong(index) {
 
     currentSong = index;
 
+
+    /*
+       Create analyser from a user action
+       before starting the audio.
+    */
+
+    setupVisualizer();
+
+
+    if (
+        audioContext &&
+        audioContext.state === "suspended"
+    ) {
+
+        audioContext.resume();
+    }
+
+
     audio.src =
         songs[currentSong].file;
+
 
     document.getElementById(
         "songTitle"
     ).textContent =
         songs[currentSong].title;
 
+
     document.getElementById(
         "artist"
     ).textContent =
         songs[currentSong].artist;
 
+
     document.getElementById(
         "playerImage"
     ).src =
         songs[currentSong].image;
+
 
     audio.play()
         .catch(function(error) {
@@ -441,6 +681,18 @@ function togglePlay() {
 
     if (audio.paused) {
 
+        setupVisualizer();
+
+
+        if (
+            audioContext &&
+            audioContext.state === "suspended"
+        ) {
+
+            audioContext.resume();
+        }
+
+
         if (
             !audio.src ||
             audio.src === window.location.href
@@ -450,6 +702,7 @@ function togglePlay() {
 
             return;
         }
+
 
         audio.play()
             .catch(function(error) {
@@ -476,12 +729,14 @@ function nextSong() {
 
     currentSong++;
 
+
     if (
         currentSong >= songs.length
     ) {
 
         currentSong = 0;
     }
+
 
     playSong(currentSong);
 }
@@ -495,11 +750,13 @@ function previousSong() {
 
     currentSong--;
 
+
     if (currentSong < 0) {
 
         currentSong =
             songs.length - 1;
     }
+
 
     playSong(currentSong);
 }
@@ -518,6 +775,7 @@ audio.addEventListener(
                 "progress"
             );
 
+
         if (
             audio.duration &&
             Number.isFinite(
@@ -531,6 +789,7 @@ audio.addEventListener(
                     audio.duration
                 ) * 100;
         }
+
 
         document.getElementById(
             "currentTime"
@@ -582,7 +841,8 @@ document.getElementById(
             audio.currentTime =
                 (
                     this.value / 100
-                ) * audio.duration;
+                ) *
+                audio.duration;
         }
 
     }
@@ -661,21 +921,25 @@ function formatTime(seconds) {
         return "0:00";
     }
 
+
     const minutes =
         Math.floor(
             seconds / 60
         );
+
 
     let secs =
         Math.floor(
             seconds % 60
         );
 
+
     if (secs < 10) {
 
         secs =
             "0" + secs;
     }
+
 
     return (
         minutes +
@@ -695,10 +959,12 @@ function toggleTheme() {
         "light-theme"
     );
 
+
     const button =
         document.getElementById(
             "themeToggle"
         );
+
 
     if (
         document.body.classList.contains(

@@ -218,7 +218,7 @@ const songs = [
 
     {
         title:
-            "Song 5",
+            "Jenna Jenna",
 
         artist:
             "Artist 5",
@@ -233,7 +233,7 @@ const songs = [
 
     {
         title:
-            "Song 6",
+            "Pehli Dafa",
 
         artist:
             "Artist 6",
@@ -248,7 +248,7 @@ const songs = [
 
     {
         title:
-            "Song 7",
+            "O Satthi",
 
         artist:
             "Artist 7",
@@ -263,7 +263,7 @@ const songs = [
 
     {
         title:
-            "Song 8",
+            "Shyd Kabhi Na Kah Saku",
 
         artist:
             "Artist 8",

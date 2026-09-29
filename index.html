@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,33 +11,28 @@
 
 <body>
 
-    <!-- 🌧️ RAIN EFFECT -->
+    <!-- Rain Effect -->
     <div class="rain"></div>
 
-
-    <!-- SIDEBAR -->
+    <!-- Sidebar -->
     <aside class="sidebar">
         <h1>☕ Cafe Beats</h1>
     </aside>
 
-
-    <!-- THEME BUTTON -->
+    <!-- Theme Button -->
     <button id="themeToggle" onclick="toggleTheme()">☀️</button>
 
-
-    <!-- ONLINE COUNTER -->
+    <!-- Online Counter -->
     <div id="onlineCounter">
         🟢 <span id="onlineCount">0</span> Online
     </div>
 
-
-    <!-- LIVE CLOCK -->
+    <!-- Live Clock -->
     <div id="liveClock">
         0:00:00 PM
     </div>
 
-
-    <!-- ☕ COFFEE CUP -->
+    <!-- Coffee Animation -->
     <div class="coffee-animation">
 
         <div class="steam steam1"></div>
@@ -46,65 +40,39 @@
         <div class="steam steam3"></div>
 
         <div class="coffee-cup">
-
             <div class="coffee"></div>
-
             <div class="cup-handle"></div>
-
         </div>
 
         <div class="saucer"></div>
 
     </div>
 
-
-    <!-- MAIN -->
+    <!-- Visualizer -->
     <main>
-
-        <!-- 🎵 MUSIC WAVE -->
         <canvas id="visualizer"></canvas>
-
     </main>
 
-
-    <!-- ⏱️ SLEEP TIMER -->
+    <!-- Sleep Timer -->
     <div class="sleep-timer">
 
         <span>⏱️ Sleep Timer</span>
 
-        <select
-            id="sleepTime"
-            onchange="setSleepTimer()"
-        >
-
-            <option value="0">
-                Off
-            </option>
-
-            <option value="15">
-                15 Minutes
-            </option>
-
-            <option value="30">
-                30 Minutes
-            </option>
-
-            <option value="60">
-                60 Minutes
-            </option>
-
+        <select id="sleepTime" onchange="setSleepTimer()">
+            <option value="0">Off</option>
+            <option value="15">15 Minutes</option>
+            <option value="30">30 Minutes</option>
+            <option value="60">60 Minutes</option>
         </select>
 
         <span id="sleepStatus"></span>
 
     </div>
 
-
-    <!-- 🎵 MUSIC PLAYER -->
+    <!-- Music Player -->
     <div class="player">
 
-
-        <!-- CURRENT SONG -->
+        <!-- Current Song -->
         <div class="current-song">
 
             <img
@@ -114,59 +82,34 @@
             >
 
             <div>
-
-                <b id="songTitle">
-                    Be Intehaan
-                </b>
-
-                <small id="artist">
-                    Atif Aslam
-                </small>
-
+                <b id="songTitle">Be Intehaan</b>
+                <small id="artist">Atif Aslam</small>
             </div>
 
         </div>
 
-
-        <!-- CONTROLS -->
+        <!-- Controls -->
         <div class="controls">
 
             <div class="buttons">
 
-                <button
-                    onclick="previousSong()"
-                    title="Previous"
-                >
-                    ⏮
-                </button>
-
+                <button onclick="previousSong()">⏮</button>
 
                 <button
                     id="playBtn"
                     onclick="togglePlay()"
-                    title="Play / Pause"
                 >
                     ▶
                 </button>
 
-
-                <button
-                    onclick="nextSong()"
-                    title="Next"
-                >
-                    ⏭
-                </button>
+                <button onclick="nextSong()">⏭</button>
 
             </div>
 
-
-            <!-- PROGRESS -->
+            <!-- Progress -->
             <div class="progress-area">
 
-                <span id="currentTime">
-                    0:00
-                </span>
-
+                <span id="currentTime">0:00</span>
 
                 <input
                     type="range"
@@ -176,49 +119,54 @@
                     max="100"
                 >
 
-
-                <span id="duration">
-                    0:00
-                </span>
+                <span id="duration">0:00</span>
 
             </div>
 
         </div>
 
+        <!-- Right Controls -->
+        <div class="right-controls">
 
-        <!-- 🔊 VOLUME -->
-        <div class="volume">
-
-            🔊
-
-            <input
-                type="range"
-                id="volume"
-                min="0"
-                max="1"
-                step="0.01"
-                value="1"
+            <!-- Shuffle Button -->
+            <button
+                id="shuffleBtn"
+                onclick="toggleShuffle()"
+                title="Shuffle"
             >
+                🔀
+            </button>
+
+            <!-- Volume -->
+            <div class="volume">
+
+                🔊
+
+                <input
+                    type="range"
+                    id="volume"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="1"
+                >
+
+            </div>
 
         </div>
 
     </div>
 
-
-    <!-- AUDIO -->
+    <!-- Audio -->
     <audio id="audio"></audio>
 
-
-    <!-- FIREBASE -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-
-    <!-- JAVASCRIPT -->
+    <!-- Your JavaScript -->
     <script src="script.js"></script>
 
-
 </body>
-
 </html>

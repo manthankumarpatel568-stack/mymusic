@@ -73,25 +73,25 @@ const songs = [
 
     { title: "Memories", artist: "Artist 20", file: "song20.mp3" },
 
-    { title: "New Song 21", artist: "Artist 21", file: "song21.mp3" },
+    { title: "Falling", file: "song21.mp3" },
 
-    { title: "New Song 22", artist: "Artist 22", file: "song22.mp3" },
+    { title: "Heat Waves", file: "song22.mp3" },
 
-    { title: "New Song 23", artist: "Artist 23", file: "song23.mp3" },
+    { title: "Dandelions", file: "song23.mp3" },
 
-    { title: "New Song 24", artist: "Artist 24", file: "song24.mp3" },
+    { title: "Sing for the Moment", file: "song24.mp3" },
 
-    { title: "New Song 25", artist: "Artist 25", file: "song25.mp3" },
+    { title: "Darkside", file: "song25.mp3" },
 
-    { title: "New Song 26", artist: "Artist 26", file: "song26.mp3" },
+    { title: "Somewhere We Only Know", file: "song26.mp3" },
 
-    { title: "New Song 27", artist: "Artist 27", file: "song27.mp3" },
+    { title: "Snap", file: "song27.mp3" },
 
-    { title: "New Song 28", artist: "Artist 28", file: "song28.mp3" },
+    { title: "Her", file: "song28.mp3" },
 
-    { title: "New Song 29", artist: "Artist 29", file: "song29.mp3" },
+    { title: "I Guess", file: "song29.mp3" },
 
-    { title: "New Song 30", artist: "Artist 30", file: "song30.mp3" }
+    { title: "Departure Lane", file: "song30.mp3" }
 
 ];
 
@@ -138,7 +138,9 @@ function loadSong(index) {
     audio.src = "./" + song.file;
 
     songTitle.textContent = song.title;
-    artist.textContent = song.artist;
+
+    artist.textContent =
+        song.artist || "";
 
     playerImage.src =
         "https://picsum.photos/60?random=" +
@@ -147,11 +149,16 @@ function loadSong(index) {
     progress.value = 0;
 
     currentTime.textContent = "0:00";
+
     duration.textContent = "0:00";
 
     audio.load();
 
-    console.log("Loaded:", song.title, song.file);
+    console.log(
+        "Loaded:",
+        song.title,
+        song.file
+    );
 }
 
 
@@ -177,7 +184,10 @@ function playSong() {
         })
         .catch(function (error) {
 
-            console.error("Play error:", error);
+            console.error(
+                "Play error:",
+                error
+            );
 
         });
 }
@@ -206,9 +216,13 @@ function pauseSong() {
 function togglePlay() {
 
     if (audio.paused) {
+
         playSong();
+
     } else {
+
         pauseSong();
+
     }
 
 }
@@ -236,21 +250,30 @@ function nextSong() {
             randomIndex === currentSongIndex
         );
 
-        currentSongIndex = randomIndex;
+        currentSongIndex =
+            randomIndex;
 
     } else {
 
         currentSongIndex++;
 
-        if (currentSongIndex >= songs.length) {
+        if (
+            currentSongIndex >=
+            songs.length
+        ) {
+
             currentSongIndex = 0;
+
         }
 
     }
 
-    loadSong(currentSongIndex);
+    loadSong(
+        currentSongIndex
+    );
 
     playSong();
+
 }
 
 
@@ -263,12 +286,18 @@ function previousSong() {
     currentSongIndex--;
 
     if (currentSongIndex < 0) {
-        currentSongIndex = songs.length - 1;
+
+        currentSongIndex =
+            songs.length - 1;
+
     }
 
-    loadSong(currentSongIndex);
+    loadSong(
+        currentSongIndex
+    );
 
     playSong();
+
 }
 
 
@@ -292,10 +321,13 @@ audio.addEventListener(
 
 function toggleShuffle() {
 
-    shuffleMode = !shuffleMode;
+    shuffleMode =
+        !shuffleMode;
 
     const shuffleBtn =
-        document.getElementById("shuffleBtn");
+        document.getElementById(
+            "shuffleBtn"
+        );
 
     if (!shuffleBtn) {
         return;
@@ -303,15 +335,21 @@ function toggleShuffle() {
 
     if (shuffleMode) {
 
-        shuffleBtn.textContent = "🔀 ON";
+        shuffleBtn.textContent =
+            "🔀 ON";
 
-        shuffleBtn.classList.add("active");
+        shuffleBtn.classList.add(
+            "active"
+        );
 
     } else {
 
-        shuffleBtn.textContent = "🔀";
+        shuffleBtn.textContent =
+            "🔀";
 
-        shuffleBtn.classList.remove("active");
+        shuffleBtn.classList.remove(
+            "active"
+        );
 
     }
 
@@ -326,11 +364,14 @@ audio.addEventListener(
     "error",
     function () {
 
-        const song = songs[currentSongIndex];
+        const song =
+            songs[currentSongIndex];
 
         console.error(
             "Audio error:",
-            song ? song.file : "Unknown file"
+            song
+                ? song.file
+                : "Unknown file"
         );
 
         if (audio.error) {
@@ -357,7 +398,9 @@ audio.addEventListener(
         if (!isNaN(audio.duration)) {
 
             duration.textContent =
-                formatTime(audio.duration);
+                formatTime(
+                    audio.duration
+                );
 
             progress.max =
                 audio.duration;
@@ -385,7 +428,9 @@ audio.addEventListener(
                 audio.currentTime;
 
             currentTime.textContent =
-                formatTime(audio.currentTime);
+                formatTime(
+                    audio.currentTime
+                );
 
         }
 
@@ -402,7 +447,9 @@ progress.addEventListener(
     function () {
 
         audio.currentTime =
-            Number(progress.value);
+            Number(
+                progress.value
+            );
 
     }
 );
@@ -417,7 +464,9 @@ volume.addEventListener(
     function () {
 
         audio.volume =
-            Number(volume.value);
+            Number(
+                volume.value
+            );
 
     }
 );
@@ -435,19 +484,29 @@ function formatTime(seconds) {
         !seconds ||
         isNaN(seconds)
     ) {
+
         return "0:00";
+
     }
 
     const minutes =
-        Math.floor(seconds / 60);
+        Math.floor(
+            seconds / 60
+        );
 
     const secs =
-        Math.floor(seconds % 60);
+        Math.floor(
+            seconds % 60
+        );
 
     return (
         minutes +
         ":" +
-        (secs < 10 ? "0" : "") +
+        (
+            secs < 10
+                ? "0"
+                : ""
+        ) +
         secs
     );
 
@@ -465,7 +524,9 @@ function toggleTheme() {
     );
 
     const button =
-        document.getElementById("themeToggle");
+        document.getElementById(
+            "themeToggle"
+        );
 
     if (!button) {
         return;
@@ -477,11 +538,13 @@ function toggleTheme() {
         )
     ) {
 
-        button.textContent = "🌙";
+        button.textContent =
+            "🌙";
 
     } else {
 
-        button.textContent = "☀️";
+        button.textContent =
+            "☀️";
 
     }
 
@@ -495,13 +558,16 @@ function toggleTheme() {
 function updateClock() {
 
     const clock =
-        document.getElementById("liveClock");
+        document.getElementById(
+            "liveClock"
+        );
 
     if (!clock) {
         return;
     }
 
-    const now = new Date();
+    const now =
+        new Date();
 
     let hours =
         now.getHours();
@@ -548,8 +614,9 @@ updateClock();
 ========================================================= */
 
 const onlineCount =
-    document.getElementById("onlineCount");
-
+    document.getElementById(
+        "onlineCount"
+    );
 
 if (database) {
 
@@ -607,21 +674,29 @@ let sleepTimer = null;
 function setSleepTimer() {
 
     const select =
-        document.getElementById("sleepTime");
+        document.getElementById(
+            "sleepTime"
+        );
 
     const status =
-        document.getElementById("sleepStatus");
+        document.getElementById(
+            "sleepStatus"
+        );
 
     if (!select) {
         return;
     }
 
     const minutes =
-        Number(select.value);
+        Number(
+            select.value
+        );
 
     if (sleepTimer) {
 
-        clearTimeout(sleepTimer);
+        clearTimeout(
+            sleepTimer
+        );
 
         sleepTimer = null;
 
@@ -634,6 +709,7 @@ function setSleepTimer() {
         }
 
         return;
+
     }
 
     if (status) {
@@ -672,7 +748,9 @@ function setSleepTimer() {
                 sleepTimer = null;
 
             },
-            minutes * 60 * 1000
+            minutes *
+            60 *
+            1000
         );
 
 }
@@ -683,7 +761,9 @@ function setSleepTimer() {
 ========================================================= */
 
 const canvas =
-    document.getElementById("visualizer");
+    document.getElementById(
+        "visualizer"
+    );
 
 const ctx =
     canvas
@@ -716,16 +796,21 @@ function setupVisualizer() {
         analyser =
             audioContext.createAnalyser();
 
-        analyser.fftSize = 1024;
+        analyser.fftSize =
+            1024;
 
         analyser.smoothingTimeConstant =
             0.97;
 
         source =
             audioContext
-                .createMediaElementSource(audio);
+                .createMediaElementSource(
+                    audio
+                );
 
-        source.connect(analyser);
+        source.connect(
+            analyser
+        );
 
         analyser.connect(
             audioContext.destination
@@ -839,7 +924,9 @@ function drawVisualizer() {
 
         values.push(
             data[
-                Math.floor(i * step)
+                Math.floor(
+                    i * step
+                )
             ]
         );
 
@@ -854,7 +941,8 @@ function drawVisualizer() {
         height * 0.32;
 
     const xStep =
-        width / (points - 1);
+        width /
+        (points - 1);
 
     for (
         let i = 0;
@@ -863,14 +951,16 @@ function drawVisualizer() {
     ) {
 
         const normalized =
-            (values[i] - 128) / 128;
+            (values[i] - 128) /
+            128;
 
         const x =
             i * xStep;
 
         const y =
             centerY +
-            normalized * amplitude;
+            normalized *
+            amplitude;
 
         if (i === 0) {
 
@@ -882,17 +972,24 @@ function drawVisualizer() {
         } else {
 
             const previousX =
-                (i - 1) * xStep;
+                (i - 1) *
+                xStep;
 
             const previousY =
                 centerY +
                 (
-                    (values[i - 1] - 128) /
-                    128
-                ) * amplitude;
+                    (
+                        values[i - 1] -
+                        128
+                    ) / 128
+                ) *
+                amplitude;
 
             const controlX =
-                (previousX + x) / 2;
+                (
+                    previousX +
+                    x
+                ) / 2;
 
             ctx.quadraticCurveTo(
                 controlX,
@@ -936,7 +1033,8 @@ audio.addEventListener(
 
         if (
             audioContext &&
-            audioContext.state === "suspended"
+            audioContext.state ===
+            "suspended"
         ) {
 
             audioContext.resume();

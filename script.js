@@ -1,339 +1,726 @@
-/* =====================================
-   FIREBASE
-===================================== */
+/* =========================================================
+   ☕ CAFE BEATS - MUSIC PLAYER
+========================================================= */
+
+
+/* =========================================================
+   🔥 FIREBASE
+========================================================= */
 
 const firebaseConfig = {
-
     apiKey: "AIzaSyDFdJAqe-g1EXo5qPYpLkoXd23xVrt78S0",
-
-    authDomain:
-        "cafe-beats-6ba81.firebaseapp.com",
-
-    projectId:
-        "cafe-beats-6ba81",
-
-    storageBucket:
-        "cafe-beats-6ba81.firebasestorage.app",
-
-    messagingSenderId:
-        "375478395425",
-
-    appId:
-        "1:375478395425:web:9ce597e11cfd5c212ef960",
-
-    measurementId:
-        "G-WTCQGJ5F24"
+    authDomain: "cafe-beats-6ba81.firebaseapp.com",
+    projectId: "cafe-beats-6ba81",
+    storageBucket: "cafe-beats-6ba81.firebasestorage.app",
+    messagingSenderId: "375478395425",
+    appId: "1:375478395425:web:9ce597e11cfd5c212ef960",
+    measurementId: "G-WTCQGJ5F24"
 };
-
-
-/* =====================================
-   START FIREBASE
-===================================== */
 
 firebase.initializeApp(firebaseConfig);
 
-const database =
-    firebase.database();
-
-const onlineUsersRef =
-    database.ref("onlineUsers");
-
-const connectedRef =
-    database.ref(".info/connected");
+const database = firebase.database();
 
 
-/* =====================================
-   ONLINE USERS
-===================================== */
-
-connectedRef.on("value", function(snapshot) {
-
-    if (snapshot.val() === true) {
-
-        const userRef =
-            onlineUsersRef.push();
-
-        userRef
-            .onDisconnect()
-            .remove()
-            .then(function() {
-
-                return userRef.set(true);
-
-            })
-            .catch(function(error) {
-
-                console.error(
-                    "Presence error:",
-                    error
-                );
-
-            });
-    }
-
-});
-
-
-onlineUsersRef.on("value", function(snapshot) {
-
-    const count =
-        snapshot.numChildren();
-
-    const counter =
-        document.getElementById(
-            "onlineCount"
-        );
-
-    if (counter) {
-
-        counter.textContent =
-            count;
-
-    }
-
-});
-
-
-/* =====================================
-   LIVE CLOCK
-===================================== */
-
-function updateClock() {
-
-    const now =
-        new Date();
-
-    let hours =
-        now.getHours();
-
-    let minutes =
-        now.getMinutes();
-
-    let seconds =
-        now.getSeconds();
-
-    let ampm =
-        hours >= 12
-            ? "PM"
-            : "AM";
-
-    hours =
-        hours % 12;
-
-    if (hours === 0) {
-        hours = 12;
-    }
-
-    minutes =
-        minutes
-            .toString()
-            .padStart(2, "0");
-
-    seconds =
-        seconds
-            .toString()
-            .padStart(2, "0");
-
-    const clock =
-        document.getElementById(
-            "liveClock"
-        );
-
-    if (clock) {
-
-        clock.textContent =
-            `${hours}:${minutes}:${seconds} ${ampm}`;
-
-    }
-
-}
-
-
-updateClock();
-
-setInterval(
-    updateClock,
-    1000
-);
-
-
-/* =====================================
-   AUDIO
-===================================== */
-
-const audio =
-    document.getElementById("audio");
-
-
-/* =====================================
-   SONGS
-===================================== */
+/* =========================================================
+   🎵 SONG LIST
+========================================================= */
 
 const songs = [
 
     {
         title: "Be Intehaan",
-
         artist: "Atif Aslam",
+        file: "song2.mp3"
+    },
 
-        file: "song2.mp3",
+    {
+        title: "Darkhast X Monsoon Mashup",
+        artist: "Artist Name",
+        file: "song3.mp3"
+    },
 
-        image:
-            "https://picsum.photos/60?random=2"
+    {
+        title: "Woh Lamhe",
+        artist: "Atif Aslam",
+        file: "song4.mp3"
+    },
+
+    {
+        title: "Jenna Jenna",
+        artist: "Artist 5",
+        file: "song5.mp3"
+    },
+
+    {
+        title: "Pehli Dafa",
+        artist: "Artist 6",
+        file: "song6.mp3"
+    },
+
+    {
+        title: "O Satthi",
+        artist: "Artist 7",
+        file: "song7.mp3"
+    },
+
+    {
+        title: "Shyd Kabhi Na Kah Saku",
+        artist: "Artist 8",
+        file: "song8.mp3"
     },
 
 
+    /* =====================================================
+       🆕 NEW SONGS
+    ===================================================== */
+
     {
-        title:
-            "Darkhast X Monsoon Mashup",
-
-        artist:
-            "Artist Name",
-
-        file:
-            "song3.mp3",
-
-        image:
-            "https://picsum.photos/60?random=3"
+        title: "Song 9",
+        artist: "Artist 9",
+        file: "song9.mp3"
     },
 
-
     {
-        title:
-            "Woh Lamhe",
-
-        artist:
-            "Atif Aslam",
-
-        file:
-            "song4.mp3",
-
-        image:
-            "https://picsum.photos/60?random=4"
+        title: "Song 10",
+        artist: "Artist 10",
+        file: "song10.mp3"
     },
 
-
     {
-        title:
-            "Jenna Jenna",
-
-        artist:
-            "Artist 5",
-
-        file:
-            "song5.mp3",
-
-        image:
-            "https://picsum.photos/60?random=5"
+        title: "Song 11",
+        artist: "Artist 11",
+        file: "song11.mp3"
     },
 
-
     {
-        title:
-            "Pehli Dafa",
-
-        artist:
-            "Artist 6",
-
-        file:
-            "song6.mp3",
-
-        image:
-            "https://picsum.photos/60?random=6"
+        title: "Song 12",
+        artist: "Artist 12",
+        file: "song12.mp3"
     },
 
-
     {
-        title:
-            "O Satthi",
-
-        artist:
-            "Artist 7",
-
-        file:
-            "song7.mp3",
-
-        image:
-            "https://picsum.photos/60?random=7"
+        title: "Song 13",
+        artist: "Artist 13",
+        file: "song13.mp3"
     },
 
+    {
+        title: "Song 14",
+        artist: "Artist 14",
+        file: "song14.mp3"
+    },
 
     {
-        title:
-            "Shyd Kabhi Na Kah Saku",
+        title: "Song 15",
+        artist: "Artist 15",
+        file: "song15.mp3"
+    },
 
-        artist:
-            "Artist 8",
+    {
+        title: "Song 16",
+        artist: "Artist 16",
+        file: "song16.mp3"
+    },
 
-        file:
-            "song8.mp3",
+    {
+        title: "Song 17",
+        artist: "Artist 17",
+        file: "song17.mp3"
+    },
 
-        image:
-            "https://picsum.photos/60?random=8"
+    {
+        title: "Song 18",
+        artist: "Artist 18",
+        file: "song18.mp3"
+    },
+
+    {
+        title: "Song 19",
+        artist: "Artist 19",
+        file: "song19.mp3"
+    },
+
+    {
+        title: "Song 20",
+        artist: "Artist 20",
+        file: "song20.mp3"
     }
 
 ];
 
 
-let currentSong = 0;
+/* =========================================================
+   🎧 PLAYER VARIABLES
+========================================================= */
+
+const audio = document.getElementById("audio");
+
+const playBtn = document.getElementById("playBtn");
+
+const songTitle = document.getElementById("songTitle");
+
+const artist = document.getElementById("artist");
+
+const playerImage = document.getElementById("playerImage");
+
+const progress = document.getElementById("progress");
+
+const currentTime = document.getElementById("currentTime");
+
+const duration = document.getElementById("duration");
+
+const volume = document.getElementById("volume");
 
 
-/* =====================================
-   VISUALIZER
-===================================== */
+let currentSongIndex = 0;
+
+let isPlaying = false;
+
+
+/* =========================================================
+   🎵 LOAD SONG
+========================================================= */
+
+function loadSong(index) {
+
+    currentSongIndex = index;
+
+    const song = songs[currentSongIndex];
+
+    if (!song) return;
+
+
+    audio.src = song.file;
+
+    songTitle.textContent = song.title;
+
+    artist.textContent = song.artist;
+
+
+    /*
+       Random cover image
+       Change random number for a different image
+    */
+
+    playerImage.src =
+        "https://picsum.photos/60?random=" +
+        (currentSongIndex + 2);
+
+
+    progress.value = 0;
+
+    currentTime.textContent = "0:00";
+
+    duration.textContent = "0:00";
+
+
+    audio.load();
+}
+
+
+/* =========================================================
+   ▶️ PLAY SONG
+========================================================= */
+
+function playSong() {
+
+    audio.play()
+        .then(() => {
+
+            isPlaying = true;
+
+            playBtn.textContent = "⏸";
+
+        })
+        .catch((error) => {
+
+            console.log("Audio play error:", error);
+
+        });
+}
+
+
+/* =========================================================
+   ⏸️ PAUSE SONG
+========================================================= */
+
+function pauseSong() {
+
+    audio.pause();
+
+    isPlaying = false;
+
+    playBtn.textContent = "▶";
+}
+
+
+/* =========================================================
+   ▶️ / ⏸️ PLAY PAUSE
+========================================================= */
+
+function togglePlay() {
+
+    if (audio.paused) {
+
+        playSong();
+
+    } else {
+
+        pauseSong();
+
+    }
+}
+
+
+/* =========================================================
+   ⏭️ NEXT SONG
+========================================================= */
+
+function nextSong() {
+
+    currentSongIndex++;
+
+    if (currentSongIndex >= songs.length) {
+
+        currentSongIndex = 0;
+
+    }
+
+    loadSong(currentSongIndex);
+
+    playSong();
+}
+
+
+/* =========================================================
+   ⏮️ PREVIOUS SONG
+========================================================= */
+
+function previousSong() {
+
+    currentSongIndex--;
+
+    if (currentSongIndex < 0) {
+
+        currentSongIndex = songs.length - 1;
+
+    }
+
+    loadSong(currentSongIndex);
+
+    playSong();
+}
+
+
+/* =========================================================
+   🎵 AUTO NEXT WHEN SONG ENDS
+========================================================= */
+
+audio.addEventListener("ended", function() {
+
+    nextSong();
+
+});
+
+
+/* =========================================================
+   ⏱️ SONG TIME
+========================================================= */
+
+audio.addEventListener("loadedmetadata", function() {
+
+    if (!isNaN(audio.duration)) {
+
+        duration.textContent =
+            formatTime(audio.duration);
+
+        progress.max = audio.duration;
+
+    }
+
+});
+
+
+audio.addEventListener("timeupdate", function() {
+
+    if (!isNaN(audio.duration)) {
+
+        progress.max = audio.duration;
+
+        progress.value = audio.currentTime;
+
+        currentTime.textContent =
+            formatTime(audio.currentTime);
+
+    }
+
+});
+
+
+/* =========================================================
+   🎚️ PROGRESS BAR
+========================================================= */
+
+progress.addEventListener("input", function() {
+
+    audio.currentTime = progress.value;
+
+});
+
+
+/* =========================================================
+   🔊 VOLUME
+========================================================= */
+
+volume.addEventListener("input", function() {
+
+    audio.volume = volume.value;
+
+});
+
+
+audio.volume = 1;
+
+
+/* =========================================================
+   ⏱️ FORMAT TIME
+========================================================= */
+
+function formatTime(seconds) {
+
+    if (!seconds || isNaN(seconds)) {
+
+        return "0:00";
+
+    }
+
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const secs =
+        Math.floor(seconds % 60);
+
+
+    return minutes + ":" +
+        (secs < 10 ? "0" : "") +
+        secs;
+}
+
+
+/* =========================================================
+   🌙 THEME
+========================================================= */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("light-theme");
+
+
+    const button =
+        document.getElementById("themeToggle");
+
+
+    if (document.body.classList.contains("light-theme")) {
+
+        button.textContent = "🌙";
+
+    } else {
+
+        button.textContent = "☀️";
+
+    }
+
+}
+
+
+/* =========================================================
+   🕐 LIVE CLOCK
+========================================================= */
+
+function updateClock() {
+
+    const clock =
+        document.getElementById("liveClock");
+
+
+    if (!clock) return;
+
+
+    const now = new Date();
+
+
+    let hours =
+        now.getHours();
+
+    const minutes =
+        now.getMinutes();
+
+    const seconds =
+        now.getSeconds();
+
+
+    const ampm =
+        hours >= 12 ? "PM" : "AM";
+
+
+    hours =
+        hours % 12 || 12;
+
+
+    const h =
+        hours;
+
+
+    const m =
+        minutes < 10
+            ? "0" + minutes
+            : minutes;
+
+
+    const s =
+        seconds < 10
+            ? "0" + seconds
+            : seconds;
+
+
+    clock.textContent =
+        `${h}:${m}:${s} ${ampm}`;
+}
+
+
+setInterval(updateClock, 1000);
+
+updateClock();
+
+
+/* =========================================================
+   🟢 ONLINE USERS
+========================================================= */
+
+const onlineCount =
+    document.getElementById("onlineCount");
+
+
+const userId =
+    "user_" +
+    Date.now() +
+    "_" +
+    Math.random()
+        .toString(36)
+        .substring(2, 9);
+
+
+const userRef =
+    database.ref("onlineUsers/" + userId);
+
+
+userRef.set(true);
+
+
+userRef.onDisconnect().remove();
+
+
+database.ref("onlineUsers")
+    .on("value", function(snapshot) {
+
+        if (onlineCount) {
+
+            onlineCount.textContent =
+                snapshot.numChildren();
+
+        }
+
+    });
+
+
+/* =========================================================
+   ⏱️ SLEEP TIMER
+========================================================= */
+
+let sleepTimer = null;
+
+
+function setSleepTimer() {
+
+    const select =
+        document.getElementById("sleepTime");
+
+
+    const status =
+        document.getElementById("sleepStatus");
+
+
+    if (!select) return;
+
+
+    const minutes =
+        Number(select.value);
+
+
+    if (sleepTimer) {
+
+        clearTimeout(sleepTimer);
+
+        sleepTimer = null;
+
+    }
+
+
+    if (minutes === 0) {
+
+        if (status) {
+
+            status.textContent = "";
+
+        }
+
+        return;
+
+    }
+
+
+    if (status) {
+
+        status.textContent =
+            `⏱️ ${minutes} min`;
+
+    }
+
+
+    sleepTimer =
+        setTimeout(function() {
+
+            audio.pause();
+
+            audio.currentTime = 0;
+
+
+            isPlaying = false;
+
+
+            if (playBtn) {
+
+                playBtn.textContent = "▶";
+
+            }
+
+
+            if (status) {
+
+                status.textContent =
+                    "😴 Music stopped";
+
+            }
+
+
+            select.value = "0";
+
+
+            sleepTimer = null;
+
+        }, minutes * 60 * 1000);
+
+}
+
+
+/* =========================================================
+   🌊 MUSIC VISUALIZER
+========================================================= */
 
 const canvas =
-    document.getElementById(
-        "visualizer"
-    );
+    document.getElementById("visualizer");
+
 
 const ctx =
     canvas.getContext("2d");
 
 
-let audioContext = null;
-
 let analyser = null;
 
-let audioSource = null;
+let audioContext = null;
 
-let visualizerReady = false;
+let source = null;
 
 
-/* =====================================
-   RESIZE CANVAS
-===================================== */
+function setupVisualizer() {
+
+    if (audioContext) return;
+
+
+    try {
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+
+        analyser =
+            audioContext.createAnalyser();
+
+
+        analyser.fftSize = 1024;
+
+        analyser.smoothingTimeConstant = 0.97;
+
+
+        source =
+            audioContext.createMediaElementSource(audio);
+
+
+        source.connect(analyser);
+
+        analyser.connect(
+            audioContext.destination
+        );
+
+
+    } catch (error) {
+
+        console.log(
+            "Visualizer error:",
+            error
+        );
+
+    }
+
+}
+
 
 function resizeCanvas() {
 
-    const ratio =
+    if (!canvas) return;
+
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    const dpr =
         window.devicePixelRatio || 1;
 
-    const width =
-        canvas.clientWidth;
-
-    const height =
-        canvas.clientHeight;
 
     canvas.width =
-        width * ratio;
+        rect.width * dpr;
+
 
     canvas.height =
-        height * ratio;
+        rect.height * dpr;
+
 
     ctx.setTransform(
-        ratio,
+        dpr,
         0,
         0,
-        ratio,
+        dpr,
         0,
         0
     );
 
 }
-
-
-resizeCanvas();
 
 
 window.addEventListener(
@@ -342,90 +729,26 @@ window.addEventListener(
 );
 
 
-/* =====================================
-   SETUP VISUALIZER
-===================================== */
-
-function setupVisualizer() {
-
-    if (visualizerReady) {
-        return true;
-    }
-
-    try {
-
-        const AudioContext =
-            window.AudioContext ||
-            window.webkitAudioContext;
-
-        if (!AudioContext) {
-
-            console.error(
-                "Web Audio API is not supported."
-            );
-
-            return false;
-        }
-
-        audioContext =
-            new AudioContext();
-
-        analyser =
-            audioContext.createAnalyser();
-
-        analyser.fftSize = 1024;
-
-        analyser.smoothingTimeConstant =
-            0.97;
-
-        audioSource =
-            audioContext.createMediaElementSource(
-                audio
-            );
-
-        audioSource.connect(
-            analyser
-        );
-
-        analyser.connect(
-            audioContext.destination
-        );
-
-        visualizerReady = true;
-
-        drawWave();
-
-        return true;
-
-    }
-    catch (error) {
-
-        console.error(
-            "Visualizer setup error:",
-            error
-        );
-
-        return false;
-    }
-
-}
+resizeCanvas();
 
 
-/* =====================================
-   SMOOTH WAVE
-===================================== */
-
-function drawWave() {
+function drawVisualizer() {
 
     requestAnimationFrame(
-        drawWave
+        drawVisualizer
     );
+
+
+    if (!canvas || !ctx) return;
+
 
     const width =
         canvas.clientWidth;
 
+
     const height =
         canvas.clientHeight;
+
 
     ctx.clearRect(
         0,
@@ -434,134 +757,95 @@ function drawWave() {
         height
     );
 
-    if (!analyser) {
-        return;
-    }
 
-    const bufferLength =
-        analyser.fftSize;
+    if (!analyser) return;
 
-    const dataArray =
+
+    const data =
         new Uint8Array(
-            bufferLength
+            analyser.frequencyBinCount
         );
 
-    analyser.getByteTimeDomainData(
-        dataArray
-    );
+
+    analyser.getByteTimeDomainData(data);
+
+
+    /*
+       Downsample the waveform
+       to keep it smooth and clean.
+    */
 
     const points = 70;
 
     const step =
-        Math.floor(
-            bufferLength / points
-        );
+        data.length / points;
+
 
     const values = [];
 
-    for (
-        let i = 0;
-        i < points;
-        i++
-    ) {
 
-        let total = 0;
-
-        let count = 0;
-
-        for (
-            let j = 0;
-            j < step;
-            j++
-        ) {
-
-            const index =
-                i * step + j;
-
-            if (
-                index <
-                bufferLength
-            ) {
-
-                total +=
-                    dataArray[index];
-
-                count++;
-
-            }
-
-        }
+    for (let i = 0; i < points; i++) {
 
         values.push(
-            total / count
+            data[Math.floor(i * step)]
         );
 
     }
+
+
+    ctx.beginPath();
 
 
     const centerY =
         height / 2;
 
+
     const amplitude =
-        height * 0.20;
-
-    const pointWidth =
-        width /
-        (points - 1);
-
-    ctx.beginPath();
+        height * 0.32;
 
 
-    for (
-        let i = 0;
-        i < points;
-        i++
-    ) {
+    const xStep =
+        width / (points - 1);
 
-        const value =
-            (values[i] - 128) /
-            128;
+
+    for (let i = 0; i < points; i++) {
+
+        const normalized =
+            (values[i] - 128) / 128;
+
 
         const x =
-            i * pointWidth;
+            i * xStep;
+
 
         const y =
             centerY +
-            value * amplitude;
+            normalized * amplitude;
 
 
         if (i === 0) {
 
-            ctx.moveTo(
-                x,
-                y
-            );
+            ctx.moveTo(x, y);
 
-        }
-        else {
+        } else {
 
-            const previousX =
-                (i - 1) *
-                pointWidth;
+            const prevX =
+                (i - 1) * xStep;
 
-            const previousValue =
-                (values[i - 1] - 128) /
-                128;
 
-            const previousY =
+            const prevY =
                 centerY +
-                previousValue *
-                amplitude;
+                ((values[i - 1] - 128) / 128)
+                * amplitude;
+
 
             const controlX =
-                (
-                    previousX +
-                    x
-                ) / 2;
+                (prevX + x) / 2;
+
 
             ctx.quadraticCurveTo(
                 controlX,
-                previousY,
+                prevY,
                 x,
                 y
             );
@@ -573,38 +857,13 @@ function drawWave() {
 
     ctx.lineWidth = 2.5;
 
-    ctx.lineCap =
-        "round";
+    ctx.strokeStyle =
+        "rgba(255,255,255,0.8)";
 
-    ctx.lineJoin =
-        "round";
+    ctx.shadowBlur = 8;
 
-
-    if (
-        document.body.classList.contains(
-            "light-theme"
-        )
-    ) {
-
-        ctx.strokeStyle =
-            "rgba(25,25,25,0.75)";
-
-        ctx.shadowColor =
-            "rgba(0,0,0,0.25)";
-
-    }
-    else {
-
-        ctx.strokeStyle =
-            "rgba(255,255,255,0.85)";
-
-        ctx.shadowColor =
-            "rgba(255,255,255,0.55)";
-
-    }
-
-
-    ctx.shadowBlur = 7;
+    ctx.shadowColor =
+        "rgba(255,255,255,0.35)";
 
     ctx.stroke();
 
@@ -613,380 +872,26 @@ function drawWave() {
 }
 
 
-/* =====================================
-   PLAY SONG
-===================================== */
+drawVisualizer();
 
-function playSong(index) {
 
-    currentSong =
-        index;
-
-    setupVisualizer();
-
-
-    if (
-        audioContext &&
-        audioContext.state ===
-        "suspended"
-    ) {
-
-        audioContext.resume();
-
-    }
-
-
-    audio.src =
-        songs[currentSong].file;
-
-
-    const title =
-        document.getElementById(
-            "songTitle"
-        );
-
-    const artist =
-        document.getElementById(
-            "artist"
-        );
-
-    const image =
-        document.getElementById(
-            "playerImage"
-        );
-
-
-    if (title) {
-
-        title.textContent =
-            songs[currentSong].title;
-
-    }
-
-
-    if (artist) {
-
-        artist.textContent =
-            songs[currentSong].artist;
-
-    }
-
-
-    if (image) {
-
-        image.src =
-            songs[currentSong].image;
-
-    }
-
-
-    audio.play()
-        .catch(function(error) {
-
-            console.error(
-                "Playback error:",
-                error
-            );
-
-        });
-
-}
-
-
-/* =====================================
-   PLAY / PAUSE
-===================================== */
-
-function togglePlay() {
-
-    setupVisualizer();
-
-
-    if (
-        audioContext &&
-        audioContext.state ===
-        "suspended"
-    ) {
-
-        audioContext.resume();
-
-    }
-
-
-    if (audio.paused) {
-
-        if (
-            !audio.src ||
-            audio.src ===
-            window.location.href
-        ) {
-
-            playSong(
-                currentSong
-            );
-
-            return;
-        }
-
-
-        audio.play()
-            .catch(function(error) {
-
-                console.error(
-                    "Playback error:",
-                    error
-                );
-
-            });
-
-    }
-    else {
-
-        audio.pause();
-
-    }
-
-}
-
-
-/* =====================================
-   NEXT SONG
-===================================== */
-
-function nextSong() {
-
-    currentSong++;
-
-    if (
-        currentSong >=
-        songs.length
-    ) {
-
-        currentSong = 0;
-
-    }
-
-    playSong(
-        currentSong
-    );
-
-}
-
-
-/* =====================================
-   PREVIOUS SONG
-===================================== */
-
-function previousSong() {
-
-    currentSong--;
-
-    if (
-        currentSong < 0
-    ) {
-
-        currentSong =
-            songs.length - 1;
-
-    }
-
-    playSong(
-        currentSong
-    );
-
-}
-
-
-/* =====================================
-   PROGRESS
-===================================== */
-
-audio.addEventListener(
-    "timeupdate",
-    function() {
-
-        const progress =
-            document.getElementById(
-                "progress"
-            );
-
-        if (
-            progress &&
-            audio.duration &&
-            Number.isFinite(
-                audio.duration
-            )
-        ) {
-
-            progress.value =
-                (
-                    audio.currentTime /
-                    audio.duration
-                ) * 100;
-
-        }
-
-
-        const currentTime =
-            document.getElementById(
-                "currentTime"
-            );
-
-        if (currentTime) {
-
-            currentTime.textContent =
-                formatTime(
-                    audio.currentTime
-                );
-
-        }
-
-    }
-);
-
-
-/* =====================================
-   DURATION
-===================================== */
-
-audio.addEventListener(
-    "loadedmetadata",
-    function() {
-
-        const duration =
-            document.getElementById(
-                "duration"
-            );
-
-        if (duration) {
-
-            duration.textContent =
-                formatTime(
-                    audio.duration
-                );
-
-        }
-
-    }
-);
-
-
-/* =====================================
-   PROGRESS BAR
-===================================== */
-
-const progressBar =
-    document.getElementById(
-        "progress"
-    );
-
-
-if (progressBar) {
-
-    progressBar.addEventListener(
-        "input",
-        function() {
-
-            if (
-                audio.duration &&
-                Number.isFinite(
-                    audio.duration
-                )
-            ) {
-
-                audio.currentTime =
-                    (
-                        this.value /
-                        100
-                    ) *
-                    audio.duration;
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================
-   VOLUME
-===================================== */
-
-const volume =
-    document.getElementById(
-        "volume"
-    );
-
-
-if (volume) {
-
-    volume.addEventListener(
-        "input",
-        function() {
-
-            audio.volume =
-                Number(
-                    this.value
-                );
-
-        }
-    );
-
-}
-
-
-/* =====================================
-   SONG ENDED
-===================================== */
-
-audio.addEventListener(
-    "ended",
-    function() {
-
-        nextSong();
-
-    }
-);
-
-
-/* =====================================
-   PLAY ICON
-===================================== */
-
-audio.addEventListener(
-    "pause",
-    function() {
-
-        const playBtn =
-            document.getElementById(
-                "playBtn"
-            );
-
-        if (playBtn) {
-
-            playBtn.textContent =
-                "▶";
-
-        }
-
-    }
-);
-
+/* =========================================================
+   ▶️ START VISUALIZER WHEN PLAYING
+========================================================= */
 
 audio.addEventListener(
     "play",
     function() {
 
-        const playBtn =
-            document.getElementById(
-                "playBtn"
-            );
+        setupVisualizer();
 
-        if (playBtn) {
 
-            playBtn.textContent =
-                "⏸";
+        if (
+            audioContext &&
+            audioContext.state === "suspended"
+        ) {
+
+            audioContext.resume();
 
         }
 
@@ -994,189 +899,13 @@ audio.addEventListener(
 );
 
 
-/* =====================================
-   FORMAT TIME
-===================================== */
+/* =========================================================
+   🎵 INITIAL SONG
+========================================================= */
 
-function formatTime(seconds) {
+loadSong(0);
 
-    if (
-        !Number.isFinite(
-            seconds
-        )
-    ) {
 
-        return "0:00";
-
-    }
-
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
-
-    let secs =
-        Math.floor(
-            seconds % 60
-        );
-
-    if (secs < 10) {
-
-        secs =
-            "0" + secs;
-
-    }
-
-    return (
-        minutes +
-        ":" +
-        secs
-    );
-
-}
-
-
-/* =====================================
-   DARK / LIGHT THEME
-===================================== */
-
-function toggleTheme() {
-
-    document.body.classList.toggle(
-        "light-theme"
-    );
-
-    const button =
-        document.getElementById(
-            "themeToggle"
-        );
-
-    if (!button) {
-        return;
-    }
-
-
-    if (
-        document.body.classList.contains(
-            "light-theme"
-        )
-    ) {
-
-        button.textContent =
-            "🌙";
-
-    }
-    else {
-
-        button.textContent =
-            "☀️";
-
-    }
-
-}
-
-
-/* =====================================
-   SLEEP TIMER
-===================================== */
-
-let sleepTimer = null;
-
-
-/* =====================================
-   SET SLEEP TIMER
-===================================== */
-
-function setSleepTimer() {
-
-    const select =
-        document.getElementById(
-            "sleepTime"
-        );
-
-    const status =
-        document.getElementById(
-            "sleepStatus"
-        );
-
-
-    if (!select) {
-        return;
-    }
-
-
-    const minutes =
-        Number(
-            select.value
-        );
-
-
-    /* CANCEL OLD TIMER */
-
-    if (sleepTimer) {
-
-        clearTimeout(
-            sleepTimer
-        );
-
-        sleepTimer = null;
-
-    }
-
-
-    /* OFF */
-
-    if (minutes === 0) {
-
-        if (status) {
-
-            status.textContent =
-                "";
-
-        }
-
-        return;
-
-    }
-
-
-    /* SHOW TIMER */
-
-    if (status) {
-
-        status.textContent =
-            `⏱️ ${minutes} min`;
-
-    }
-
-
-    /* START TIMER */
-
-    sleepTimer =
-        setTimeout(
-            function() {
-
-                audio.pause();
-
-                audio.currentTime = 0;
-
-
-                if (status) {
-
-                    status.textContent =
-                        "😴 Music stopped";
-
-                }
-
-
-                select.value =
-                    "0";
-
-
-                sleepTimer = null;
-
-            },
-            minutes * 60 * 1000
-        );
-
-}
+/* =========================================================
+   END
+========================================================= */

@@ -41,29 +41,29 @@ const songs = [
 
     { title: "Shyd Kabhi Na Kah Saku", artist: "Artist 8", file: "song8.mp3" },
 
-    { title: "Song 9", artist: "Artist 9", file: "song9.mp3" },
+    { title: "Channa Mereya", artist: "Artist 9", file: "song9.mp3" },
 
-    { title: "Song 10", artist: "Artist 10", file: "song10.mp3" },
+    { title: "Juda Hoke Bhi", artist: "Artist 10", file: "song10.mp3" },
 
-    { title: "Song 11", artist: "Artist 11", file: "song11.mp3" },
+    { title: "Main Rang Sharbaton Ka", artist: "Artist 11", file: "song11.mp3" },
 
-    { title: "Song 12", artist: "Artist 12", file: "song12.mp3" },
+    { title: "Mujhe Penne Do", artist: "Artist 12", file: "song12.mp3" },
 
-    { title: "Song 13", artist: "Artist 13", file: "song13.mp3" },
+    { title: "Tera Zikr", artist: "Artist 13", file: "song13.mp3" },
 
-    { title: "Song 14", artist: "Artist 14", file: "song14.mp3" },
+    { title: "Bargad", artist: "Artist 14", file: "song14.mp3" },
 
-    { title: "Song 15", artist: "Artist 15", file: "song15.mp3" },
+    { title: "Tere Liye", artist: "Artist 15", file: "song15.mp3" },
 
-    { title: "Song 16", artist: "Artist 16", file: "song16.mp3" },
+    { title: "Oo Rangrez", artist: "Artist 16", file: "song16.mp3" },
 
-    { title: "Song 17", artist: "Artist 17", file: "song17.mp3" },
+    { title: "Samjho Na", artist: "Artist 17", file: "song17.mp3" },
 
-    { title: "Song 18", artist: "Artist 18", file: "song18.mp3" },
+    { title: "Star Boy", artist: "Artist 18", file: "song18.mp3" },
 
-    { title: "Song 19", artist: "Artist 19", file: "song19.mp3" },
+    { title: "Sailor", artist: "Artist 19", file: "song19.mp3" },
 
-    { title: "Song 20", artist: "Artist 20", file: "song20.mp3" }
+    { title: "Memories", artist: "Artist 20", file: "song20.mp3" }
 
 ];
 

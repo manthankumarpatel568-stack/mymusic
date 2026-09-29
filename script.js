@@ -17,9 +17,16 @@ const firebaseConfig = {
     measurementId: "G-WTCQGJ5F24"
 };
 
-firebase.initializeApp(firebaseConfig);
+let database = null;
 
-const database = firebase.database();
+try {
+    if (typeof firebase !== "undefined") {
+        firebase.initializeApp(firebaseConfig);
+        database = firebase.database();
+    }
+} catch (error) {
+    console.error("Firebase error:", error);
+}
 
 
 /* =========================================================
@@ -94,21 +101,13 @@ const songs = [
 ========================================================= */
 
 const audio = document.getElementById("audio");
-
 const playBtn = document.getElementById("playBtn");
-
 const songTitle = document.getElementById("songTitle");
-
 const artist = document.getElementById("artist");
-
 const playerImage = document.getElementById("playerImage");
-
 const progress = document.getElementById("progress");
-
 const currentTime = document.getElementById("currentTime");
-
 const duration = document.getElementById("duration");
-
 const volume = document.getElementById("volume");
 
 
@@ -117,9 +116,7 @@ const volume = document.getElementById("volume");
 ========================================================= */
 
 let currentSongIndex = 0;
-
 let isPlaying = false;
-
 let shuffleMode = false;
 
 
@@ -141,7 +138,6 @@ function loadSong(index) {
     audio.src = "./" + song.file;
 
     songTitle.textContent = song.title;
-
     artist.textContent = song.artist;
 
     playerImage.src =
@@ -151,7 +147,6 @@ function loadSong(index) {
     progress.value = 0;
 
     currentTime.textContent = "0:00";
-
     duration.textContent = "0:00";
 
     audio.load();
@@ -166,12 +161,18 @@ function loadSong(index) {
 
 function playSong() {
 
+    if (!audio.src) {
+        loadSong(currentSongIndex);
+    }
+
     audio.play()
         .then(function () {
 
             isPlaying = true;
 
-            playBtn.textContent = "⏸";
+            if (playBtn) {
+                playBtn.textContent = "⏸";
+            }
 
         })
         .catch(function (error) {
@@ -192,8 +193,9 @@ function pauseSong() {
 
     isPlaying = false;
 
-    playBtn.textContent = "▶";
-
+    if (playBtn) {
+        playBtn.textContent = "▶";
+    }
 }
 
 
@@ -204,13 +206,9 @@ function pauseSong() {
 function togglePlay() {
 
     if (audio.paused) {
-
         playSong();
-
     } else {
-
         pauseSong();
-
     }
 
 }
@@ -245,9 +243,7 @@ function nextSong() {
         currentSongIndex++;
 
         if (currentSongIndex >= songs.length) {
-
             currentSongIndex = 0;
-
         }
 
     }
@@ -255,7 +251,6 @@ function nextSong() {
     loadSong(currentSongIndex);
 
     playSong();
-
 }
 
 
@@ -268,16 +263,12 @@ function previousSong() {
     currentSongIndex--;
 
     if (currentSongIndex < 0) {
-
-        currentSongIndex =
-            songs.length - 1;
-
+        currentSongIndex = songs.length - 1;
     }
 
     loadSong(currentSongIndex);
 
     playSong();
-
 }
 
 
@@ -306,7 +297,9 @@ function toggleShuffle() {
     const shuffleBtn =
         document.getElementById("shuffleBtn");
 
-    if (!shuffleBtn) return;
+    if (!shuffleBtn) {
+        return;
+    }
 
     if (shuffleMode) {
 
@@ -442,9 +435,7 @@ function formatTime(seconds) {
         !seconds ||
         isNaN(seconds)
     ) {
-
         return "0:00";
-
     }
 
     const minutes =
@@ -474,11 +465,11 @@ function toggleTheme() {
     );
 
     const button =
-        document.getElementById(
-            "themeToggle"
-        );
+        document.getElementById("themeToggle");
 
-    if (!button) return;
+    if (!button) {
+        return;
+    }
 
     if (
         document.body.classList.contains(
@@ -504,11 +495,11 @@ function toggleTheme() {
 function updateClock() {
 
     const clock =
-        document.getElementById(
-            "liveClock"
-        );
+        document.getElementById("liveClock");
 
-    if (!clock) return;
+    if (!clock) {
+        return;
+    }
 
     const now = new Date();
 
@@ -557,45 +548,54 @@ updateClock();
 ========================================================= */
 
 const onlineCount =
-    document.getElementById(
-        "onlineCount"
-    );
+    document.getElementById("onlineCount");
 
-const userId =
-    "user_" +
-    Date.now() +
-    "_" +
-    Math.random()
-        .toString(36)
-        .substring(2, 9);
 
-const userRef =
-    database.ref(
-        "onlineUsers/" +
-        userId
-    );
+if (database) {
 
-userRef.set(true);
+    const userId =
+        "user_" +
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .substring(2, 9);
 
-userRef
-    .onDisconnect()
-    .remove();
+    const userRef =
+        database.ref(
+            "onlineUsers/" +
+            userId
+        );
 
-database
-    .ref("onlineUsers")
-    .on(
-        "value",
-        function (snapshot) {
+    userRef.set(true);
 
-            if (onlineCount) {
+    userRef
+        .onDisconnect()
+        .remove();
 
-                onlineCount.textContent =
-                    snapshot.numChildren();
+    database
+        .ref("onlineUsers")
+        .on(
+            "value",
+            function (snapshot) {
+
+                if (onlineCount) {
+
+                    onlineCount.textContent =
+                        snapshot.numChildren();
+
+                }
 
             }
+        );
 
-        }
-    );
+} else {
+
+    if (onlineCount) {
+        onlineCount.textContent = "1";
+    }
+
+}
 
 
 /* =========================================================
@@ -607,25 +607,21 @@ let sleepTimer = null;
 function setSleepTimer() {
 
     const select =
-        document.getElementById(
-            "sleepTime"
-        );
+        document.getElementById("sleepTime");
 
     const status =
-        document.getElementById(
-            "sleepStatus"
-        );
+        document.getElementById("sleepStatus");
 
-    if (!select) return;
+    if (!select) {
+        return;
+    }
 
     const minutes =
         Number(select.value);
 
     if (sleepTimer) {
 
-        clearTimeout(
-            sleepTimer
-        );
+        clearTimeout(sleepTimer);
 
         sleepTimer = null;
 
@@ -634,13 +630,10 @@ function setSleepTimer() {
     if (minutes === 0) {
 
         if (status) {
-
             status.textContent = "";
-
         }
 
         return;
-
     }
 
     if (status) {
@@ -690,9 +683,7 @@ function setSleepTimer() {
 ========================================================= */
 
 const canvas =
-    document.getElementById(
-        "visualizer"
-    );
+    document.getElementById("visualizer");
 
 const ctx =
     canvas
@@ -700,9 +691,7 @@ const ctx =
         : null;
 
 let audioContext = null;
-
 let analyser = null;
-
 let source = null;
 
 
@@ -712,7 +701,9 @@ let source = null;
 
 function setupVisualizer() {
 
-    if (audioContext) return;
+    if (audioContext) {
+        return;
+    }
 
     try {
 
@@ -732,13 +723,9 @@ function setupVisualizer() {
 
         source =
             audioContext
-                .createMediaElementSource(
-                    audio
-                );
+                .createMediaElementSource(audio);
 
-        source.connect(
-            analyser
-        );
+        source.connect(analyser);
 
         analyser.connect(
             audioContext.destination
@@ -762,7 +749,9 @@ function setupVisualizer() {
 
 function resizeCanvas() {
 
-    if (!canvas || !ctx) return;
+    if (!canvas || !ctx) {
+        return;
+    }
 
     const rect =
         canvas.getBoundingClientRect();
@@ -805,7 +794,9 @@ function drawVisualizer() {
         drawVisualizer
     );
 
-    if (!canvas || !ctx) return;
+    if (!canvas || !ctx) {
+        return;
+    }
 
     const width =
         canvas.clientWidth;
@@ -820,7 +811,9 @@ function drawVisualizer() {
         height
     );
 
-    if (!analyser) return;
+    if (!analyser) {
+        return;
+    }
 
     const data =
         new Uint8Array(
@@ -846,9 +839,7 @@ function drawVisualizer() {
 
         values.push(
             data[
-                Math.floor(
-                    i * step
-                )
+                Math.floor(i * step)
             ]
         );
 
@@ -945,8 +936,7 @@ audio.addEventListener(
 
         if (
             audioContext &&
-            audioContext.state ===
-            "suspended"
+            audioContext.state === "suspended"
         ) {
 
             audioContext.resume();

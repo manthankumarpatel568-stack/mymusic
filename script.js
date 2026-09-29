@@ -27,43 +27,119 @@ const database = firebase.database();
 
 const songs = [
 
-    { title: "Be Intehaan", artist: "Atif Aslam", file: "song2.mp3" },
+    {
+        title: "Be Intehaan",
+        artist: "Atif Aslam",
+        file: "song2.mp3"
+    },
 
-    { title: "Darkhast X Monsoon Mashup", artist: "Artist Name", file: "song3.mp3" },
+    {
+        title: "Darkhast X Monsoon Mashup",
+        artist: "Artist Name",
+        file: "song3.mp3"
+    },
 
-    { title: "Woh Lamhe", artist: "Atif Aslam", file: "song4.mp3" },
+    {
+        title: "Woh Lamhe",
+        artist: "Atif Aslam",
+        file: "song4.mp3"
+    },
 
-    { title: "Jenna Jenna", artist: "Artist 5", file: "song5.mp3" },
+    {
+        title: "Jenna Jenna",
+        artist: "Artist 5",
+        file: "song5.mp3"
+    },
 
-    { title: "Pehli Dafa", artist: "Artist 6", file: "song6.mp3" },
+    {
+        title: "Pehli Dafa",
+        artist: "Artist 6",
+        file: "song6.mp3"
+    },
 
-    { title: "O Satthi", artist: "Artist 7", file: "song7.mp3" },
+    {
+        title: "O Satthi",
+        artist: "Artist 7",
+        file: "song7.mp3"
+    },
 
-    { title: "Shyd Kabhi Na Kah Saku", artist: "Artist 8", file: "song8.mp3" },
+    {
+        title: "Shyd Kabhi Na Kah Saku",
+        artist: "Artist 8",
+        file: "song8.mp3"
+    },
 
-    { title: "Channa Mereya", artist: "Artist 9", file: "song9.mp3" },
+    {
+        title: "Channa Mereya",
+        artist: "Artist 9",
+        file: "song9.mp3"
+    },
 
-    { title: "Juda Hoke Bhi", artist: "Artist 10", file: "song10.mp3" },
+    {
+        title: "Juda Hoke Bhi",
+        artist: "Artist 10",
+        file: "song10.mp3"
+    },
 
-    { title: "Main Rang Sharbaton Ka", artist: "Artist 11", file: "song11.mp3" },
+    {
+        title: "Main Rang Sharbaton Ka",
+        artist: "Artist 11",
+        file: "song11.mp3"
+    },
 
-    { title: "Mujhe Penne Do", artist: "Artist 12", file: "song12.mp3" },
+    {
+        title: "Mujhe Penne Do",
+        artist: "Artist 12",
+        file: "song12.mp3"
+    },
 
-    { title: "Tera Zikr", artist: "Artist 13", file: "song13.mp3" },
+    {
+        title: "Tera Zikr",
+        artist: "Artist 13",
+        file: "song13.mp3"
+    },
 
-    { title: "Bargad", artist: "Artist 14", file: "song14.mp3" },
+    {
+        title: "Bargad",
+        artist: "Artist 14",
+        file: "song14.mp3"
+    },
 
-    { title: "Tere Liye", artist: "Artist 15", file: "song15.mp3" },
+    {
+        title: "Tere Liye",
+        artist: "Artist 15",
+        file: "song15.mp3"
+    },
 
-    { title: "Oo Rangrez", artist: "Artist 16", file: "song16.mp3" },
+    {
+        title: "Oo Rangrez",
+        artist: "Artist 16",
+        file: "song16.mp3"
+    },
 
-    { title: "Samjho Na", artist: "Artist 17", file: "song17.mp3" },
+    {
+        title: "Samjho Na",
+        artist: "Artist 17",
+        file: "song17.mp3"
+    },
 
-    { title: "Star Boy", artist: "Artist 18", file: "song18.mp3" },
+    {
+        title: "Star Boy",
+        artist: "Artist 18",
+        file: "song18.mp3"
+    },
 
-    { title: "Sailor", artist: "Artist 19", file: "song19.mp3" },
+    {
+        title: "Sailor",
+        artist: "Artist 19",
+        file: "song19.mp3"
+    },
 
-    { title: "Memories", artist: "Artist 20", file: "song20.mp3" }
+    {
+        title: "Memories",
+        artist: "Artist 20",
+        file: "song20.mp3"
+    }
 
 ];
 
@@ -103,10 +179,6 @@ function loadSong(index) {
 
     console.log("Loading:", song.file);
 
-    /*
-       ./ makes sure the file is loaded
-       from the same GitHub Pages folder.
-    */
     audio.src = "./" + song.file;
 
     songTitle.textContent = song.title;
@@ -117,6 +189,7 @@ function loadSong(index) {
         (currentSongIndex + 2);
 
     progress.value = 0;
+
     currentTime.textContent = "0:00";
     duration.textContent = "0:00";
 
@@ -125,10 +198,14 @@ function loadSong(index) {
 
 
 /* =========================================================
-   ▶️ PLAY
+   ▶️ PLAY SONG
 ========================================================= */
 
 function playSong() {
+
+    if (!audio.src) {
+        loadSong(currentSongIndex);
+    }
 
     audio.play()
         .then(function () {
@@ -139,7 +216,7 @@ function playSong() {
 
             console.log(
                 "Playing:",
-                songs[currentSongIndex].file
+                songs[currentSongIndex].title
             );
 
         })
@@ -155,7 +232,7 @@ function playSong() {
 
 
 /* =========================================================
-   ⏸️ PAUSE
+   ⏸️ PAUSE SONG
 ========================================================= */
 
 function pauseSong() {
@@ -169,21 +246,25 @@ function pauseSong() {
 
 
 /* =========================================================
-   ▶️ / ⏸️ TOGGLE
+   ▶️ / ⏸️ TOGGLE PLAY
 ========================================================= */
 
 function togglePlay() {
 
     if (audio.paused) {
+
         playSong();
+
     } else {
+
         pauseSong();
+
     }
 }
 
 
 /* =========================================================
-   ⏭️ NEXT
+   ⏭️ NEXT SONG
 ========================================================= */
 
 function nextSong() {
@@ -201,7 +282,7 @@ function nextSong() {
 
 
 /* =========================================================
-   ⏮️ PREVIOUS
+   ⏮️ PREVIOUS SONG
 ========================================================= */
 
 function previousSong() {
@@ -225,7 +306,9 @@ function previousSong() {
 audio.addEventListener(
     "ended",
     function () {
+
         nextSong();
+
     }
 );
 
@@ -240,13 +323,8 @@ audio.addEventListener(
 
         const song = songs[currentSongIndex];
 
-        console.error(
-            "================================"
-        );
-
-        console.error(
-            "❌ AUDIO ERROR"
-        );
+        console.error("==============================");
+        console.error("❌ AUDIO ERROR");
 
         console.error(
             "Song:",
@@ -265,34 +343,32 @@ audio.addEventListener(
                 audio.error.code
             );
 
-            /*
-              1 = Aborted
-              2 = Network error
-              3 = Decode error
-              4 = Unsupported source
-            */
-
-            if (audio.error.code === 4) {
-
+            if (audio.error.code === 1) {
                 console.error(
-                    "❌ Browser cannot play this audio file."
+                    "Playback was aborted."
                 );
+            }
 
+            if (audio.error.code === 2) {
+                console.error(
+                    "Network error while loading audio."
+                );
             }
 
             if (audio.error.code === 3) {
-
                 console.error(
-                    "❌ Audio file may be corrupted or unsupported."
+                    "Audio file may be corrupted or unsupported."
                 );
-
             }
 
+            if (audio.error.code === 4) {
+                console.error(
+                    "Browser cannot play this audio source."
+                );
+            }
         }
 
-        console.error(
-            "================================"
-        );
+        console.error("==============================");
 
     }
 );
@@ -313,7 +389,6 @@ audio.addEventListener(
 
             progress.max =
                 audio.duration;
-
         }
 
     }
@@ -338,7 +413,6 @@ audio.addEventListener(
 
             currentTime.textContent =
                 formatTime(audio.currentTime);
-
         }
 
     }
@@ -346,7 +420,7 @@ audio.addEventListener(
 
 
 /* =========================================================
-   🎚️ PROGRESS
+   🎚️ PROGRESS BAR
 ========================================================= */
 
 progress.addEventListener(
@@ -354,7 +428,7 @@ progress.addEventListener(
     function () {
 
         audio.currentTime =
-            progress.value;
+            Number(progress.value);
 
     }
 );
@@ -419,6 +493,8 @@ function toggleTheme() {
         document.getElementById(
             "themeToggle"
         );
+
+    if (!button) return;
 
     if (
         document.body.classList.contains(
@@ -681,7 +757,7 @@ function setupVisualizer() {
 
 
 /* =========================================================
-   📐 RESIZE
+   📐 RESIZE CANVAS
 ========================================================= */
 
 function resizeCanvas() {
@@ -879,6 +955,37 @@ audio.addEventListener(
 
             audioContext.resume();
 
+        }
+
+    }
+);
+
+
+/* =========================================================
+   🎵 AUDIO STATE
+========================================================= */
+
+audio.addEventListener(
+    "play",
+    function () {
+
+        isPlaying = true;
+
+        if (playBtn) {
+            playBtn.textContent = "⏸";
+        }
+
+    }
+);
+
+audio.addEventListener(
+    "pause",
+    function () {
+
+        isPlaying = false;
+
+        if (playBtn) {
+            playBtn.textContent = "▶";
         }
 
     }

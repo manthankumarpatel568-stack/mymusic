@@ -1,995 +1,88 @@
-/* =========================================================
-   ☕ CAFE BEATS - COMPLETE MUSIC PLAYER
-========================================================= */
-
-
-/* =========================================================
-   FIREBASE
-========================================================= */
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDFdJAqe-g1EXo5qPYpLkoXd23xVrt78S0",
-    authDomain: "cafe-beats-6ba81.firebaseapp.com",
-    projectId: "cafe-beats-6ba81",
-    storageBucket: "cafe-beats-6ba81.firebasestorage.app",
-    messagingSenderId: "375478395425",
-    appId: "1:375478395425:web:9ce597e11cfd5c212ef960",
-    measurementId: "G-WTCQGJ5F24"
-};
-
-let database = null;
-
-try {
-    if (typeof firebase !== "undefined") {
-        firebase.initializeApp(firebaseConfig);
-        database = firebase.database();
-    }
-} catch (error) {
-    console.error("Firebase error:", error);
-}
-
-
-/* =========================================================
-   SONGS
-========================================================= */
-
-const songs = [
-
-    { title: "Be Intehaan", artist: "Atif Aslam", file: "song2.mp3" },
-
-    { title: "Darkhast X Monsoon Mashup", artist: "Artist Name", file: "song3.mp3" },
-
-    { title: "Woh Lamhe", artist: "Atif Aslam", file: "song4.mp3" },
-
-    { title: "Jenna Jenna", artist: "Artist 5", file: "song5.mp3" },
-
-    { title: "Pehli Dafa", artist: "Artist 6", file: "song6.mp3" },
-
-    { title: "O Satthi", artist: "Artist 7", file: "song7.mp3" },
-
-    { title: "Shyd Kabhi Na Kah Saku", artist: "Artist 8", file: "song8.mp3" },
-
-    { title: "Channa Mereya", artist: "Artist 9", file: "song9.mp3" },
-
-    { title: "Juda Hoke Bhi", artist: "Artist 10", file: "song10.mp3" },
-
-    { title: "Main Rang Sharbaton Ka", artist: "Artist 11", file: "song11.mp3" },
-
-    { title: "Mujhe Penne Do", artist: "Artist 12", file: "song12.mp3" },
-
-    { title: "Tera Zikr", artist: "Artist 13", file: "song13.mp3" },
-
-    { title: "Bargad", artist: "Artist 14", file: "song14.mp3" },
-
-    { title: "Tere Liye", artist: "Artist 15", file: "song15.mp3" },
-
-    { title: "Oo Rangrez", artist: "Artist 16", file: "song16.mp3" },
-
-    { title: "Samjho Na", artist: "Artist 17", file: "song17.mp3" },
-
-    { title: "Star Boy", artist: "Artist 18", file: "song18.mp3" },
-
-    { title: "Sailor", artist: "Artist 19", file: "song19.mp3" },
-
-    { title: "Memories", artist: "Artist 20", file: "song20.mp3" },
-
-    { title: "Falling", file: "song21.mp3" },
-
-    { title: "Heat Waves", file: "song22.mp3" },
-
-    { title: "Dandelions", file: "song23.mp3" },
-
-    { title: "Sing for the Moment", file: "song24.mp3" },
-
-    { title: "Darkside", file: "song25.mp3" },
-
-    { title: "Somewhere We Only Know", file: "song26.mp3" },
-
-    { title: "Snap", file: "song27.mp3" },
-
-    { title: "Her", file: "song28.mp3" },
-
-    { title: "I Guess", file: "song29.mp3" },
-
-    { title: "Departure Lane", file: "song30.mp3" }
-
-];
-
-
-/* =========================================================
-   PLAYER ELEMENTS
-========================================================= */
-
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
-const songTitle = document.getElementById("songTitle");
-const artist = document.getElementById("artist");
-const playerImage = document.getElementById("playerImage");
-const progress = document.getElementById("progress");
-const currentTime = document.getElementById("currentTime");
-const duration = document.getElementById("duration");
-const volume = document.getElementById("volume");
-
-
-/* =========================================================
-   PLAYER VARIABLES
-========================================================= */
-
-let currentSongIndex = 0;
-let isPlaying = false;
-let shuffleMode = false;
-
-
-/* =========================================================
-   LOAD SONG
-========================================================= */
-
-function loadSong(index) {
-
-    if (!songs[index]) {
-        console.error("Song not found:", index);
-        return;
-    }
-
-    currentSongIndex = index;
-
-    const song = songs[currentSongIndex];
-
-    audio.src = "./" + song.file;
-
-    songTitle.textContent = song.title;
-
-    artist.textContent =
-        song.artist || "";
-
-    playerImage.src =
-        "https://picsum.photos/60?random=" +
-        (currentSongIndex + 2);
-
-    progress.value = 0;
-
-    currentTime.textContent = "0:00";
-
-    duration.textContent = "0:00";
-
-    audio.load();
-
-    console.log(
-        "Loaded:",
-        song.title,
-        song.file
-    );
-}
-
-
-/* =========================================================
-   PLAY
-========================================================= */
-
-function playSong() {
-
-    if (!audio.src) {
-        loadSong(currentSongIndex);
-    }
-
-    audio.play()
-        .then(function () {
-
-            isPlaying = true;
-
-            if (playBtn) {
-                playBtn.textContent = "⏸";
-            }
-
-        })
-        .catch(function (error) {
-
-            console.error(
-                "Play error:",
-                error
-            );
-
-        });
-}
-
-
-/* =========================================================
-   PAUSE
-========================================================= */
-
-function pauseSong() {
-
-    audio.pause();
-
-    isPlaying = false;
-
-    if (playBtn) {
-        playBtn.textContent = "▶";
-    }
-}
-
-
-/* =========================================================
-   PLAY / PAUSE
-========================================================= */
-
-function togglePlay() {
-
-    if (audio.paused) {
-
-        playSong();
-
-    } else {
-
-        pauseSong();
-
-    }
-
-}
-
-
-/* =========================================================
-   NEXT SONG
-========================================================= */
-
-function nextSong() {
-
-    if (shuffleMode) {
-
-        let randomIndex;
-
-        do {
-
-            randomIndex =
-                Math.floor(
-                    Math.random() * songs.length
-                );
-
-        } while (
-            songs.length > 1 &&
-            randomIndex === currentSongIndex
-        );
-
-        currentSongIndex =
-            randomIndex;
-
-    } else {
-
-        currentSongIndex++;
-
-        if (
-            currentSongIndex >=
-            songs.length
-        ) {
-
-            currentSongIndex = 0;
-
-        }
-
-    }
-
-    loadSong(
-        currentSongIndex
-    );
-
-    playSong();
-
-}
-
-
-/* =========================================================
-   PREVIOUS SONG
-========================================================= */
-
-function previousSong() {
-
-    currentSongIndex--;
-
-    if (currentSongIndex < 0) {
-
-        currentSongIndex =
-            songs.length - 1;
-
-    }
-
-    loadSong(
-        currentSongIndex
-    );
-
-    playSong();
-
-}
-
-
-/* =========================================================
-   AUTO NEXT
-========================================================= */
-
-audio.addEventListener(
-    "ended",
-    function () {
-
-        nextSong();
-
-    }
-);
-
-
-/* =========================================================
-   SHUFFLE
-========================================================= */
-
-function toggleShuffle() {
-
-    shuffleMode =
-        !shuffleMode;
-
-    const shuffleBtn =
-        document.getElementById(
-            "shuffleBtn"
-        );
-
-    if (!shuffleBtn) {
-        return;
-    }
-
-    if (shuffleMode) {
-
-        shuffleBtn.textContent =
-            "🔀 ON";
-
-        shuffleBtn.classList.add(
-            "active"
-        );
-
-    } else {
-
-        shuffleBtn.textContent =
-            "🔀";
-
-        shuffleBtn.classList.remove(
-            "active"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   AUDIO ERROR
-========================================================= */
-
-audio.addEventListener(
-    "error",
-    function () {
-
-        const song =
-            songs[currentSongIndex];
-
-        console.error(
-            "Audio error:",
-            song
-                ? song.file
-                : "Unknown file"
-        );
-
-        if (audio.error) {
-
-            console.error(
-                "Error code:",
-                audio.error.code
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   AUDIO METADATA
-========================================================= */
-
-audio.addEventListener(
-    "loadedmetadata",
-    function () {
-
-        if (!isNaN(audio.duration)) {
-
-            duration.textContent =
-                formatTime(
-                    audio.duration
-                );
-
-            progress.max =
-                audio.duration;
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   TIME UPDATE
-========================================================= */
-
-audio.addEventListener(
-    "timeupdate",
-    function () {
-
-        if (!isNaN(audio.duration)) {
-
-            progress.max =
-                audio.duration;
-
-            progress.value =
-                audio.currentTime;
-
-            currentTime.textContent =
-                formatTime(
-                    audio.currentTime
-                );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   PROGRESS BAR
-========================================================= */
-
-progress.addEventListener(
-    "input",
-    function () {
-
-        audio.currentTime =
-            Number(
-                progress.value
-            );
-
-    }
-);
-
-
-/* =========================================================
-   VOLUME
-========================================================= */
-
-volume.addEventListener(
-    "input",
-    function () {
-
-        audio.volume =
-            Number(
-                volume.value
-            );
-
-    }
-);
-
-audio.volume = 1;
-
-
-/* =========================================================
-   FORMAT TIME
-========================================================= */
-
-function formatTime(seconds) {
-
-    if (
-        !seconds ||
-        isNaN(seconds)
-    ) {
-
-        return "0:00";
-
-    }
-
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
-
-    const secs =
-        Math.floor(
-            seconds % 60
-        );
-
-    return (
-        minutes +
-        ":" +
-        (
-            secs < 10
-                ? "0"
-                : ""
-        ) +
-        secs
-    );
-
-}
-
-
-/* =========================================================
-   THEME
-========================================================= */
-
-function toggleTheme() {
-
-    document.body.classList.toggle(
-        "light-theme"
-    );
-
-    const button =
-        document.getElementById(
-            "themeToggle"
-        );
-
-    if (!button) {
-        return;
-    }
-
-    if (
-        document.body.classList.contains(
-            "light-theme"
-        )
-    ) {
-
-        button.textContent =
-            "🌙";
-
-    } else {
-
-        button.textContent =
-            "☀️";
-
-    }
-
-}
-
-
-/* =========================================================
-   LIVE CLOCK
-========================================================= */
-
-function updateClock() {
-
-    const clock =
-        document.getElementById(
-            "liveClock"
-        );
-
-    if (!clock) {
-        return;
-    }
-
-    const now =
-        new Date();
-
-    let hours =
-        now.getHours();
-
-    const minutes =
-        now.getMinutes();
-
-    const seconds =
-        now.getSeconds();
-
-    const ampm =
-        hours >= 12
-            ? "PM"
-            : "AM";
-
-    hours =
-        hours % 12 || 12;
-
-    const m =
-        minutes < 10
-            ? "0" + minutes
-            : minutes;
-
-    const s =
-        seconds < 10
-            ? "0" + seconds
-            : seconds;
-
-    clock.textContent =
-        `${hours}:${m}:${s} ${ampm}`;
-
-}
-
-setInterval(
-    updateClock,
-    1000
-);
-
-updateClock();
-
-
-/* =========================================================
-   ONLINE USERS
-========================================================= */
-
-const onlineCount =
-    document.getElementById(
-        "onlineCount"
-    );
-
-if (database) {
-
-    const userId =
-        "user_" +
-        Date.now() +
-        "_" +
-        Math.random()
-            .toString(36)
-            .substring(2, 9);
-
-    const userRef =
-        database.ref(
-            "onlineUsers/" +
-            userId
-        );
-
-    userRef.set(true);
-
-    userRef
-        .onDisconnect()
-        .remove();
-
-    database
-        .ref("onlineUsers")
-        .on(
-            "value",
-            function (snapshot) {
-
-                if (onlineCount) {
-
-                    onlineCount.textContent =
-                        snapshot.numChildren();
-
-                }
-
-            }
-        );
-
-} else {
-
-    if (onlineCount) {
-        onlineCount.textContent = "1";
-    }
-
-}
-
-
-/* =========================================================
-   SLEEP TIMER
-========================================================= */
-
-let sleepTimer = null;
-
-function setSleepTimer() {
-
-    const select =
-        document.getElementById(
-            "sleepTime"
-        );
-
-    const status =
-        document.getElementById(
-            "sleepStatus"
-        );
-
-    if (!select) {
-        return;
-    }
-
-    const minutes =
-        Number(
-            select.value
-        );
-
-    if (sleepTimer) {
-
-        clearTimeout(
-            sleepTimer
-        );
-
-        sleepTimer = null;
-
-    }
-
-    if (minutes === 0) {
-
-        if (status) {
-            status.textContent = "";
-        }
-
-        return;
-
-    }
-
-    if (status) {
-
-        status.textContent =
-            `⏱️ ${minutes} min`;
-
-    }
-
-    sleepTimer =
-        setTimeout(
-            function () {
-
-                audio.pause();
-
-                audio.currentTime = 0;
-
-                isPlaying = false;
-
-                if (playBtn) {
-
-                    playBtn.textContent =
-                        "▶";
-
-                }
-
-                if (status) {
-
-                    status.textContent =
-                        "😴 Music stopped";
-
-                }
-
-                select.value = "0";
-
-                sleepTimer = null;
-
-            },
-            minutes *
-            60 *
-            1000
-        );
-
-}
-
-
-/* =========================================================
-   VISUALIZER
-========================================================= */
-
-const canvas =
-    document.getElementById(
-        "visualizer"
-    );
-
-const ctx =
-    canvas
-        ? canvas.getContext("2d")
-        : null;
-
-let audioContext = null;
-let analyser = null;
-let source = null;
-
-
-/* =========================================================
-   SETUP VISUALIZER
-========================================================= */
+// =============================
+// SMOOTH WAVE VISUALIZER
+// =============================
+
+const canvas = document.getElementById("visualizer");
+const ctx = canvas.getContext("2d");
+
+let audioContext;
+let analyser;
+let source;
+let dataArray;
 
 function setupVisualizer() {
+    if (audioContext) return;
 
-    if (audioContext) {
-        return;
-    }
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    try {
+    analyser = audioContext.createAnalyser();
 
-        audioContext =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
+    analyser.fftSize = 1024;
+    analyser.smoothingTimeConstant = 0.97;
 
-        analyser =
-            audioContext.createAnalyser();
+    source = audioContext.createMediaElementSource(audio);
 
-        analyser.fftSize =
-            1024;
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
 
-        analyser.smoothingTimeConstant =
-            0.97;
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-        source =
-            audioContext
-                .createMediaElementSource(
-                    audio
-                );
-
-        source.connect(
-            analyser
-        );
-
-        analyser.connect(
-            audioContext.destination
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Visualizer error:",
-            error
-        );
-
-    }
-
+    drawVisualizer();
 }
-
-
-/* =========================================================
-   RESIZE VISUALIZER
-========================================================= */
-
-function resizeCanvas() {
-
-    if (!canvas || !ctx) {
-        return;
-    }
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    const dpr =
-        window.devicePixelRatio || 1;
-
-    canvas.width =
-        rect.width * dpr;
-
-    canvas.height =
-        rect.height * dpr;
-
-    ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
-    );
-
-}
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-resizeCanvas();
-
-
-/* =========================================================
-   DRAW VISUALIZER
-========================================================= */
 
 function drawVisualizer() {
 
-    requestAnimationFrame(
-        drawVisualizer
-    );
+    requestAnimationFrame(drawVisualizer);
 
-    if (!canvas || !ctx) {
-        return;
-    }
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
-    const width =
-        canvas.clientWidth;
+    analyser.getByteTimeDomainData(dataArray);
 
-    const height =
-        canvas.clientHeight;
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-    if (!analyser) {
-        return;
-    }
-
-    const data =
-        new Uint8Array(
-            analyser.frequencyBinCount
-        );
-
-    analyser.getByteTimeDomainData(
-        data
-    );
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const points = 70;
-
-    const step =
-        data.length / points;
-
-    const values = [];
-
-    for (
-        let i = 0;
-        i < points;
-        i++
-    ) {
-
-        values.push(
-            data[
-                Math.floor(
-                    i * step
-                )
-            ]
-        );
-
-    }
+    const step = Math.floor(dataArray.length / points);
 
     ctx.beginPath();
 
-    const centerY =
-        height / 2;
+    let firstX = 0;
+    let firstY = canvas.height / 2;
 
-    const amplitude =
-        height * 0.32;
+    for (let i = 0; i < points; i++) {
 
-    const xStep =
-        width /
-        (points - 1);
+        const index = i * step;
 
-    for (
-        let i = 0;
-        i < points;
-        i++
-    ) {
+        const value = (dataArray[index] - 128) / 128;
 
-        const normalized =
-            (values[i] - 128) /
-            128;
+        // Low amplitude = clean small waves
+        const amplitude = canvas.height * 0.18;
 
-        const x =
-            i * xStep;
-
-        const y =
-            centerY +
-            normalized *
-            amplitude;
+        const x = (i / (points - 1)) * canvas.width;
+        const y = canvas.height / 2 + value * amplitude;
 
         if (i === 0) {
+            ctx.moveTo(x, y);
 
-            ctx.moveTo(
-                x,
-                y
-            );
-
+            firstX = x;
+            firstY = y;
         } else {
 
             const previousX =
-                (i - 1) *
-                xStep;
+                ((i - 1) / (points - 1)) * canvas.width;
+
+            const previousIndex =
+                Math.max(0, (i - 1) * step);
+
+            const previousValue =
+                (dataArray[previousIndex] - 128) / 128;
 
             const previousY =
-                centerY +
-                (
-                    (
-                        values[i - 1] -
-                        128
-                    ) / 128
-                ) *
-                amplitude;
+                canvas.height / 2 +
+                previousValue * amplitude;
 
             const controlX =
-                (
-                    previousX +
-                    x
-                ) / 2;
+                (previousX + x) / 2;
 
             ctx.quadraticCurveTo(
                 controlX,
@@ -997,94 +90,29 @@ function drawVisualizer() {
                 x,
                 y
             );
-
         }
-
     }
 
     ctx.lineWidth = 2.5;
 
-    ctx.strokeStyle =
-        "rgba(255,255,255,0.8)";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
     ctx.shadowBlur = 8;
 
-    ctx.shadowColor =
-        "rgba(255,255,255,0.35)";
+    ctx.strokeStyle = "rgba(255,255,255,0.8)";
 
     ctx.stroke();
-
-    ctx.shadowBlur = 0;
-
 }
 
-drawVisualizer();
 
+// Start visualizer when music plays
+audio.addEventListener("play", () => {
 
-/* =========================================================
-   START VISUALIZER WHEN MUSIC PLAYS
-========================================================= */
+    setupVisualizer();
 
-audio.addEventListener(
-    "play",
-    function () {
-
-        setupVisualizer();
-
-        if (
-            audioContext &&
-            audioContext.state ===
-            "suspended"
-        ) {
-
-            audioContext.resume();
-
-        }
-
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
     }
-);
 
-
-/* =========================================================
-   PLAYER BUTTON STATE
-========================================================= */
-
-audio.addEventListener(
-    "play",
-    function () {
-
-        isPlaying = true;
-
-        if (playBtn) {
-
-            playBtn.textContent =
-                "⏸";
-
-        }
-
-    }
-);
-
-
-audio.addEventListener(
-    "pause",
-    function () {
-
-        isPlaying = false;
-
-        if (playBtn) {
-
-            playBtn.textContent =
-                "▶";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   LOAD FIRST SONG
-========================================================= */
-
-loadSong(0);
+});

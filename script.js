@@ -4,7 +4,7 @@
 
 
 // =============================
-// SONGS
+// SONG LIST
 // =============================
 
 const songs = [
@@ -41,7 +41,7 @@ const songs = [
 
 
 // =============================
-// PLAYER VARIABLES
+// PLAYER
 // =============================
 
 const audio = document.getElementById("audio");
@@ -80,6 +80,7 @@ function loadSong(index) {
         (currentSongIndex + 2);
 
     progress.value = 0;
+
     currentTime.textContent = "0:00";
     duration.textContent = "0:00";
 }
@@ -94,41 +95,42 @@ function togglePlay() {
     if (audio.paused) {
 
         audio.play()
-            .then(() => {
+            .then(function () {
                 playBtn.textContent = "⏸";
             })
-            .catch(error => {
-                console.error("Play error:", error);
+            .catch(function (error) {
+                console.log("Audio error:", error);
             });
 
     } else {
 
         audio.pause();
+
         playBtn.textContent = "▶";
     }
 }
 
 
 // =============================
-// NEXT SONG
+// NEXT
 // =============================
 
 function nextSong() {
 
     if (shuffle) {
 
-        let newIndex;
+        let nextIndex;
 
         do {
-            newIndex =
+            nextIndex =
                 Math.floor(Math.random() * songs.length);
         }
         while (
-            newIndex === currentSongIndex &&
+            nextIndex === currentSongIndex &&
             songs.length > 1
         );
 
-        currentSongIndex = newIndex;
+        currentSongIndex = nextIndex;
 
     } else {
 
@@ -142,17 +144,17 @@ function nextSong() {
     loadSong(currentSongIndex);
 
     audio.play()
-        .then(() => {
+        .then(function () {
             playBtn.textContent = "⏸";
         })
-        .catch(error => {
-            console.error("Play error:", error);
+        .catch(function (error) {
+            console.log("Audio error:", error);
         });
 }
 
 
 // =============================
-// PREVIOUS SONG
+// PREVIOUS
 // =============================
 
 function previousSong() {
@@ -166,11 +168,11 @@ function previousSong() {
     loadSong(currentSongIndex);
 
     audio.play()
-        .then(() => {
+        .then(function () {
             playBtn.textContent = "⏸";
         })
-        .catch(error => {
-            console.error("Play error:", error);
+        .catch(function (error) {
+            console.log("Audio error:", error);
         });
 }
 
@@ -185,7 +187,7 @@ audio.addEventListener("ended", function () {
 
 
 // =============================
-// PROGRESS BAR
+// PROGRESS
 // =============================
 
 audio.addEventListener("loadedmetadata", function () {
@@ -233,8 +235,8 @@ function formatTime(time) {
 
     const seconds =
         Math.floor(time % 60)
-            .toString()
-            .padStart(2, "0");
+        .toString()
+        .padStart(2, "0");
 
     return minutes + ":" + seconds;
 }
@@ -245,7 +247,6 @@ function formatTime(time) {
 // =============================
 
 volume.addEventListener("input", function () {
-
     audio.volume = volume.value;
 });
 
@@ -260,20 +261,18 @@ function toggleShuffle() {
 
     shuffle = !shuffle;
 
-    const shuffleBtn =
+    const button =
         document.getElementById("shuffleBtn");
-
-    if (!shuffleBtn) return;
 
     if (shuffle) {
 
-        shuffleBtn.textContent = "🔀 ON";
-        shuffleBtn.classList.add("active");
+        button.textContent = "🔀 ON";
+        button.classList.add("active");
 
     } else {
 
-        shuffleBtn.textContent = "🔀";
-        shuffleBtn.classList.remove("active");
+        button.textContent = "🔀";
+        button.classList.remove("active");
     }
 }
 
@@ -286,22 +285,19 @@ function toggleTheme() {
 
     document.body.classList.toggle("light");
 
-    const themeBtn =
+    const button =
         document.getElementById("themeToggle");
 
     if (document.body.classList.contains("light")) {
-
-        themeBtn.textContent = "🌙";
-
+        button.textContent = "🌙";
     } else {
-
-        themeBtn.textContent = "☀️";
+        button.textContent = "☀️";
     }
 }
 
 
 // =============================
-// LIVE CLOCK
+// CLOCK
 // =============================
 
 function updateClock() {
@@ -317,19 +313,18 @@ function updateClock() {
 
     const minutes =
         now.getMinutes()
-            .toString()
-            .padStart(2, "0");
+        .toString()
+        .padStart(2, "0");
 
     const seconds =
         now.getSeconds()
-            .toString()
-            .padStart(2, "0");
+        .toString()
+        .padStart(2, "0");
 
     const ampm =
         hours >= 12 ? "PM" : "AM";
 
-    hours =
-        hours % 12 || 12;
+    hours = hours % 12 || 12;
 
     clock.textContent =
         hours + ":" +
@@ -339,6 +334,7 @@ function updateClock() {
 }
 
 setInterval(updateClock, 1000);
+
 updateClock();
 
 
@@ -346,7 +342,7 @@ updateClock();
 // SLEEP TIMER
 // =============================
 
-let sleepTimeout = null;
+let sleepTimer = null;
 
 function setSleepTimer() {
 
@@ -356,15 +352,12 @@ function setSleepTimer() {
     const status =
         document.getElementById("sleepStatus");
 
-    if (!select || !status) return;
-
     const minutes =
         Number(select.value);
 
-    if (sleepTimeout) {
-
-        clearTimeout(sleepTimeout);
-        sleepTimeout = null;
+    if (sleepTimer) {
+        clearTimeout(sleepTimer);
+        sleepTimer = null;
     }
 
     if (minutes === 0) {
@@ -377,7 +370,7 @@ function setSleepTimer() {
     status.textContent =
         "Ends in " + minutes + " min";
 
-    sleepTimeout =
+    sleepTimer =
         setTimeout(function () {
 
             audio.pause();
@@ -395,18 +388,20 @@ function setSleepTimer() {
 // ONLINE COUNTER
 // =============================
 
-let onlineNumber =
+const onlineCount =
     document.getElementById("onlineCount");
 
-if (onlineNumber) {
-
-    onlineNumber.textContent = "1";
+if (onlineCount) {
+    onlineCount.textContent = "1";
 }
 
 
-// =============================
-// FIXED-LINE WAVE VISUALIZER
-// =============================
+// =====================================================
+// WAVE VISUALIZER
+// MANY LINES / PEAKS
+// BIG → SMALL → BIG → SMALL → BIG BIG BIG → SMALL
+// ALL ABOVE ONE BASELINE
+// =====================================================
 
 const canvas =
     document.getElementById("visualizer");
@@ -416,7 +411,20 @@ if (canvas) {
     const ctx =
         canvas.getContext("2d");
 
-    let waveTime = 0;
+    let waveMove = 0;
+
+    // Fixed pattern
+    const pattern = [
+        0.95, 0.35, 0.75, 0.25,
+        0.90, 0.40, 0.70, 0.30,
+        0.95, 0.45, 0.85, 0.90,
+        0.95, 0.30, 0.70, 0.35,
+        0.90, 0.25, 0.80, 0.40,
+        0.95, 0.85, 0.90, 0.30,
+        0.75, 0.25, 0.90, 0.35,
+        0.70, 0.20, 0.55, 0.25
+    ];
+
 
     function drawVisualizer() {
 
@@ -441,123 +449,141 @@ if (canvas) {
             height
         );
 
-        const points = 120;
 
-        // FIXED LINE
+        // =============================
+        // BASELINE
+        // =============================
+
         const baseY =
-            height * 0.72;
+            height * 0.82;
+
 
         ctx.beginPath();
 
-        for (let i = 0; i < points; i++) {
+        ctx.moveTo(0, baseY);
+        ctx.lineTo(width, baseY);
 
+        ctx.lineWidth = 1.5;
+
+        ctx.strokeStyle =
+            "rgba(255,255,255,0.35)";
+
+        ctx.shadowBlur = 0;
+
+        ctx.stroke();
+
+
+        // =============================
+        // MANY VERTICAL WAVE LINES
+        // =============================
+
+        const bars = 110;
+
+        const gap =
+            width / bars;
+
+
+        for (let i = 0; i < bars; i++) {
+
+            const x =
+                i * gap;
+
+
+            // Repeat our pattern
+            const patternIndex =
+                i % pattern.length;
+
+            let amount =
+                pattern[patternIndex];
+
+
+            // Smooth overall envelope
             const position =
-                i / (points - 1);
+                i / (bars - 1);
 
-            // SMALL → BIG → SMALL
             const envelope =
                 Math.sin(
                     position * Math.PI
                 );
 
-            // WAVE
-            const wave =
-                Math.abs(
-                    Math.sin(
-                        position *
-                        Math.PI *
-                        10 +
-                        waveTime
-                    )
-                );
 
-            const amplitude =
-                height *
-                0.45 *
-                envelope;
+            // Keep the center taller
+            amount *=
+                0.35 +
+                envelope * 0.65;
 
-            // ALWAYS ABOVE BASELINE
-            const y =
-                baseY -
-                wave *
-                amplitude;
 
-            const x =
-                position * width;
+            // Small animation
+            const movement =
+                Math.sin(
+                    waveMove +
+                    i * 0.35
+                ) * 0.08;
 
-            if (i === 0) {
+            amount += movement;
 
-                ctx.moveTo(x, y);
 
-            } else {
-
-                const previousPosition =
-                    (i - 1) /
-                    (points - 1);
-
-                const previousEnvelope =
-                    Math.sin(
-                        previousPosition *
-                        Math.PI
-                    );
-
-                const previousWave =
-                    Math.abs(
-                        Math.sin(
-                            previousPosition *
-                            Math.PI *
-                            10 +
-                            waveTime
-                        )
-                    );
-
-                const previousX =
-                    previousPosition *
-                    width;
-
-                const previousY =
-                    baseY -
-                    previousWave *
-                    height *
-                    0.45 *
-                    previousEnvelope;
-
-                const controlX =
-                    (previousX + x) / 2;
-
-                ctx.quadraticCurveTo(
-                    controlX,
-                    previousY,
-                    x,
-                    y
-                );
+            if (amount < 0.05) {
+                amount = 0.05;
             }
+
+
+            // Maximum height
+            const maxHeight =
+                height * 0.62;
+
+
+            const lineHeight =
+                maxHeight * amount;
+
+
+            // IMPORTANT:
+            // Line starts at baseline
+            // and goes ONLY upward
+
+            const topY =
+                baseY - lineHeight;
+
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                x,
+                baseY
+            );
+
+            ctx.lineTo(
+                x,
+                topY
+            );
+
+
+            ctx.lineWidth = 2;
+
+            ctx.lineCap = "round";
+
+            ctx.strokeStyle =
+                "rgba(255,255,255,0.88)";
+
+            ctx.shadowBlur = 5;
+
+            ctx.shadowColor =
+                "rgba(255,255,255,0.25)";
+
+            ctx.stroke();
         }
 
-        ctx.lineWidth = 2.5;
 
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-
-        ctx.strokeStyle =
-            "rgba(255,255,255,0.85)";
-
-        ctx.shadowBlur = 7;
-
-        ctx.shadowColor =
-            "rgba(255,255,255,0.25)";
-
-        ctx.stroke();
-
-        waveTime += 0.025;
+        waveMove += 0.025;
     }
+
 
     drawVisualizer();
 }
 
 
 // =============================
-// START WITH FIRST SONG
+// START
 // =============================
 
 loadSong(0);
